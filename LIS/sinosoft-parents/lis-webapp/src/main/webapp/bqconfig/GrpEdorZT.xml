@@ -1,0 +1,8 @@
+<CONFIG>
+  <Sheet1>
+    <COL0>ID</COL0>          
+    <COL1>InsuredName</COL1>   
+    <COL2>Sex</COL2>
+    <COL3>Birthday</COL3>       
+  </Sheet1>
+</CONFIG> 

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="GB2312"?>
+<DataConfigdesc name="DataConfigdesc" display="">
+<Sheet name="1Sheet" dest="0"   desc="第一Sheet LMRiskDuty" display="" >
+  <part name="LMRiskDuty" physicaltable="LMRiskDuty" desc="" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为最后一行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="险种编码" name="RiskCode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="险种版本" name="RiskVer" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="责任代码" name="DutyCode" src="Sheet(-1,-1,2)"  type="1"/>
+ 	 <Field memo="选择标记" name="ChoFlag" src="Sheet(-1,-1,3)"  type="1"/>
+	 <Field memo="个案标记" name="SpecFlag" src="Sheet(-1,-1,4)" type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-最后一行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="2Sheet" dest="1"   desc="第2Sheet" display="" >
+  <part name="LMDuty" physicaltable="LMDuty" desc="第2Sheet中" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为最后一行" display="" />
+    </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="责任代码" name="DutyCode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="责任名称" name="DutyName" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="缴费终止期间" name="PayEndYear" src="Sheet(-1,-1,2)"  type="1"/>
+ 	 <Field memo="缴费终止期间单位" name="PayEndYearFlag" src="Sheet(-1,-1,3)"  type="1"/>
+	 <Field memo="缴费终止日期计算参照" name="PayEndDateCalRef" src="Sheet(-1,-1,4)"  type="1"/>
+ 	 <Field memo="缴费终止日期计算方式" name="PayEndDateCalMode" src="Sheet(-1,-1,5)"  type="1"/>
+ 	 <Field memo="起领期间" name="GetYear" src="Sheet(-1,-1,6)"  type="1"/>
+ 	 <Field memo="起领期间单位" name="GetYearFlag" src="Sheet(-1,-1,7)"  type="1"/>
+ 	 <Field memo="保险期间" name="InsuYear" src="Sheet(-1,-1,8)"  type="1"/>
+	 <Field memo="保险期间单位" name="InsuYearFlag" src="Sheet(-1,-1,9)"  type="1"/>
+ 	 <Field memo="意外责任期间" name="AcciYear" src="Sheet(-1,-1,10)"  type="1"/>
+ 	 <Field memo="意外责任期间单位" name="AcciYearFlag" src="Sheet(-1,-1,11)"  type="1"/>
+ 	 <Field memo="计算方法" name="CalMode" src="Sheet(-1,-1,12)"  type="1"/>
+	 <Field memo="缴费终止期间关系" name="PayEndYearRela" src="Sheet(-1,-1,13)"  type="1"/>
+	 <Field memo="起领期间关系" name="GetYearRela" src="Sheet(-1,-1,14)"  type="1"/>
+ 	 <Field memo="保险期间关系" name="InsuYearRela" src="Sheet(-1,-1,15)"  type="1"/>
+ 	 <Field memo="基本保额算法" name="BasicCalCode" src="Sheet(-1,-1,16)"  type="1"/>
+ 	 <Field memo="风险保额算法" name="RiskCalCode" src="Sheet(-1,-1,17)" type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-最后一行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="3 Sheet" dest="2"   desc="第三Sheet" display="" >
+  <part name="LMDutyPay" physicaltable="LMDutyPay" desc="第三Sheet部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+    </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="缴费编码" name="PayPlanCode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="缴费名称" name="PayPlanName" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="缴费类型" name="Type" src="Sheet(-1,-1,2)"  type="1"/>
+ 	 <Field memo="交费间隔" name="PayIntv" src="Sheet(-1,-1,3)"  type="1"/>
+	 <Field memo="缴费终止期间单位" name="PayEndYearFlag" src="Sheet(-1,-1,4)"  type="1"/>
+ 	 <Field memo="缴费终止期间" name="PayEndYear" src="Sheet(-1,-1,5)"  type="1"/>
+ 	 <Field memo="缴费终止日期计算参照" name="PayEndDateCalRef" src="Sheet(-1,-1,6)"  type="1"/>
+ 	 <Field memo="缴费终止日期计算方式" name="PayEndDateCalMode" src="Sheet(-1,-1,7)"  type="1"/>
+ 	 <Field memo="默认值" name="DefaultVal" src="Sheet(-1,-1,8)"  type="1"/>
+	 <Field memo="算法" name="CalCode" src="Sheet(-1,-1,9)"  type="1"/>
+	 <Field memo="反算算法" name="CnterCalCode" src="Sheet(-1,-1,10)"  type="1"/>
+	 <Field memo="其他算法" name="OthCalCode" src="Sheet(-1,-1,11)"  type="1"/>
+ 	 <Field memo="保费分配比例" name="Rate" src="Sheet(-1,-1,12)"  type="1"/>
+ 	 <Field memo="最低限额" name="MinPay" src="Sheet(-1,-1,13)"  type="1"/>
+	 <Field memo="保证收益率" name="AssuYield" src="Sheet(-1,-1,14)"  type="1"/>
+ 	 <Field memo="提取管理费比例" name="FeeRate" src="Sheet(-1,-1,15)"  type="1"/>
+ 	 <Field memo="缴至日期计算方法" name="PayToDateCalMode" src="Sheet(-1,-1,16)"  type="1"/>
+ 	 <Field memo="催缴标记" name="UrgePayFlag" src="Sheet(-1,-1,17)"  type="1"/>
+ 	 <Field memo="部分缴费标记" name="PayLackFlag" src="Sheet(-1,-1,18)"  type="1"/>
+	 <Field memo="挂帐标记" name="PayOverFlag" src="Sheet(-1,-1,19)"  type="1"/>
+	 <Field memo="挂帐处理" name="PayOverDeal" src="Sheet(-1,-1,20)"  type="1"/>
+	 <Field memo="免交标记" name="AvoidPayFlag" src="Sheet(-1,-1,21)"  type="1"/>
+ 	 <Field memo="缴费宽限期" name="GracePeriod" src="Sheet(-1,-1,22)"  type="1"/>
+ 	 <Field memo="公用标记" name="PubFlag" src="Sheet(-1,-1,23)"  type="1"/>
+ 	 <Field memo="是否可以为0" name="ZeroFlag" src="Sheet(-1,-1,24)"  type="1"/>
+ 	 <Field memo="是否和账户相关" name="NeedAcc" src="Sheet(-1,-1,25)" type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-最后一行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="4 Sheet" dest="3"   desc="第4Sheet" display="" >
+  <part name="LMDutyGet" physicaltable="LMDutyGet" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+          <Field memo="给付代码	              "            name="GetDutyCode"             src="Sheet(-1,-1,0)"  type="1"/>    
+          <Field memo="给付名称	              "            name="GetDutyName"             src="Sheet(-1,-1,1)"  type="1"/>    
+          <Field memo="给付类型	              "            name="GetDutyKind"             src="Sheet(-1,-1,2)"  type="1"/>    
+          <Field memo="给付间隔	              "            name="GetIntv"                 src="Sheet(-1,-1,3)"  type="1"/>    
+          <Field memo="默认值	                  "            name="DefaultVal"              src="Sheet(-1,-1,4)"  type="1"/>        
+          <Field memo="算法	                  "            name="CalCode"                 src="Sheet(-1,-1,5)"  type="1"/>        
+          <Field memo="反算算法	              "            name="CnterCalCode"            src="Sheet(-1,-1,6)"  type="1"/>    
+          <Field memo="其他算法	              "            name="OthCalCode"              src="Sheet(-1,-1,7)"  type="1"/>    
+          <Field memo="起领期间	              "            name="GetYear"                 src="Sheet(-1,-1,8)"  type="1"/>    
+          <Field memo="起领期间单位	          "            name="GetYearFlag"             src="Sheet(-1,-1,9)"  type="1"/>
+          <Field memo="起领日期计算参照	      "            name="StartDateCalRef"         src="Sheet(-1,-1,10)" type="1"/>
+          <Field memo="起领日期计算方式	      "            name="StartDateCalMode"        src="Sheet(-1,-1,11)" type="1"/>
+          <Field memo="起领期间上限	          "            name="MinGetStartPeriod"       src="Sheet(-1,-1,12)" type="1"/>
+          <Field memo="止领期间	              "            name="GetEndPeriod"            src="Sheet(-1,-1,13)" type="1"/>    
+          <Field memo="止领期间单位	          "            name="GetEndUnit"              src="Sheet(-1,-1,14)" type="1"/>
+          <Field memo="止领日期计算参照	      "            name="EndDateCalRef"           src="Sheet(-1,-1,15)" type="1"/>
+          <Field memo="止领日期计算方式	      "            name="EndDateCalMode"          src="Sheet(-1,-1,16)" type="1"/>
+          <Field memo="止领期间下限	          "            name="MaxGetEndPeriod"         src="Sheet(-1,-1,17)" type="1"/>
+          <Field memo="递增标记	              "            name="AddFlag"                 src="Sheet(-1,-1,18)" type="1"/>          
+          <Field memo="性别关联标记	          "            name="SexRelaFlag"             src="Sheet(-1,-1,19)" type="1"/>     
+          <Field memo="单位投保关联标记	      "            name="UnitAppRelaFlag"         src="Sheet(-1,-1,20)" type="1"/> 
+          <Field memo="算入保额标记	          "            name="AddAmntFlag"             src="Sheet(-1,-1,21)" type="1"/>     
+          <Field memo="贴现领取标记	          "            name="DiscntFlag"              src="Sheet(-1,-1,22)" type="1"/>     
+          <Field memo="利率标记	              "            name="InterestFlag"            src="Sheet(-1,-1,23)" type="1"/>         
+          <Field memo="多被保人分享标记	      "            name="ShareFlag"               src="Sheet(-1,-1,24)" type="1"/>
+          <Field memo="录入标记	              "            name="InpFlag"                 src="Sheet(-1,-1,25)" type="1"/>    
+          <Field memo="受益人标记	          "            name="BnfFlag"                 src="Sheet(-1,-1,26)" type="1"/>    
+          <Field memo="催收标记	              "            name="UrgeGetFlag"             src="Sheet(-1,-1,27)" type="1"/>    
+          <Field memo="被保人死亡后有效标记	  "            name="DeadValiFlag"            src="Sheet(-1,-1,28)" type="1"/>
+          <Field memo="给付初始化标记	      "            name="GetInitFlag"             src="Sheet(-1,-1,29)" type="1"/>
+          <Field memo="起付限	              "            name="GetLimit"                src="Sheet(-1,-1,30)" type="1"/>        
+          <Field memo="赔付限额	              "            name="MaxGet"                  src="Sheet(-1,-1,31)" type="1"/>    
+          <Field memo="赔付比例	              "            name="GetRate"                 src="Sheet(-1,-1,32)" type="1"/>    
+          <Field memo="是否和账户相关	      "            name="NeedAcc"                 src="Sheet(-1,-1,33)" type="1"/>
+          <Field memo="默认申请标志	          "            name="CanGet"                  src="Sheet(-1,-1,34)" type="1"/>
+          <Field memo="是否是账户结清后才能申请"           name="NeedCancelAcc"           src="Sheet(-1,-1,35)" type="1"/>
+          <Field memo="给付分类1	          "            name="GetType1"                src="Sheet(-1,-1,36)" type="1"/>    
+          <Field memo="是否允许零值标记	      "            name="ZeroFlag"                src="Sheet(-1,-1,37)" type="1"/>
+          <Field memo="给付分类2	          "            name="GetType2"                src="Sheet(-1,-1,38)" type="1"/> 
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="5Sheet" dest="4"   desc="第5Sheet" display="" >
+  <part name="LMDutyGetAlive" physicaltable="LMDutyGetAlive" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+   </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+           <Field memo="给付间隔                "   name="GETINTV"                 src="Sheet(-1,-1,3)"  type="1"/>
+           <Field memo="默认值                  "   name="DEFAULTVAL"              src="Sheet(-1,-1,4)"  type="1"/>
+           <Field memo="算法                    "   name="CALCODE"                 src="Sheet(-1,-1,5)"  type="1"/>
+           <Field memo="反算算法                "   name="CNTERCALCODE"            src="Sheet(-1,-1,6)"  type="1"/>
+           <Field memo="其他算法                "   name="OTHCALCODE"              src="Sheet(-1,-1,7)"  type="1"/>
+           <Field memo="起领期间                "   name="GETSTARTPERIOD"          src="Sheet(-1,-1,8)"  type="1"/>
+           <Field memo="起领期间单位            "   name="GETSTARTUNIT"            src="Sheet(-1,-1,9)"  type="1"/>
+           <Field memo="起领日期计算参照        "   name="STARTDATECALREF"         src="Sheet(-1,-1,10)" type="1"/>
+           <Field memo="起领日期计算方式        "   name="STARTDATECALMODE"        src="Sheet(-1,-1,11)" type="1"/>
+           <Field memo="起领期间上限            "   name="MINGETSTARTPERIO"        src="Sheet(-1,-1,12)" type="1"/>
+           <Field memo="止领期间                "   name="GETENDPERIOD"            src="Sheet(-1,-1,13)" type="1"/>
+           <Field memo="止领期间单位            "   name="GETENDUNIT"              src="Sheet(-1,-1,14)" type="1"/>
+           <Field memo="止领日期计算参照        "   name="ENDDATECALREF"           src="Sheet(-1,-1,15)" type="1"/>
+           <Field memo="止领日期计算方式        "   name="ENDDATECALMODE"          src="Sheet(-1,-1,16)" type="1"/>
+           <Field memo="止领期间下限            "   name="MAXGETENDPERIOD"         src="Sheet(-1,-1,17)" type="1"/>
+           <Field memo="递增标记                "   name="ADDFLAG"                 src="Sheet(-1,-1,18)" type="1"/>
+           <Field memo="递增间隔                "   name="ADDINTV"                 src="Sheet(-1,-1,19)" type="1"/>
+           <Field memo="递增开始期间            "   name="ADDSTARTPERIOD"          src="Sheet(-1,-1,20)" type="1"/>
+           <Field memo="递增开始期间单位        "   name="ADDSTARTUNIT"            src="Sheet(-1,-1,21)" type="1"/>
+           <Field memo="递增终止期间            "   name="ADDENDPERIOD"            src="Sheet(-1,-1,22)" type="1"/>
+           <Field memo="递增终止期间单位        "   name="ADDENDUNIT"              src="Sheet(-1,-1,23)" type="1"/>
+           <Field memo="递增类型                "   name="ADDTYPE"                 src="Sheet(-1,-1,24)" type="1"/>
+           <Field memo="递增值                  "   name="ADDVALUE"                src="Sheet(-1,-1,25)" type="1"/>
+           <Field memo="给付最大次数            "   name="MAXGETCOUNT"             src="Sheet(-1,-1,26)" type="1"/>
+           <Field memo="给付后动作              "   name="AFTERGET"                src="Sheet(-1,-1,27)" type="1"/>
+           <Field memo="领取动作类型            "   name="GETACTIONTYPE"           src="Sheet(-1,-1,28)" type="1"/>
+           <Field memo="催收标记                "   name="URGEGETFLAG"             src="Sheet(-1,-1,29)" type="1"/>
+           <Field memo="贴现领取标记            "   name="DISCNTFLAG"              src="Sheet(-1,-1,30)" type="1"/>
+           <Field memo="领取条件                "   name="GETCOND"                 src="Sheet(-1,-1,31)" type="1"/>
+           <Field memo="给付最大次数类型        "   name="MAXGETCOUNTTYPE"         src="Sheet(-1,-1,32)" type="1"/>
+           <Field memo="领取时是否需要重新计算  "   name="NeedReCompute"           src="Sheet(-1,-1,33)" type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="6 Sheet" dest="5"   desc="第6Sheet" display="" >
+  <part name="LMDutyGetClm" physicaltable="LMDutyGetClm" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+           <Field memo="给付代码             "   name="GetDutyCode"             src="Sheet(-1,-1,0)"  type="1"/>
+           <Field memo="给付名称             "   name="GetDutyName"             src="Sheet(-1,-1,1)"  type="1"/>
+           <Field memo="给付责任类型         "   name="GetDutyKind"             src="Sheet(-1,-1,2)"  type="1"/>
+           <Field memo="默认值               "   name="Default"                 src="Sheet(-1,-1,3)"  type="1"/>
+           <Field memo="算法                 "   name="CalCode"                 src="Sheet(-1,-1,4)"  type="1"/>
+           <Field memo="反算算法             "   name="CnterCalCode"            src="Sheet(-1,-1,5)"  type="1"/>
+           <Field memo="其他算法             "   name="OthCalCode"              src="Sheet(-1,-1,6)"  type="1"/>
+           <Field memo="录入标记             "   name="InpFlag"                 src="Sheet(-1,-1,7)"  type="1"/>
+           <Field memo="统计类别             "   name="StatType"                src="Sheet(-1,-1,8)"  type="1"/>
+           <Field memo="起付限               "   name="MinGet"                  src="Sheet(-1,-1,9)"  type="1"/>
+           <Field memo="给付后动作           "   name="AfterGet"                src="Sheet(-1,-1,10)" type="1"/>
+           <Field memo="赔付限额             "   name="MaxGet"                  src="Sheet(-1,-1,11)" type="1"/>
+           <Field memo="赔付比例             "   name="ClaimRate"               src="Sheet(-1,-1,12)" type="1"/>
+           <Field memo="赔付天数限额         "   name="ClmDayLmt"               src="Sheet(-1,-1,13)" type="1"/>
+           <Field memo="累计赔付天数限额     "   name="SumClmDayLmt"            src="Sheet(-1,-1,14)" type="1"/>
+           <Field memo="免赔额               "   name="Deductible"              src="Sheet(-1,-1,15)" type="1"/>
+           <Field memo="免赔天数             "   name="DeDuctDay"               src="Sheet(-1,-1,16)" type="1"/>
+           <Field memo="观察期               "   name="ObsPeriod"               src="Sheet(-1,-1,17)" type="1"/>
+           <Field memo="被保人死亡后有效标记 "   name="DeadValiFlag"            src="Sheet(-1,-1,18)" type="1"/>
+           <Field memo="死亡给付与现值关系   "   name="DeadToPValueFlag"        src="Sheet(-1,-1,19)" type="1"/>                                                                              
+    </ColConfig>		                                                                                                                               
+	</DataSourceSet>	                                                                                                                               
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">                                                                                 
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	                                                                                   
+	</DataDestinationSet>                                                                                                                              
+  </part>                                                                                                                                              
+</Sheet>                                                                                                                                               
+<Sheet name="7Sheet" dest="6"   desc="第7Sheet" display="" >                                                                                      
+  <part name="LMDutyGetRela" physicaltable="LMDutyGetRela" desc="第一Sheet中第一财务部分" display="">                                                     
+	<DataSourceSet name="" display="" >                                                                                                                
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+    </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="责任代码" name="DutyCode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="给付代码" name="GetDutyCode" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="给付名称" name="GetDutyName" src="Sheet(-1,-1,2)"  type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="8Sheet" dest="7"   desc="第8Sheet" display="" >
+  <part name="LMDutyPayRela" physicaltable="LMDutyPayRela" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="3" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="责任代码" name="DutyCode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="缴费编码" name="PayPlanCode" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="缴费名称" name="PayPlanName" src="Sheet(-1,-1,2)"  type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="9Sheet" dest="8"   desc="第三Sheet" display="" >
+  <part name="LMDutyChoose" physicaltable="LMDutyChoose" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+               <Field memo="险种编码           "   name="RiskCode"                 src="Sheet(-1,-1,0)"  type="1"/>
+               <Field memo="险种版本           "   name="RiskVer"                  src="Sheet(-1,-1,1)"  type="1"/>
+               <Field memo="责任代码           "   name="DutyCode"                 src="Sheet(-1,-1,2)"  type="1"/>
+               <Field memo="责任名称           "   name="DutyName"                 src="Sheet(-1,-1,3)"  type="1"/>
+               <Field memo="关联责任           "   name="RelaDutyCode"             src="Sheet(-1,-1,4)"  type="1"/>
+               <Field memo="关联责任名称        "  name="RelaDutyNamee"            src="Sheet(-1,-1,5)"  type="1"/>
+               <Field memo="关联关系           "   name="Relation"                 src="Sheet(-1,-1,6)"  type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="FirstSheet" dest="9"   desc="第三Sheet" display="" >
+  <part name="LMCalFactor" physicaltable="LMCalFactor" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+    </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+               <Field memo="算法编码           "   name="CalCode"                 src="Sheet(-1,-1,0)"  type="1"/>
+               <Field memo="要素编码           "   name="FactorCode"              src="Sheet(-1,-1,1)"  type="1"/>
+               <Field memo="要素名称           "   name="FactorName"              src="Sheet(-1,-1,2)"  type="1"/>
+               <Field memo="要素类型           "   name="FactorType"              src="Sheet(-1,-1,3)"  type="1"/>
+               <Field memo="要素优先级         "   name="FactorGrade"            src="Sheet(-1,-1,4)"  type="1"/>
+               <Field memo="要素算法编码        "  name="FactorCalCode"           src="Sheet(-1,-1,5)"  type="1"/>
+               <Field memo="默认值             "   name="FactorDefault"           src="Sheet(-1,-1,6)"  type="1"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="FirstSheet" dest="10"   desc="第三Sheet" display="" >
+  <part name="LMCalMode" physicaltable="LMCalMode" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+    </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+                <Field memo="算法编码      "   name="CalCode"            src="Sheet(-1,-1,0)"  type="1"/>
+                <Field memo="险种编码      "   name="RiskCode"           src="Sheet(-1,-1,1)"  type="1"/>
+                <Field memo="算法类型      "   name="Type"               src="Sheet(-1,-1,2)"  type="1"/>
+                <Field memo="算法内容      "   name="CalSQL"             src="Sheet(-1,-1,3)"  type="1"/>
+                <Field memo="算法描述      "   name="Remark"            src="Sheet(-1,-1,4)"  type="1"/>    
+      </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+<Sheet name="FirstSheet" dest="11"   desc="第三Sheet" display="" >
+  <part name="LMDutyCtrl" physicaltable="LMDutyCtrl" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="4" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+                <Field memo="责任代码      "   name="DutyCode"            src="Sheet(-1,-1,0)"  type="1"/> 
+                <Field memo="其他编码      "   name="OtherCode"           src="Sheet(-1,-1,1)"  type="1"/> 
+                <Field memo="字段名称      "   name="FieldName"           src="Sheet(-1,-1,2)"  type="1"/>
+                <Field memo="录入标志      "   name="InpFlag"             src="Sheet(-1,-1,3)"  type="1"/> 
+                <Field memo="控制类型      "   name="CtrlType"            src="Sheet(-1,-1,4)"  type="1"/> 
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+</DataConfigdesc>      
+ 

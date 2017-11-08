@@ -1,0 +1,92 @@
+<%@page import="com.sinosoft.lis.productdef.*"%>
+<html >
+<head>
+<%
+String tRiskCode = request.getParameter("RiskCode");
+
+System.out.println(tRiskCode);
+RiskTestService tTest = new RiskTestService("121301");
+
+String tAppntString = tTest.initAppntScript();
+
+
+%>
+	<meta charset="UTF-8">
+	<title>险种定义界面</title>
+	<LINK href="../common/css/Project.css" rel=stylesheet type=text/css>
+ <LINK href="../common/css/mulLine.css" rel=stylesheet type=text/css>
+ <link rel="stylesheet" href="../common/css/jquery.ui.all.css">
+  <script src="../common/javascript/jquery.js"></script>
+	<script src="../common/javascript/jquery.ui.core.js"></script>
+	<script src="../common/javascript/jquery.ui.widget.js"></script>
+	<script src="../common/javascript/jquery.ui.mouse.js"></script>
+	<script src="../common/javascript/jquery.ui.draggable.js"></script>
+	<script src="../common/javascript/jquery.ui.sortable.js"></script>
+	<link rel="stylesheet" href="../demos.css">
+	<style>
+	.demo ul { width=500;list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+	//.demo li { margin: 5px; padding: 5px; width: 150px; }
+	.demo li { float:left; width:100px; margin-left:10px; display:inline; height:24px; background:#FCC; margin-top:5px;}
+	
+	*{ margin:0; padding:0;}
+a{ color:#777; text-decoration:none;}
+a:hover{ color:#F03; text-decoration:underline;}
+.box{ width:400px; border:1px solid red; height:220px; font:normal 12px/24px ""M0000045837""; list-style:none; padding-top:10px;}
+.box li{ float:left; width:180px; margin-left:10px; display:inline; height:24px; background:#FCC; margin-top:5px;}/*给出的颜色和li之间的间距是为了方便查看，楼主可以自行修改*/
+</style>
+
+	</style>
+	<script>
+	$(function() {
+		$( "#sortable" ).sortable({
+			revert: true
+		});
+	/*	$( "#draggable" ).draggable({
+			connectToSortable: "#sortable",
+			helper: "clone",
+			revert: "invalid"
+		});
+		*/		
+		$( "ul, li" ).disableSelection();
+		
+	});
+	
+	
+	function test()
+	{
+		var ul = document.getElementById('sortable');
+myAlert(ul);
+		var lis = ul.getElementsByTagName("li");
+	for(i = 0 ; i < lis.length ; i++){
+  		myAlert(lis[i].innerHTML);
+    }
+
+	}
+	</script>
+</head>
+<body>
+<%=tAppntString%>
+		
+<div class="demo">
+	<ul id="sortable" >
+		<li class="ui-state-default" id="1">Item 1</li>
+		<li class="ui-state-default "id="2">Item 2</li>
+		<li class="ui-state-default" id="3">Item 3</li>
+		<li class="ui-state-default" id="4">Item 4</li>
+		<li class="ui-state-default" id="5">Item 5</li>
+
+		<li class="ui-state-default" id="6">Item 6</li>
+		<li class="ui-state-default" id="7">Item 7</li>
+		<li class="ui-state-default" id="8">Item 8</li>
+		<li class="ui-state-default" id="9">Item 9</li>
+		<li class="ui-state-default" id="10">Item 10</li>
+ </ul>
+</div><!-- End demo -->
+
+<div class="demo-description">
+<input type=button value='test' onclick="test()">
+</div><!-- End demo-description -->
+
+
+</body>
+</html>

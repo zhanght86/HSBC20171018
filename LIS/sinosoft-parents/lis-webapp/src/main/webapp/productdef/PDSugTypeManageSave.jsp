@@ -1,0 +1,160 @@
+<%@include file="../i18n/language.jsp"%>
+
+
+<%@include file="../common/jsp/UsrCheck.jsp"%>
+<%@page contentType="text/html;charset=GBK" %>
+
+<%
+//程序名称：PDSugIncomeDataAlgSave.jsp
+//程序功能：收益算法定义
+//创建日期：2011-10-24
+//创建人  ：
+//更新记录：  更新人    更新日期     更新原因/内容
+%>
+
+<%@page import="com.sinosoft.utility.*"%>
+<%@page import="com.sinosoft.lis.schema.*"%>
+<%@page import="com.sinosoft.lis.vschema.*"%>
+<%@page import="com.sinosoft.productdef.*"%>
+<%@page import="com.sinosoft.lis.pubfun.*"%>
+<%@page import="java.util.Hashtable"%>
+<%@page import="com.sinosoft.service.*" %>  
+<%@page import="org.codehaus.xfire.addressing.RandomGUID" %>  
+<%@page import="java.io.File" %>  
+  
+<%
+ //接收信息，并作校验处理。
+ //输入参数
+
+ 
+ CErrors tError = null;
+ String tRela  = "";                
+ String FlagStr = "";
+ String Content = "";
+ String operator = "";
+ 
+ TransferData transferData = new TransferData();
+ Hashtable tHashtable = new Hashtable();
+ GlobalInput tG = new GlobalInput(); 
+ tG=(GlobalInput)session.getAttribute("GI");
+ 
+ //执行动作：insert 添加纪录，update 修改纪录，delete 删除纪录
+ operator = request.getParameter("operator");
+ 
+ 
+ String tID =  request.getParameter("ID");
+ String tCONTENT =  request.getParameter("CONTENT");
+ String tTITTLE =  request.getParameter("TITTLE");
+ String tBAK1 =  request.getParameter("BAK1");
+ String tRELATION =  request.getParameter("RELATION");
+ String tFILENAME =  request.getParameter("FILENAME");
+ String   filepathsug = getServletContext().getRealPath( "/")+ "productdef\\sugconfig"; 
+ String   filepath = getServletContext().getRealPath( "/")+ "productdef\\sugconfig\\"; 
+ File filesug = new File(filepath);
+ File file = new File(filepath+tFILENAME);
+ if(!filesug.exists()){
+ 	filesug.mkdir();
+ }
+ if(operator.equals("save")){
+	 if (!file.exists()) {
+		 file.mkdir();
+		 transferData.setNameAndValue("ID",tID);
+	 	 transferData.setNameAndValue("CONTENT",tCONTENT);
+	 	 transferData.setNameAndValue("TITTLE",tTITTLE);
+	 	 transferData.setNameAndValue("BAK1",tBAK1);
+	 	 transferData.setNameAndValue("TYPE","doc");
+	 	 transferData.setNameAndValue("RELATION",tRELATION);
+	 	 transferData.setNameAndValue("FILENAME",tFILENAME);
+	 	 transferData.setNameAndValue("tableName",request.getParameter("tableName"));
+
+
+	 	 try
+	 	 {
+	 	  // 准备传输数据 VData
+	 	  VData tVData = new VData();
+
+	 	  tVData.add(tG);
+	 	  tVData.add(transferData);
+	 	  String busiName="PDSugTypeManageBL";
+	 	  
+	 	  BusinessDelegate tBusinessDelegate=BusinessDelegate.getBusinessDelegate();
+	 	  //String tDiscountCode = "";
+	 	  if (!tBusinessDelegate.submitData(tVData, operator,busiName)) {
+	 		  VData rVData = tBusinessDelegate.getResult();
+	 	    Content = " "+"处理失败，原因是:"+"" + (String)rVData.get(0);
+	 	  	FlagStr = "Fail";
+	 	  }
+	 	  else {
+	 		  VData rVData = tBusinessDelegate.getResult();
+	 	      Content = " "+"处理成功!"+" ";
+	 	  	  FlagStr = "Succ";
+
+	 	  }
+	 	 
+	 	 }
+	 	 catch(Exception ex)
+	 	 {
+	 	  Content = ""+"保存失败，原因是:"+"" + ex.toString();
+	 	  FlagStr = "Fail";
+	 	 }
+	 }else{
+		 Content = " "+"文件夹已经存在!"+" ";
+ 	  	 FlagStr = "Fail";
+	 }
+ }else{
+	 if(operator.equals("update")){
+		 if (!file.exists()) {
+			 file.mkdir();
+		 }
+	 }
+	 transferData.setNameAndValue("ID",tID);
+ 	 transferData.setNameAndValue("CONTENT",tCONTENT);
+ 	 transferData.setNameAndValue("TITTLE",tTITTLE);
+ 	 transferData.setNameAndValue("BAK1",tBAK1);
+ 	 transferData.setNameAndValue("TYPE","doc");
+ 	 transferData.setNameAndValue("RELATION",tRELATION);
+ 	 transferData.setNameAndValue("FILENAME",tFILENAME);
+ 	 transferData.setNameAndValue("tableName",request.getParameter("tableName"));
+
+
+ 	 try
+ 	 {
+ 	  // 准备传输数据 VData
+ 	  VData tVData = new VData();
+
+ 	  tVData.add(tG);
+ 	  tVData.add(transferData);
+ 	  String busiName="PDSugTypeManageBL";
+ 	  
+ 	  BusinessDelegate tBusinessDelegate=BusinessDelegate.getBusinessDelegate();
+ 	  //String tDiscountCode = "";
+ 	  if (!tBusinessDelegate.submitData(tVData, operator,busiName)) {
+ 		  VData rVData = tBusinessDelegate.getResult();
+ 	    Content = " "+"处理失败，原因是:"+"" + (String)rVData.get(0);
+ 	  	FlagStr = "Fail";
+ 	  }
+ 	  else {
+ 		  VData rVData = tBusinessDelegate.getResult();
+ 	      Content = " "+"处理成功!"+" ";
+ 	  	  FlagStr = "Succ";
+
+ 	  }
+ 	 
+ 	 }
+ 	 catch(Exception ex)
+ 	 {
+ 	  Content = ""+"保存失败，原因是:"+"" + ex.toString();
+ 	  FlagStr = "Fail";
+ 	 }
+ }
+
+ //添加各种预处理
+%>                      
+<%=Content%>
+<html>
+<script type="text/javascript">
+	 parent.fraInterface.afterSubmit("<%=FlagStr%>","<%=Content%>");
+</script>
+</html>
+
+

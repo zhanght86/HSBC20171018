@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GB2312"?>
+<DataFetch>
+	<DataSourceSet>
+		<DataSource id="LCPol" src="select a.contno contno,a.RiskCode RiskCode,GetPrem(a.RiskCode,a.Prem,a.standbyflag2,b.relationtomaininsured,a.standbyflag1) Prem,GETAMNT(a.RiskCode,a.Amnt,a.standbyflag2,b.relationtomaininsured,a.standbyflag1) Amnt,a.LiveGetMode LiveGetMode,a.standbyflag2 standbyflag2,a.Remark Remark,b.InsuredNo InsuredNo,decode(a.poltypeflag,'1','',(case when b.IDNo is null then to_Char(insuredbirthday,'YYYY-MM-DD') when b.IDNo is not null then b.IDNo end)) IDNo,b.relationtomaininsured relationtomaininsured,b.name InsuredName,b.Birthday InsuredBirthday,decode(a.poltypeflag,'1','',b.sex) InsuredSex,b.OccupationType OccupationType,c.name LCBnfName,decode(c.bnfno,1,1,0) bnfnoflag,c.bnfno bnfno from lcpol a LEFT OUTER JOIN lcbnf c on(  a.contno=c.contno and c.bnftype='1'),lcinsured b where a.prtno= (select prtno from lcgrpCont where grpcontno = ? ) and a.contno=b.contno order by b.InsuredNo,a.riskcode,c.bnfno" /> 
+		
+		<DataSource id="LDPerson" src="SELECT * FROM LDPerson WHERE CustomerNo = ?" />
+
+		<DataSource id="LCBnf" src="SELECT * FROM LCBnf WHERE contno = ? AND BnfType = '1' AND BnfNo = '1'" />
+		
+		<DataSource id="ds4" src="SELECT TO_CHAR(signdate, 'YYYY')||'年'||TO_CHAR(signdate, 'MM')||'月'||TO_CHAR(signdate, 'DD')||'日' FROM LCPol WHERE contno = ?" />
+		
+		<DataSource id="DATE" src="SELECT SUBSTR(?, 0, 10) FROM DUAL" />
+		
+		<DataSource id="dsProc" src="CALL proc(?, ?)" />
+	</DataSourceSet>
+	
+	<FieldSet memo="" name="LCPol" type="1">
+		<DataSourceRef>  <!-- 指定这个FieldSet所用的结果集 -->
+			<ID>LCPol</ID>
+			<Param dataField="_GRPPOLNO" type="0" />
+		</DataSourceRef>
+		<Field memo="" name="COL0" dataField="InsuredNo" type="0"/>
+		<Field memo="" name="COL1" dataField="InsuredName" type="0"/>
+		<Field memo="" name="COL2" dataField="IDNo" type="0"/>
+		
+		<FieldSet memo="日期处理" name="" type="0">
+			<DataSourceRef>
+				<ID>DATE</ID>
+				<Param dataField="InsuredBirthday" type="0" />
+			</DataSourceRef>
+			<Field memo="" name="COL3" dataField="0" type="0"/>
+		</FieldSet>
+		
+		<Field memo="" name="COL4" dataField="InsuredSex" type="0"/>
+		<Field memo="" name="COL5" dataField="OccupationType" type="0"/>
+		<Field memo="" name="COL6" dataField="RiskCode" type="0"/>
+		<Field memo="" name="COL7" dataField="Prem" type="0"/>
+		<Field memo="" name="COL8" dataField="" type="1"/>
+		<Field memo="" name="COL9" dataField="Amnt" type="0"/>
+		<Field memo="GetYear" name="COL10" dataField="" type="1"/>
+		<Field memo="GetYearFlag" name="COL11" dataField="" type="1"/>
+		<Field memo="" name="COL12" dataField="LiveGetMode" type="0"/>
+		
+		<Field memo="" name="COL13" dataField="LCBnfName" type="0"/>
+		
+		<Field memo="" name="COL14" dataField="Remark" type="0"/>
+		<Field memo="RowIndex" name="COL15" dataField="0" type="1"/>
+		<Field memo="" name="COL16" dataField="bnfnoflag" type="0"/>
+		<Field memo="" name="COL17" dataField="LCBnfName" type="0"/>
+		<Field memo="" name="COL18" dataField="bnfnoflag" type="0"/>
+		<Field memo="" name="COL19" dataField="contno" type="0"/>
+		<Field memo="" name="COL20" dataField="bnfno" type="0"/>
+	</FieldSet>
+</DataFetch>

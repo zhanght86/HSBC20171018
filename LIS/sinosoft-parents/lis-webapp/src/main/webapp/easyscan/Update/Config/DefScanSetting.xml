@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="GBK"?>
+<DATA>
+	<!--扫描仪及扫描方式设置-->
+	<HighSpeedScanerSetting>
+		<Scanner manufacturer="FUJITSU" name="FUJITSU fi-4120Cdj">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_SINGLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_SINGLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_SINGLE.fts"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_DOUBLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_DOUBLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_Double.fts"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_LONG.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_LONG.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_Long.fts"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_HALF.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_HALF.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_HALF.fts"/>
+			</SettingType>
+		</Scanner>
+
+		<Scanner manufacturer="FUJITSU" name="FUJITSU fi-5120Cdj">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_5120_SINGLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_5120_SINGLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_5120_SINGLE.fts"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_5120_DOUBLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_5120_DOUBLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_5120_Double.fts"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_5120_LONG.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_5120_LONG.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_5120_Long.fts"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_5120_HALF.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_5120_HALF.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_5120_HALF.fts"/>
+			</SettingType>
+		</Scanner>
+
+		<Scanner manufacturer="FUJITSU" name="FUJITSU fi-6130dj">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6130_SINGLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6130_SINGLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6130_SINGLE.fts"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6130_DOUBLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6130_DOUBLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6130_Double.fts"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6130_LONG.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6130_LONG.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6130_Long.fts"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6130_HALF.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_HALF.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6130_HALF.fts"/>
+			</SettingType>
+		</Scanner>
+	
+		<Scanner manufacturer="FUJITSU" name="FUJITSU fi-6125dj">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6125_SINGLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6125_SINGLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6125_SINGLE.fts"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6125_DOUBLE.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6125_DOUBLE.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6125_Double.fts"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6125_LONG.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_6125_LONG.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6125_Long.fts"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\FTSLISTS_A4_6125_HALF.INI" DestinationFile="\twain_32\fjscan32\FTSLISTS.INI"/>
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\FUJITSU\SETSCAN_A4_HALF.FTS" DestinationFile="\twain_32\fjscan32\SetScan_A4_6125_HALF.fts"/>
+			</SettingType>
+		</Scanner>
+			
+		<Scanner manufacturer="Panasonic" name="Panasonic KV-S1025C KV-S1020C">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S1025_SINGLE.INI" DestinationFile="\twain_32\Panass32\PANA_S1025.INI"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S1025_DOUBLE.INI" DestinationFile="\twain_32\Panass32\PANA_S1025.INI"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S1025_LONG.INI" DestinationFile="\twain_32\Panass32\PANA_S1025.INI"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S1025_HALF.INI" DestinationFile="\twain_32\Panass32\PANA_S1025.INI"/>
+			</SettingType>
+		</Scanner>
+		
+		<Scanner manufacturer="Panasonic" name="Panasonic KV-S2048C S2046C S2026C">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S2026_SINGLE.INI" DestinationFile="\twain_32\Panass32\PANA_S2048.INI"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S2026_DOUBLE.INI" DestinationFile="\twain_32\Panass32\PANA_S2048.INI"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S2026_LONG.INI" DestinationFile="\twain_32\Panass32\PANA_S2048.INI"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_S2026_HALF.INI" DestinationFile="\twain_32\Panass32\PANA_S2048.INI"/>
+			</SettingType>
+		</Scanner>
+
+		<Scanner manufacturer="Panasonic" name="Panasonic KV-S202xC S204xC">
+			<SettingType name="A4单面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_SINGLE.INI" DestinationFile="\twain_32\Panass32\PANA_S2025.INI"/>
+			</SettingType>
+			<SettingType name="A4双面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_DOUBLE.INI" DestinationFile="\twain_32\Panass32\PANA_S2025.INI"/>
+			</SettingType>
+			<SettingType name="A4长纸">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_LONG.INI" DestinationFile="\twain_32\Panass32\PANA_S2025.INI"/>
+			</SettingType>
+			<SettingType name="A4半面">
+				<Setting OS="WIN_ALL" SourceFile="\SCANPROFILES\Panasonic\PANA_HALF.INI" DestinationFile="\twain_32\Panass32\PANA_S2025.INI"/>
+			</SettingType>
+		</Scanner>
+	</HighSpeedScanerSetting>
+</DATA>

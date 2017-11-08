@@ -1,0 +1,16 @@
+#Link {font-size:20px;color:#057154;font-weight:bold;cursor:hand}
+#BOM {align:left;font-size:16px;color:#B81B01;cursor:hand}
+#OTHERRULE {font-size:16px;color:#A00000;cursor:hand}
+#Constant {font-size:16px;color:#A00000;cursor:hand}
+#AddFunction {font-size:16px;color:#261C63;cursor:hand}
+#FunctionBOM {font-size:16px;color:#261C63;cursor:hand}
+#FunctionBOMItem {font-size:16px;color:#261C63;cursor:hand}
+#BOMItem {font-size:16px;color:#DF5D06;cursor:hand}
+#Operator{font-size:16px;color:#FF8400;cursor:hand}
+#Input {font-size:16px;color:#D40C07;cursor:hand}
+#Pathesise {font-size:20px;color:#057154;font-weight:bold}
+#Delete {font-size:16px;cursor:hand}
+#AddInput {font-size:16px;cursor:hand}
+.checked{background-image:url(../images/default/menu/checked.gif)}
+.unchecked{background-image:url(../images/default/menu/unchecked.gif)}
+

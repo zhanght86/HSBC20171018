@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings> 
+ <Global>
+ 	 <Mapping type="1" schemaFieldName="riskVer" defaultValue="2012" />
+ 	 <Mapping type="1" schemaFieldName="subRiskVer" defaultValue="" />
+ </Global>
+ <Model name="ProductDef">
+    <SubModel name="ProductAppAgeDef" method="getProductAppAges">
+     		<Trigger modelFieldName="productCode"/>
+    </SubModel>
+    <SubModel name="CoverageDef" method="getCoverages">
+     		<Trigger modelFieldName="productCode"/>
+    </SubModel>
+    
+		<Schema name="LMRiskSchema">
+	   		<Mapping type="0" modelFieldName="productCode" schemaFieldName="riskCode" defaultValue="" />
+	   		<!--Mapping type="0" modelFieldName="productVersion" schemaFieldName="riskVer" defaultValue="" /-->
+				<Mapping type="0" modelFieldName="productName" schemaFieldName="riskName" defaultValue="" />
+				<Mapping type="0" modelFieldName="productShortName" schemaFieldName="riskShortName" defaultValue="" />
+				<Mapping type="0" modelFieldName="productEnName" schemaFieldName="riskEnName" defaultValue="Test" />
+				<Mapping type="0" modelFieldName="productEnShortName" schemaFieldName="riskEnShortName" defaultValue="" />
+				<Mapping type="0" modelFieldName="productInvestFlag" schemaFieldName="insuAccFlag" defaultValue="N" /> 
+				<Mapping type="0" modelFieldName="productName" schemaFieldName="riskStatName" defaultValue="" /> 
+				
+	   		<!--Mapping type="1" schemaFieldName="riskName" defaultValue="testRiskName" /-->
+	   		<Mapping type="1" schemaFieldName="destRate" defaultValue="0" />
+	   		<Mapping type="1" schemaFieldName="choDutyFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="CPayFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="getFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="edorFlag" defaultValue="Y" />
+	   		<Mapping type="1" schemaFieldName="rnewFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="UWFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="rinsFlag" defaultValue="N" />
+	   		<Mapping type="1" schemaFieldName="origRiskCode" defaultValue="" />
+	   		<Mapping type="1" schemaFieldName="riskTestFlag" defaultValue="N" />
+	   		
+ 		</Schema>
+ 		<Schema name="LMRiskAppSchema">
+ 				<Mapping type="0" modelFieldName="productCode" schemaFieldName="riskCode" defaultValue="" />
+	   		<!--Mapping type="0" modelFieldName="productVersion" schemaFieldName="riskVer" defaultValue="2012" /-->
+				<Mapping type="0" modelFieldName="productName" schemaFieldName="riskName" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="productInvestFlag" schemaFieldName="investFlag" defaultValue="N" />
+				<Mapping type="0" modelFieldName="productDividendFlag" schemaFieldName="bonusFlag" defaultValue="0" />
+				<Mapping type="0" modelFieldName="ifRiderFlag" schemaFieldName="subRiskFlag" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="effectiveDateCalMode" schemaFieldName="signDateCalMode" defaultValue="" />
+				<Mapping type="0" modelFieldName="productLaunchDate" schemaFieldName="startDate" defaultValue="" />
+				<Mapping type="0" modelFieldName="productEndDate" schemaFieldName="endDate" defaultValue="" />
+				<Mapping type="0" modelFieldName="manageCom" schemaFieldName="mngCom" defaultValue="" />
+				<Mapping type="0" modelFieldName="APLFlag" schemaFieldName="autoPayFlag" defaultValue="" />
+				
+				<Mapping type="1" schemaFieldName="polType" defaultValue="P" />
+				<Mapping type="1" schemaFieldName="listFlag" defaultValue="A" />
+				<Mapping type="1" schemaFieldName="calChoMode" defaultValue="2" />
+				<Mapping type="1" schemaFieldName="insuredFlag" defaultValue="S" />
+				<Mapping type="1" schemaFieldName="shareFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="bnfFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="tempPayFlag" defaultValue="Y" />
+				<Mapping type="1" schemaFieldName="inpPayPlan" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="impartFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="insuExpeFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="loanFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="mortagageFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="IDifReturnFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="cutAmntStopPay" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="rinsRate" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="saleFlag" defaultValue="0" />
+				<Mapping type="1" schemaFieldName="fileAppFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="needPrintHospital" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="needPrintGet" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="notPrintPol" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="needGetPolDate" defaultValue="0" />
+				<Mapping type="1" schemaFieldName="needReReadBank" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="specFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="interestDifFlag" defaultValue="N" />
+				<Mapping type="1" schemaFieldName="cancleForeGetSpecFlag" defaultValue="1" />
+				<Mapping type="1" schemaFieldName="signdatecalmode2" defaultValue="7" />
+				<Mapping type="1" schemaFieldName="signdatecalmode3" defaultValue="6" />
+
+ 		</Schema>
+ 		<Schema name="LMRiskPaySchema">
+ 				<Mapping type="0" modelFieldName="productCode" schemaFieldName="riskCode" defaultValue="" />
+	   		<!--Mapping type="0" modelFieldName="productVersion" schemaFieldName="riskVer" defaultValue="" /-->
+				<Mapping type="0" modelFieldName="productName" schemaFieldName="riskName" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="renewalFlag" schemaFieldName="urgePayFlag" defaultValue="N" />
+				<Mapping type="0" modelFieldName="gracePeriod" schemaFieldName="gracePeriod" defaultValue="60" />
+				<Mapping type="0" modelFieldName="gracePeriodUnit" schemaFieldName="gracePeriodUnit" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="graceCalCode" schemaFieldName="graceCalCode" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="overdueDeal" schemaFieldName="overdueDeal" defaultValue="L" />
+ 		</Schema> 
+ </Model> 
+ <Model name="ProductAppAgeDef">
+ 		<Schema name="LMRiskRoleSchema"> 
+ 				<Mapping type="0" modelFieldName="productCode" schemaFieldName="riskCode" defaultValue="" />
+ 				<Mapping type="0" modelFieldName="roleCode" schemaFieldName="riskRole" defaultValue="" /> 
+ 				<Mapping type="0" modelFieldName="gender" schemaFieldName="riskRoleSex" defaultValue="" /> 
+ 				<Mapping type="0" modelFieldName="serialNo" schemaFieldName="riskRoleNo" defaultValue="" /> 
+ 				<Mapping type="0" modelFieldName="minAppAge" schemaFieldName="minAppAge" defaultValue="" />
+ 				<Mapping type="0" modelFieldName="minAppAgeUnit" schemaFieldName="minAppAgeFlag" defaultValue="" /> 
+ 				<Mapping type="0" modelFieldName="maxAppAge" schemaFieldName="MAXAppAge" defaultValue="" /> 
+ 				<Mapping type="0" modelFieldName="maxAppAgeUnit" schemaFieldName="MAXAppAgeFlag" defaultValue="" />
+  	</Schema>
+ </Model>
+ <Model name="CoverageDef">
+ 		<SubModel name="PremiumDef" method="getPremiums">
+		 		<Trigger modelFieldName="coverageCode"/>
+    </SubModel>  
+		<Schema name="LMRiskDutySchema">
+	   		<Mapping type="0" modelFieldName="productCode" schemaFieldName="riskCode" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="coverageCode" schemaFieldName="dutyCode" defaultValue="" />
+				<Mapping type="0" modelFieldName="choFlag" schemaFieldName="choFlag" defaultValue="N" />
+				<Mapping type="0" modelFieldName="accontFlag" schemaFieldName="specFlag" defaultValue="N" />
+ 		</Schema>
+ 		<Schema name="LMDutySchema">
+ 				<Mapping type="0" modelFieldName="coverageCode" schemaFieldName="dutyCode" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="coverageName" schemaFieldName="dutyName" defaultValue="" />
+				<Mapping type="0" modelFieldName="paymentTerm" schemaFieldName="payEndYear" defaultValue="" />
+				<Mapping type="0" modelFieldName="paymentTermUnit" schemaFieldName="payEndYearFlag" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="coverageTerm" schemaFieldName="insuYear" defaultValue="" />
+				<Mapping type="0" modelFieldName="coverageTermUnit" schemaFieldName="insuYearFlag" defaultValue="" />
+				<Mapping type="0" modelFieldName="coverageTermRela" schemaFieldName="insuYearRela" defaultValue="4" />
+				
+				<Mapping type="1" schemaFieldName="payEndYearRela" defaultValue="4" /> 
+				<Mapping type="1" schemaFieldName="getYearRela" defaultValue="4" /> 
+				<!--Mapping type="1" schemaFieldName="insuYearRela" defaultValue="4" /-->
+ 		</Schema>
+ </Model>  
+ 
+ <Model name="PremiumDef">  
+  	<Schema name="LMDutyPayRelaSchema">
+	   		<Mapping type="0" modelFieldName="coverageCode" schemaFieldName="dutyCode" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="premiumCode" schemaFieldName="payPlanCode" defaultValue="" />
+				<Mapping type="0" modelFieldName="premiumName" schemaFieldName="payPlanName" defaultValue="" />
+ 		</Schema> 
+ 		
+		<Schema name="LMDutyPaySchema">
+	   		<Mapping type="0" modelFieldName="premiumCode" schemaFieldName="payPlanCode" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="premiumName" schemaFieldName="payPlanName" defaultValue="" />
+				<Mapping type="0" modelFieldName="premiumType" schemaFieldName="type" defaultValue="0" />
+				<Mapping type="0" modelFieldName="paymentStartDay" schemaFieldName="payStartYear" defaultValue="" />
+				
+				<Mapping type="0" modelFieldName="paymentStartDayUnit" schemaFieldName="payStartYearFlag" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="paymentStartDayRef" schemaFieldName="payStartDateCalRef" defaultValue="" />
+				<Mapping type="0" modelFieldName="paymentStartDayCalMode" schemaFieldName="payStartDateCalMode" defaultValue="" />
+				<Mapping type="0" modelFieldName="paymentEndDay" schemaFieldName="payEndYear" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="paymentEndDayUnit" schemaFieldName="payEndYearFlag" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="paymentEndDayRef" schemaFieldName="payEndDateCalRef" defaultValue="" />
+				<Mapping type="0" modelFieldName="paymentEndDayCalMode" schemaFieldName="payEndDateCalMode" defaultValue="" />
+				<Mapping type="0" modelFieldName="calCode" schemaFieldName="calCode" defaultValue="" /> 
+				<Mapping type="0" modelFieldName="cnterCalCode" schemaFieldName="cnterCalCode" defaultValue="" />
+	   		<Mapping type="0" modelFieldName="othCalCode" schemaFieldName="othCalCode" defaultValue="" />
+				<Mapping type="0" modelFieldName="zeroFlag" schemaFieldName="zeroFlag" defaultValue="N" />
+ 		</Schema> 
+ 		
+ 	
+ 		
+ </Model>  
+</mappings>

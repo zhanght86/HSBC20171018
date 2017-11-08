@@ -1,0 +1,831 @@
+/**
+ * Copyright (c) 2002 sinosoft  Co. Ltd.
+ * All right reserved.
+ */
+
+package com.sinosoft.lis.schema;
+
+import org.apache.log4j.Logger;
+import java.sql.*;
+import java.io.*;
+import java.util.Date;
+import com.sinosoft.lis.pubfun.FDate;
+import com.sinosoft.utility.*;
+import com.sinosoft.lis.db.LLPolTraceDB;
+
+/*
+ * <p>ClassName: LLPolTraceSchema </p>
+ * <p>Description: DB层 Schema 类文件 </p>
+ * <p>Copyright: Copyright (c) 2007</p>
+ * <p>Company: sinosoft </p>
+ * @Database: 泰康未整理PDM
+ */
+public class LLPolTraceSchema implements Schema, Cloneable
+{
+private static Logger logger = Logger.getLogger(LLPolTraceSchema.class);
+	// @Field
+	/** 集体合同号码 */
+	private String GrpContNo;
+	/** 保单险种号码 */
+	private String PolNo;
+	/** 流水号 */
+	private String SerialNo;
+	/** 原保单状态 */
+	private String oldPolState;
+	/** 新保单状态 */
+	private String newPolState;
+	/** 操作员 */
+	private String Operator;
+	/** 入机日期 */
+	private Date MakeDate;
+	/** 入机时间 */
+	private String MakeTime;
+	/** 最后一次修改日期 */
+	private Date ModifyDate;
+	/** 最后一次修改时间 */
+	private String ModifyTime;
+	/** 备注 */
+	private String remark;
+
+	public static final int FIELDNUM = 11;	// 数据库表的字段个数
+
+	private static String[] PK;				// 主键
+
+	private FDate fDate = new FDate();		// 处理日期
+
+	public CErrors mErrors;			// 错误信息
+
+	// @Constructor
+	public LLPolTraceSchema()
+	{
+		mErrors = new CErrors();
+
+		String[] pk = new String[1];
+		pk[0] = "SerialNo";
+
+		PK = pk;
+	}
+
+	/**
+	* Schema克隆
+	* @return Object
+	* @throws CloneNotSupportedException
+	*/
+	public Object clone()
+		throws CloneNotSupportedException
+	{
+		LLPolTraceSchema cloned = (LLPolTraceSchema)super.clone();
+		cloned.fDate = (FDate) fDate.clone();
+		cloned.mErrors = (CErrors) mErrors.clone();
+		return cloned;
+	}
+
+	// @Method
+	public String[] getPK()
+	{
+		return PK;
+	}
+
+	public String getGrpContNo()
+	{
+		return GrpContNo;
+	}
+	public void setGrpContNo(String aGrpContNo)
+	{
+		if(aGrpContNo!=null && aGrpContNo.length()>20)
+			throw new IllegalArgumentException("集体合同号码GrpContNo值"+aGrpContNo+"的长度"+aGrpContNo.length()+"大于最大值20");
+		GrpContNo = aGrpContNo;
+	}
+	public String getPolNo()
+	{
+		return PolNo;
+	}
+	public void setPolNo(String aPolNo)
+	{
+		if(aPolNo!=null && aPolNo.length()>20)
+			throw new IllegalArgumentException("保单险种号码PolNo值"+aPolNo+"的长度"+aPolNo.length()+"大于最大值20");
+		PolNo = aPolNo;
+	}
+	/**
+	* 履历流水号码
+	*/
+	public String getSerialNo()
+	{
+		return SerialNo;
+	}
+	public void setSerialNo(String aSerialNo)
+	{
+		if(aSerialNo!=null && aSerialNo.length()>20)
+			throw new IllegalArgumentException("流水号SerialNo值"+aSerialNo+"的长度"+aSerialNo.length()+"大于最大值20");
+		SerialNo = aSerialNo;
+	}
+	public String getoldPolState()
+	{
+		return oldPolState;
+	}
+	public void setoldPolState(String aoldPolState)
+	{
+		if(aoldPolState!=null && aoldPolState.length()>10)
+			throw new IllegalArgumentException("原保单状态oldPolState值"+aoldPolState+"的长度"+aoldPolState.length()+"大于最大值10");
+		oldPolState = aoldPolState;
+	}
+	public String getnewPolState()
+	{
+		return newPolState;
+	}
+	public void setnewPolState(String anewPolState)
+	{
+		if(anewPolState!=null && anewPolState.length()>10)
+			throw new IllegalArgumentException("新保单状态newPolState值"+anewPolState+"的长度"+anewPolState.length()+"大于最大值10");
+		newPolState = anewPolState;
+	}
+	public String getOperator()
+	{
+		return Operator;
+	}
+	public void setOperator(String aOperator)
+	{
+		if(aOperator!=null && aOperator.length()>10)
+			throw new IllegalArgumentException("操作员Operator值"+aOperator+"的长度"+aOperator.length()+"大于最大值10");
+		Operator = aOperator;
+	}
+	public String getMakeDate()
+	{
+		if( MakeDate != null )
+			return fDate.getString(MakeDate);
+		else
+			return null;
+	}
+	public void setMakeDate(Date aMakeDate)
+	{
+		MakeDate = aMakeDate;
+	}
+	public void setMakeDate(String aMakeDate)
+	{
+		if (aMakeDate != null && !aMakeDate.equals("") )
+		{
+			MakeDate = fDate.getDate( aMakeDate );
+		}
+		else
+			MakeDate = null;
+	}
+
+	public String getMakeTime()
+	{
+		return MakeTime;
+	}
+	public void setMakeTime(String aMakeTime)
+	{
+		if(aMakeTime!=null && aMakeTime.length()>8)
+			throw new IllegalArgumentException("入机时间MakeTime值"+aMakeTime+"的长度"+aMakeTime.length()+"大于最大值8");
+		MakeTime = aMakeTime;
+	}
+	public String getModifyDate()
+	{
+		if( ModifyDate != null )
+			return fDate.getString(ModifyDate);
+		else
+			return null;
+	}
+	public void setModifyDate(Date aModifyDate)
+	{
+		ModifyDate = aModifyDate;
+	}
+	public void setModifyDate(String aModifyDate)
+	{
+		if (aModifyDate != null && !aModifyDate.equals("") )
+		{
+			ModifyDate = fDate.getDate( aModifyDate );
+		}
+		else
+			ModifyDate = null;
+	}
+
+	public String getModifyTime()
+	{
+		return ModifyTime;
+	}
+	public void setModifyTime(String aModifyTime)
+	{
+		if(aModifyTime!=null && aModifyTime.length()>8)
+			throw new IllegalArgumentException("最后一次修改时间ModifyTime值"+aModifyTime+"的长度"+aModifyTime.length()+"大于最大值8");
+		ModifyTime = aModifyTime;
+	}
+	public String getremark()
+	{
+		return remark;
+	}
+	public void setremark(String aremark)
+	{
+		if(aremark!=null && aremark.length()>20)
+			throw new IllegalArgumentException("备注remark值"+aremark+"的长度"+aremark.length()+"大于最大值20");
+		remark = aremark;
+	}
+
+	/**
+	* 使用另外一个 LLPolTraceSchema 对象给 Schema 赋值
+	* @param: aLLPolTraceSchema LLPolTraceSchema
+	**/
+	public void setSchema(LLPolTraceSchema aLLPolTraceSchema)
+	{
+		this.GrpContNo = aLLPolTraceSchema.getGrpContNo();
+		this.PolNo = aLLPolTraceSchema.getPolNo();
+		this.SerialNo = aLLPolTraceSchema.getSerialNo();
+		this.oldPolState = aLLPolTraceSchema.getoldPolState();
+		this.newPolState = aLLPolTraceSchema.getnewPolState();
+		this.Operator = aLLPolTraceSchema.getOperator();
+		this.MakeDate = fDate.getDate( aLLPolTraceSchema.getMakeDate());
+		this.MakeTime = aLLPolTraceSchema.getMakeTime();
+		this.ModifyDate = fDate.getDate( aLLPolTraceSchema.getModifyDate());
+		this.ModifyTime = aLLPolTraceSchema.getModifyTime();
+		this.remark = aLLPolTraceSchema.getremark();
+	}
+
+	/**
+	* 使用 ResultSet 中的第 i 行给 Schema 赋值
+	* @param: rs ResultSet
+	* @param: i int
+	* @return: boolean
+	**/
+	public boolean setSchema(ResultSet rs,int i)
+	{
+		try
+		{
+			//rs.absolute(i);		// 非滚动游标
+			if( rs.getString("GrpContNo") == null )
+				this.GrpContNo = null;
+			else
+				this.GrpContNo = rs.getString("GrpContNo").trim();
+
+			if( rs.getString("PolNo") == null )
+				this.PolNo = null;
+			else
+				this.PolNo = rs.getString("PolNo").trim();
+
+			if( rs.getString("SerialNo") == null )
+				this.SerialNo = null;
+			else
+				this.SerialNo = rs.getString("SerialNo").trim();
+
+			if( rs.getString("oldPolState") == null )
+				this.oldPolState = null;
+			else
+				this.oldPolState = rs.getString("oldPolState").trim();
+
+			if( rs.getString("newPolState") == null )
+				this.newPolState = null;
+			else
+				this.newPolState = rs.getString("newPolState").trim();
+
+			if( rs.getString("Operator") == null )
+				this.Operator = null;
+			else
+				this.Operator = rs.getString("Operator").trim();
+
+			this.MakeDate = rs.getDate("MakeDate");
+			if( rs.getString("MakeTime") == null )
+				this.MakeTime = null;
+			else
+				this.MakeTime = rs.getString("MakeTime").trim();
+
+			this.ModifyDate = rs.getDate("ModifyDate");
+			if( rs.getString("ModifyTime") == null )
+				this.ModifyTime = null;
+			else
+				this.ModifyTime = rs.getString("ModifyTime").trim();
+
+			if( rs.getString("remark") == null )
+				this.remark = null;
+			else
+				this.remark = rs.getString("remark").trim();
+
+		}
+		catch(SQLException sqle)
+		{
+			logger.debug("数据库中的LLPolTrace表字段个数和Schema中的字段个数不一致，或者执行db.executeQuery查询时没有使用select * from tables");
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LLPolTraceSchema";
+			tError.functionName = "setSchema";
+			tError.errorMessage = sqle.toString();
+			this.mErrors .addOneError(tError);
+			return false;
+		}
+		return true;
+	}
+
+	public LLPolTraceSchema getSchema()
+	{
+		LLPolTraceSchema aLLPolTraceSchema = new LLPolTraceSchema();
+		aLLPolTraceSchema.setSchema(this);
+		return aLLPolTraceSchema;
+	}
+
+	public LLPolTraceDB getDB()
+	{
+		LLPolTraceDB aDBOper = new LLPolTraceDB();
+		aDBOper.setSchema(this);
+		return aDBOper;
+	}
+
+
+	/**
+	* 数据打包，按 XML 格式打包，顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLLPolTrace描述/A>表字段
+	* @return: String 返回打包后字符串
+	**/
+	public String encode()
+	{
+		StringBuffer strReturn = new StringBuffer(256);
+		strReturn.append(StrTool.cTrim(GrpContNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PolNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SerialNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(oldPolState)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(newPolState)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(Operator)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( MakeDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(MakeTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( ModifyDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ModifyTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(remark));
+		return strReturn.toString();
+	}
+
+	/**
+	* 数据解包，解包顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLLPolTrace>历史记账凭证主表信息</A>表字段
+	* @param: strMessage String 包含一条纪录数据的字符串
+	* @return: boolean
+	**/
+	public boolean decode(String strMessage)
+	{
+		try
+		{
+			GrpContNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 1, SysConst.PACKAGESPILTER );
+			PolNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 2, SysConst.PACKAGESPILTER );
+			SerialNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 3, SysConst.PACKAGESPILTER );
+			oldPolState = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 4, SysConst.PACKAGESPILTER );
+			newPolState = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 5, SysConst.PACKAGESPILTER );
+			Operator = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 6, SysConst.PACKAGESPILTER );
+			MakeDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 7,SysConst.PACKAGESPILTER));
+			MakeTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 8, SysConst.PACKAGESPILTER );
+			ModifyDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 9,SysConst.PACKAGESPILTER));
+			ModifyTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 10, SysConst.PACKAGESPILTER );
+			remark = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 11, SysConst.PACKAGESPILTER );
+		}
+		catch(NumberFormatException ex)
+		{
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LLPolTraceSchema";
+			tError.functionName = "decode";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	* 取得对应传入参数的String形式的字段值
+	* @param: FCode String 希望取得的字段名
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(String FCode)
+	{
+		String strReturn = "";
+		if (FCode.equalsIgnoreCase("GrpContNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GrpContNo));
+		}
+		if (FCode.equalsIgnoreCase("PolNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PolNo));
+		}
+		if (FCode.equalsIgnoreCase("SerialNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SerialNo));
+		}
+		if (FCode.equalsIgnoreCase("oldPolState"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(oldPolState));
+		}
+		if (FCode.equalsIgnoreCase("newPolState"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(newPolState));
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Operator));
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(MakeTime));
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ModifyTime));
+		}
+		if (FCode.equalsIgnoreCase("remark"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(remark));
+		}
+		if (strReturn.equals(""))
+		{
+			strReturn = "null";
+		}
+
+		return strReturn;
+	}
+
+
+	/**
+	* 取得Schema中指定索引值所对应的字段值
+	* @param: nFieldIndex int 指定的字段索引值
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(int nFieldIndex)
+	{
+		String strFieldValue = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldValue = StrTool.GBKToUnicode(GrpContNo);
+				break;
+			case 1:
+				strFieldValue = StrTool.GBKToUnicode(PolNo);
+				break;
+			case 2:
+				strFieldValue = StrTool.GBKToUnicode(SerialNo);
+				break;
+			case 3:
+				strFieldValue = StrTool.GBKToUnicode(oldPolState);
+				break;
+			case 4:
+				strFieldValue = StrTool.GBKToUnicode(newPolState);
+				break;
+			case 5:
+				strFieldValue = StrTool.GBKToUnicode(Operator);
+				break;
+			case 6:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+				break;
+			case 7:
+				strFieldValue = StrTool.GBKToUnicode(MakeTime);
+				break;
+			case 8:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+				break;
+			case 9:
+				strFieldValue = StrTool.GBKToUnicode(ModifyTime);
+				break;
+			case 10:
+				strFieldValue = StrTool.GBKToUnicode(remark);
+				break;
+			default:
+				strFieldValue = "";
+		};
+		if( strFieldValue.equals("") ) {
+			strFieldValue = "null";
+		}
+		return strFieldValue;
+	}
+
+	/**
+	* 设置对应传入参数的String形式的字段值
+	* @param: FCode String 需要赋值的对象
+	* @param: FValue String 要赋的值
+	* @return: boolean
+	**/
+	public boolean setV(String FCode ,String FValue)
+	{
+		if( StrTool.cTrim( FCode ).equals( "" ))
+			return false;
+
+		if (FCode.equalsIgnoreCase("GrpContNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				GrpContNo = FValue.trim();
+			}
+			else
+				GrpContNo = null;
+		}
+		if (FCode.equalsIgnoreCase("PolNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PolNo = FValue.trim();
+			}
+			else
+				PolNo = null;
+		}
+		if (FCode.equalsIgnoreCase("SerialNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SerialNo = FValue.trim();
+			}
+			else
+				SerialNo = null;
+		}
+		if (FCode.equalsIgnoreCase("oldPolState"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				oldPolState = FValue.trim();
+			}
+			else
+				oldPolState = null;
+		}
+		if (FCode.equalsIgnoreCase("newPolState"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				newPolState = FValue.trim();
+			}
+			else
+				newPolState = null;
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Operator = FValue.trim();
+			}
+			else
+				Operator = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				MakeDate = fDate.getDate( FValue );
+			}
+			else
+				MakeDate = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				MakeTime = FValue.trim();
+			}
+			else
+				MakeTime = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				ModifyDate = fDate.getDate( FValue );
+			}
+			else
+				ModifyDate = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ModifyTime = FValue.trim();
+			}
+			else
+				ModifyTime = null;
+		}
+		if (FCode.equalsIgnoreCase("remark"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				remark = FValue.trim();
+			}
+			else
+				remark = null;
+		}
+		return true;
+	}
+
+	public boolean equals(Object otherObject)
+	{
+		if (this == otherObject) return true;
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		LLPolTraceSchema other = (LLPolTraceSchema)otherObject;
+		return
+			GrpContNo.equals(other.getGrpContNo())
+			&& PolNo.equals(other.getPolNo())
+			&& SerialNo.equals(other.getSerialNo())
+			&& oldPolState.equals(other.getoldPolState())
+			&& newPolState.equals(other.getnewPolState())
+			&& Operator.equals(other.getOperator())
+			&& fDate.getString(MakeDate).equals(other.getMakeDate())
+			&& MakeTime.equals(other.getMakeTime())
+			&& fDate.getString(ModifyDate).equals(other.getModifyDate())
+			&& ModifyTime.equals(other.getModifyTime())
+			&& remark.equals(other.getremark());
+	}
+
+	/**
+	* 取得Schema拥有字段的数量
+       * @return: int
+	**/
+	public int getFieldCount()
+	{
+ 		return FIELDNUM;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的索引值
+	* 如果没有对应的字段，返回-1
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldIndex(String strFieldName)
+	{
+		if( strFieldName.equals("GrpContNo") ) {
+			return 0;
+		}
+		if( strFieldName.equals("PolNo") ) {
+			return 1;
+		}
+		if( strFieldName.equals("SerialNo") ) {
+			return 2;
+		}
+		if( strFieldName.equals("oldPolState") ) {
+			return 3;
+		}
+		if( strFieldName.equals("newPolState") ) {
+			return 4;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return 5;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return 6;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return 7;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return 8;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return 9;
+		}
+		if( strFieldName.equals("remark") ) {
+			return 10;
+		}
+		return -1;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段名
+	* 如果没有对应的字段，返回""
+       * @param: nFieldIndex int
+       * @return: String
+	**/
+	public String getFieldName(int nFieldIndex)
+	{
+		String strFieldName = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldName = "GrpContNo";
+				break;
+			case 1:
+				strFieldName = "PolNo";
+				break;
+			case 2:
+				strFieldName = "SerialNo";
+				break;
+			case 3:
+				strFieldName = "oldPolState";
+				break;
+			case 4:
+				strFieldName = "newPolState";
+				break;
+			case 5:
+				strFieldName = "Operator";
+				break;
+			case 6:
+				strFieldName = "MakeDate";
+				break;
+			case 7:
+				strFieldName = "MakeTime";
+				break;
+			case 8:
+				strFieldName = "ModifyDate";
+				break;
+			case 9:
+				strFieldName = "ModifyTime";
+				break;
+			case 10:
+				strFieldName = "remark";
+				break;
+			default:
+				strFieldName = "";
+		};
+		return strFieldName;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldType(String strFieldName)
+	{
+		if( strFieldName.equals("GrpContNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PolNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SerialNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("oldPolState") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("newPolState") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("remark") ) {
+			return Schema.TYPE_STRING;
+		}
+		return Schema.TYPE_NOFOUND;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: nFieldIndex int
+       * @return: int
+	**/
+	public int getFieldType(int nFieldIndex)
+	{
+		int nFieldType = Schema.TYPE_NOFOUND;
+		switch(nFieldIndex) {
+			case 0:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 1:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 2:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 3:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 4:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 5:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 6:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 7:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 8:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 9:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 10:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			default:
+				nFieldType = Schema.TYPE_NOFOUND;
+		};
+		return nFieldType;
+	}
+}

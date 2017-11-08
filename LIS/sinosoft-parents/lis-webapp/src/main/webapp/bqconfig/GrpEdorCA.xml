@@ -1,0 +1,11 @@
+<CONFIG>
+  <Sheet1>
+  	<COL0>ID</COL0>
+    <COL1>MOContNo</COL1>          
+    <COL2>MOInsuredNo</COL2>  
+    <COL3>MIContNo</COL3> 
+    <COL4>MIInsuredNo</COL4>
+    <COL5>MoveMoney</COL5>
+    <COL6>MoveRate</COL6>
+  </Sheet1>
+</CONFIG> 

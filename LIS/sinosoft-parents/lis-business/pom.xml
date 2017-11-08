@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.sinosoft</groupId>
+		<artifactId>lis-parents</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>lis-business</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>com.f1j</groupId>
+			<artifactId>F1J9Swing</artifactId>
+			<version>${F1J9Swing.version}</version>
+			<type>jar</type>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/sino_lib/New_F1J9Swing.jar</systemPath>
+		</dependency>
+<!-- 		<dependency>
+			<groupId>com.swetake.util</groupId>
+			<artifactId>qrcode</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/sino_lib/QRCode.jar</systemPath>
+		</dependency> -->
+		
+<!-- 		<dependency>
+			<groupId>org.apache.xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/sino_lib/New_Xalan.jar</systemPath>
+		</dependency> -->
+		
+<!-- 		<dependency>
+			<groupId>sinomail</groupId>
+			<artifactId>sinomail</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/sino_lib/sinomail.jar</systemPath>
+		</dependency> -->
+	</dependencies>
+</project>

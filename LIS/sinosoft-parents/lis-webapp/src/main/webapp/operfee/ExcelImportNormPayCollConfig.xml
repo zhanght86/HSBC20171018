@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GB2312"?>
+<DataConfigdesc name="DataConfigdesc" display="">
+<Sheet name="FirstSheet" dest="0"   desc="第一Sheet" display="" >
+  <part name="FirstxqgrpPart" physicaltable="ljspayperson" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="1" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+	 <Field memo="操作员" name="PARAM3" src="select '?SYS_OPERATOR?' from dual" type="2" desc="自定义值"/>
+	 <Field memo="团单号" name="PARAM4" src="select '?SYS_GRPPOLNO?' from dual" type="2" desc="自定义值"/>
+	 <Field memo="团单合同号" name="PARAM5" src="select '?SYS_GRPCONTNO?' from dual" type="2" desc="自定义值"/>
+	 <Field memo="交费类型" name="PARAM6" src="select '?SYS_PAYTYPE?' from dual" type="2" desc="自定义值"/>
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">	
+   <Field memo="总单/合同号码" name="ContNo" src="Sheet(-1,-1,0)"  type="1"/> 
+	 <Field memo="保单号码" name="polno" src="Sheet(-1,-1,1)"  type="1"/>
+	 <Field memo="责任编码" name="DutyCode" src="Sheet(-1,-1,2)"  type="1"/>
+ 	 <Field memo="交费计划编码" name="PayPlanCode" src="Sheet(-1,-1,3)"  type="1"/>
+	 <Field memo="第几次交费" name="PayCount" src="select paytimes+1 from lcprem where polno='?polno?' and dutycode='?dutycode?' and payplancode='?payplancode?'"  type="2"/>
+	 <Field memo="集体保单号码" name="GrpPolNo" src="PARAM4"  type="3"/>
+	 <Field memo="集体保单号码" name="GrpContNo" src="PARAM5"  type="3"/>
+	 <Field memo="投保人客户号码" name="AppntNo" src="select AppntNo from lcprem where polno='?polno?' and dutycode='?dutycode?' and payplancode='?payplancode?'"  type="2"/>
+	 <Field memo="通知书号码" name="GetNoticeNo" src=""  type="0"/> 
+	 <Field memo="交费目的分类(集体下的个人交费用2)" name="PayAimClass" src="2"  type="0"/> 
+ 	 <Field memo="总应交金额" name="SumDuePayMoney" src="Sheet(-1,-1,6)"  type="1"/>
+	 <Field memo="总实交金额" name="SumActuPayMoney" src="Sheet(-1,-1,7)"  type="1"/>
+	 <Field memo="交费间隔" name="payintv" src="select payintv from lcprem where polno='?polno?' and dutycode='?dutycode?' and payplancode='?payplancode?'"  type="2"/>
+	 <Field memo="交费日期" name="PayDate" src="select TO_char(sysdate,'yyyy-mm-dd') from dual"  type="2"/>
+	 <Field memo="交费类型" name="PayType" src="PARAM6"  type="3"/>
+	 <Field memo="原交至日期" name="LastPayToDate" src="select TO_char(PaytoDate,'yyyy-mm-dd') from lcprem where polno='?polno?' and dutycode='?dutycode?' and payplancode='?payplancode?'"  type="2"/>
+	 <Field memo="现交至日期" name="CurPayToDate" src="select TO_char(sysdate,'yyyy-mm-dd') from dual"  type="2"/>
+	 <Field memo="转入保险帐户状态" name="InInsuAccState" src=""  type="0"/>
+	 <Field memo="银行编码" name="BankCode" src="select BankCode from lccont where contno in (select contno from lcpol where polno='?polno?')"  type="2"/>
+	 <Field memo="银行帐号" name="BankAccNo" src="select BankAccNo from lccont where contno in (select contno from lcpol where polno='?polno?')"  type="2"/>
+	 <Field memo="银行在途标志" name="BankOnTheWayFlag" src=""  type="0"/>
+	 <Field memo="银行转帐成功标记" name="BankSuccFlag" src=""  type="0"/>
+	 <Field memo="复核人编码" name="ApproveCode" src="select ApproveCode from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="复核日期" name="ApproveDate" src="select TO_char(ApproveDate,'yyyy-mm-dd') from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="流水号" name="SerialNo" src=""  type="0"/>
+	 <Field memo="录入标志" name="InputFlag" src="Sheet(-1,-1,8)"  type="1"/>
+	 <Field memo="操作员" name="Operator" src="PARAM3"  type="3"/>
+	 <Field memo="入机日期" name="MakeDate" src="select TO_char(sysdate,'yyyy-mm-dd') from dual"  type="2"/>
+	 <Field memo="入机时间" name="MakeTime" src="select TO_char(sysdate,'HH24:MI:SS') from dual"  type="2"/>
+	 <Field memo="最后一次修改日期" name="ModifyDate" src="select TO_char(sysdate,'yyyy-mm-dd') from dual"  type="2"/>
+	 <Field memo="最后一次修改时间" name="ModifyTime" src="select TO_char(sysdate,'HH24:MI:SS') from dual"  type="2"/>
+	 <Field memo="管理机构" name="ManageCom" src="select ManageCom from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="代理机构" name="AgentCom" src=""  type="0"/>
+	 <Field memo="代理机构内部分类" name="AgentType" src=""  type="0"/>
+	 <Field memo="险种编码" name="RiskCode" src="select RiskCode from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="代理人编码" name="AgentCode" src="select AgentCode from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="代理人组别" name="AgentGroup" src="select AgentGroup from lcpol where polno='?polno?'"  type="2"/>
+	 <Field memo="续保收费标记" name="PayTypeFlag" src=""  type="0"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+</DataConfigdesc>      
+ 

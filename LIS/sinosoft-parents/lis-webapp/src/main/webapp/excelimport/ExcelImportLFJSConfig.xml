@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312"?>
+<DataConfigdesc name="DataConfigdesc" display="">
+<Sheet name="FirstSheet" dest="0"   desc="第三Sheet" display="" >
+  <part name="FirstJSPart" physicaltable="lfactuaryxml" desc="第一Sheet中第一财务部分" display="">
+	<DataSourceSet name="" display="" >
+	 <Params memo="" desc="参数信息" display="" >
+	 <Field memo="必须起始行号" name="PARAM0" src="1" type="0" desc="自定义值为3即第四行" display=""/>
+	 <Field memo="必须终结行号" name="PARAM1" src="-1" type="0" desc="自定义值为12即第13行" display="" />
+	 <Field memo="统计类型" name="PARAM3" src="select substr('?SYS_FILENAMEPARAM?',19,1) from dual " type="2" desc="自定义值"/>
+	 <Field memo="统计年" name="PARAM4" src="select substr('?SYS_FILENAMEPARAM?',13,4) from dual" type="2" desc="自定义值"/>
+	 <Field memo="统计月" name="PARAM5" src="select substr('?SYS_FILENAMEPARAM?',17,2) from dual" type="2" desc="自定义值"/>
+     </Params>
+     <ColConfig memo="" name="OneRow" desc="取列对应信息" display="">
+	 <Field memo="机构编码" name="comcode" src="Sheet(-1,-1,0)"  type="1"/>
+	 <Field memo="科目编码" name="itemcode" src="Sheet(-1,-1,1)"  type="1"/>
+ 	 <Field memo="类型" name="reptype" src="PARAM3"  type="3"/>
+ 	 <Field memo="统计年" name="statyear" src="PARAM4"  type="3"/>
+	 <Field memo="统计月" name="statmon" src="PARAM5"  type="3"/>
+ 	 <Field memo="上级科目编码" name="upitemcode" src="SELECT UpItemCode FROM LFItemRela where ItemCode='?itemcode?'"  type="2"/>
+ 	 <Field memo="上级内部机构编码" name="parentcomcodeisc" src="select getparentcom('?comcode?') from dual"  type="2"/>
+ 	 <Field memo="层级" name="layer" src="SELECT layer FROM LFItemRela where ItemCode='?Sheet(-1,-1,1)?'" params="params(Sheet(-1,-1,1)|1)"  type="2"/>
+ 	 <Field memo="科目统计值" name="statvalue" src="Sheet(-1,-1,3)" type="1"/>
+	 <Field memo="备注" name="remark" src=" "  type="0"/>
+    </ColConfig>		
+	</DataSourceSet>	
+	<DataDestinationSet memo="" name="目标显示格式"  type="0" desc="">
+ 	 <ROW memo="第1-427行值" name="ROW0" src="ROW(0,-1)" type="1"/>	
+	</DataDestinationSet>
+  </part>
+</Sheet> 
+</DataConfigdesc>      
+ 

@@ -1,0 +1,451 @@
+<HTML xmlns:stedysoft>
+<HEAD>
+<TITLE> 流程属性页 </TITLE>
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3Tab.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3TabPage.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/genericButton/genericButton.htc"?>
+		
+<link rel="stylesheet" type="text/css" href="comp/2k3Tab/themes/blue/2k3Tab.css">
+<link href="comp/style.css" type=text/css rel=stylesheet>
+<link href="workflow.css" type=text/css rel=stylesheet>				
+<script language=jscript src="comp/function.js"></script>
+<script language=jscript src="comp/color.js"></script>
+
+<script language=jscript src="active.js"></script>
+<script language=jscript src="data.js"></script>
+ <SCRIPT src="../common/javascript/jquery-1.7.2.js"></SCRIPT> 
+<SCRIPT src="../common/javascript/Common.js" ></SCRIPT>
+<SCRIPT src="../common/javascript/MulLine.js"" ></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryCache.js"></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryVer3.js"></SCRIPT>
+<SCRIPT src="../common/cvar/CCodeOperate.js"></SCRIPT>
+
+
+<LINK href="../common/css/Project.css" rel=stylesheet type=text/css>
+
+<style>
+body {
+	background-color: buttonface;
+	scroll: no;
+	margin: 7px, 0px, 0px, 7px;
+	border: none;
+	overflow: hidden;	
+
+}
+
+stedysoft\:genericButton {
+	width: 60px;
+}
+
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+var opener=null;
+var url=null;
+var flowId=null ;
+var action=null ;
+
+function iniWindow()
+{
+   opener = window.dialogArguments;
+   url = opener.dialogURL;
+   flowId = url.indexOf('?flowid=')<0?'':url.slice(url.indexOf('?flowid=')+8,url.indexOf('&action='));
+   action = url.indexOf('&action=')<0?'':url.slice(url.indexOf('&action=')+8,url.length);
+   try
+   {
+     var FlowXML = opener.document.all.FlowXML;
+    // alert("2222:"+action);
+     
+     switch(action)
+     {
+         case 'new':   
+                       atNewFlow(FlowXML);
+                       break;
+         case 'edit':  
+                       atEditFlow(FlowXML);
+                       break;
+
+         case 'SaveAs':              
+                       atNewFlow(FlowXML);
+                       break;
+         default :  
+                      alert('打开流程属性对话框时出错！');
+                      window.close();              
+     }
+     
+   }
+   catch(e)
+   {
+     alert('打开流程属性对话框时出错！');
+	   window.close();
+   }
+}
+
+function okOnClick()
+{
+   applyOnClick();
+   window.close();
+}
+function cancelOnClick()
+{
+   window.close();
+}
+function applyOnClick()
+{
+   try
+   {
+     if(TabPage1.contentObject().document.all.flowType.value=="")
+     {
+          alert("业务类型不能为空！");
+          return;
+     }
+     if(TabPage1.contentObject().document.all.flowId.value==""||TabPage1.contentObject().document.all.flowName.value=="")
+     {
+          alert("流程编码或流程编号不能为空！");
+          return;
+     }
+	   var FlowConfig=opener.FlowConfig;
+
+    //全部初始化
+    opener.initAll();
+
+    // FlowConfig.nodeLeft      = ;    
+    // FlowConfig.nodeTop       = ;
+    // FlowConfig.lineName      = ;
+    // FlowConfig.lineCondition = ;
+    // FlowConfig.lineTime      = ; 
+     FlowConfig.colorSelect   = TabPage2.contentObject().document.all.nodeFocusedColor.value;
+     FlowConfig.colorSelLine  = TabPage2.contentObject().document.all.lineFocusedColor.value;
+     FlowConfig.colorFill     = TabPage2.contentObject().document.all.nodeFillColor.value;
+     FlowConfig.colorLine     = TabPage2.contentObject().document.all.lineStrokeColor.value;
+     FlowConfig.colorStroke   = TabPage2.contentObject().document.all.nodeStrokeColor.value;
+     FlowConfig.colorFont     = TabPage2.contentObject().document.all.nodeTextColor.value;
+     FlowConfig.colorShadow   = TabPage2.contentObject().document.all.nodeShadowColor.value;
+     FlowConfig.isShadow      = getRadioGroupValue(TabPage2.contentObject().document.all.isNodeShadow);
+     FlowConfig.nodeWeight    = TabPage2.contentObject().document.all.nodeStrokeWeight.value;
+     FlowConfig.lineWeight    = TabPage2.contentObject().document.all.lineStrokeWeight.value;
+     FlowConfig.fontSize      = TabPage2.contentObject().document.all.nodeFontSize.value ;
+     FlowConfig.fontFace      = TabPage2.contentObject().document.all.nodeFontFace.value;
+     //FlowConfig.scale         = ;    
+     FlowConfig.flowId        = TabPage1.contentObject().document.all.flowId.value ;
+     FlowConfig.flowName      = TabPage1.contentObject().document.all.flowName.value;
+     FlowConfig.flowVersion   = 0;
+     FlowConfig.flowType      = TabPage1.contentObject().document.all.flowType.value;
+
+     
+         //重新初始化
+         opener.initFlowXML();
+         opener.getChartXML();
+      
+         opener.enableButton(opener.img11);//保存
+         opener.enableButton(opener.img7);//导出
+         opener.enableButton(opener.img1);//开始
+         opener.enableButton(opener.img4);//结束
+         opener.enableButton(opener.img2);//过程
+         opener.enableButton(opener.img5);//联线 
+     //重画视图
+
+     if(action=="edit")
+     {
+         opener.document.all.chart.innerHTML='';
+         opener.document.all.miniChart.innerHTML='';
+         opener.redrawFlow();
+     }
+
+     if(action=='SaveAs')
+     {
+         opener.document.all.chart.innerHTML='';
+         opener.document.all.miniChart.innerHTML='';
+         opener.redrawFlow();   
+     }
+
+   }
+   catch(e)
+   {
+
+     alert('关闭流程属性对话框时出错！');
+   }  
+}
+function atNewFlow(FlowXML)
+{
+  var xmlDoc = new ActiveXObject('MSXML2.DOMDocument');
+  xmlDoc.async = false;
+
+  xmlDoc.loadXML(FlowXML.value);
+  var xmlRoot = xmlDoc.documentElement;
+  var flowConfig = xmlRoot.getElementsByTagName("FlowConfig").item(0);
+
+  var flowBase=flowConfig.getElementsByTagName("BaseProperties").item(0);
+  //另存
+  if(action!='SaveAs')
+  {
+     TabPage1.contentObject().document.all.flowId.value = flowBase.getAttribute("flowId");
+     TabPage1.contentObject().document.all.flowName.value = flowBase.getAttribute("flowName");
+     TabPage1.contentObject().document.all.flowVersion.value = flowBase.getAttribute("flowVersion");
+  }   
+  TabPage1.contentObject().document.all.flowType.value = flowBase.getAttribute("flowType");
+  
+  //TabPage1.contentObject().document.all.flowId.disabled=true;
+  
+  var flowVML=flowConfig.getElementsByTagName("VMLProperties").item(0);
+    
+  TabPage2.contentObject().document.all.nodeTextColor.value = flowVML.getAttribute("nodeTextColor");
+  TabPage2.contentObject().document.all.nodeFontFace.value = flowVML.getAttribute("fontFace");
+  TabPage2.contentObject().document.all.nodeFontSize.value = flowVML.getAttribute("fontSize");
+  TabPage2.contentObject().document.all.nodeStrokeColor.value = flowVML.getAttribute("nodeStrokeColor");
+  TabPage2.contentObject().document.all.nodeStrokeWeight.value = flowVML.getAttribute("nodeStrokeWeight");  
+  TabPage2.contentObject().document.all.nodeFillColor.value = flowVML.getAttribute("nodeFillColor");  
+  TabPage2.contentObject().document.all.nodeShadowColor.value = flowVML.getAttribute("nodeShadowColor");
+  TabPage2.contentObject().document.all.nodeFocusedColor.value = flowVML.getAttribute("nodeFocusedColor");
+  setRadioGroupValue(TabPage2.contentObject().document.all.isNodeShadow,flowVML.getAttribute("isNodeShadow"));
+  TabPage2.contentObject().document.all.lineStrokeColor.value = flowVML.getAttribute("lineStrokeColor");
+  TabPage2.contentObject().document.all.lineFocusedColor.value = flowVML.getAttribute("lineFocusedColor");
+  TabPage2.contentObject().document.all.lineStrokeWeight.value = flowVML.getAttribute("lineStrokeWeight");  
+  TabPage1.contentObject().document.all.flowVersion.value = "0"; 
+}
+
+function atEditFlow(FlowXML)
+{
+  var xmlDoc = new ActiveXObject('MSXML2.DOMDocument');
+  xmlDoc.async = false;
+  xmlDoc.loadXML(FlowXML.value);
+  var xmlRoot = xmlDoc.documentElement;
+  var flowConfig = xmlRoot.getElementsByTagName("FlowConfig").item(0);
+
+  var flowBase=flowConfig.getElementsByTagName("BaseProperties").item(0);
+  
+  TabPage1.contentObject().document.all.flowId.value = flowBase.getAttribute("flowId");
+  TabPage1.contentObject().document.all.flowName.value = flowBase.getAttribute("flowName");
+  TabPage1.contentObject().document.all.flowType.value = flowBase.getAttribute("flowType");
+  TabPage1.contentObject().document.all.flowVersion.value = flowBase.getAttribute("flowVersion");
+  TabPage1.contentObject().document.all.flowId.disabled=true;
+  
+  var flowVML=flowConfig.getElementsByTagName("VMLProperties").item(0);
+    
+  TabPage2.contentObject().document.all.nodeTextColor.value = flowVML.getAttribute("nodeTextColor");
+  TabPage2.contentObject().document.all.nodeFontFace.value = flowVML.getAttribute("fontFace");
+  TabPage2.contentObject().document.all.nodeFontSize.value = flowVML.getAttribute("fontSize");
+  TabPage2.contentObject().document.all.nodeStrokeColor.value = flowVML.getAttribute("nodeStrokeColor");
+  TabPage2.contentObject().document.all.nodeStrokeWeight.value = flowVML.getAttribute("nodeStrokeWeight");  
+  TabPage2.contentObject().document.all.nodeFillColor.value = flowVML.getAttribute("nodeFillColor");  
+  TabPage2.contentObject().document.all.nodeShadowColor.value = flowVML.getAttribute("nodeShadowColor");
+  TabPage2.contentObject().document.all.nodeFocusedColor.value = flowVML.getAttribute("nodeFocusedColor");
+  setRadioGroupValue(TabPage2.contentObject().document.all.isNodeShadow,flowVML.getAttribute("isNodeShadow"));
+  
+  TabPage2.contentObject().document.all.lineStrokeColor.value = flowVML.getAttribute("lineStrokeColor");
+  TabPage2.contentObject().document.all.lineFocusedColor.value = flowVML.getAttribute("lineFocusedColor");
+  TabPage2.contentObject().document.all.lineStrokeWeight.value = flowVML.getAttribute("lineStrokeWeight");  
+  
+}
+
+//-->
+</SCRIPT> 
+</HEAD>
+
+<BODY onload='iniWindow();intocolor()' onunload=''>
+
+<stedysoft:2k3Tab id="myTab" selectedIndex="0">
+  <stedysoft:2k3TabButton tabText="基本属性" tabPage="TabPage1" />
+  <stedysoft:2k3TabButton tabText="图表属性" tabPage="TabPage2" />
+  <stedysoft:2k3TabButton tabText="工作流属性" tabPage="TabPage3" />
+</stedysoft:2k3Tab>	
+<stedysoft:2k3TabPage id="TabPage1" style="width:354px;height:367px;">
+<TABLE border=0 width="100%" height="100%">
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;基本属性&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">	
+	<TR valign=top>
+		<TD></TD>
+		<TD>业务类型&nbsp;&nbsp;<Input style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 80px;"  name="flowType"  ondblclick="return showCodeList('busitype',[this,flowTypeName],[0,1]);" onkeyup="return showCodeList('busitype',[this,flowTypeName],[0,1]);" ><input name=flowTypeName style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;" readonly=true></TD>
+		<TD></TD>
+	</TR>			
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>流程编号&nbsp;&nbsp;<INPUT TYPE="text" name="flowId" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/character_map.gif" onclick="getFlowId()"><SPAN id="ActionTip"></SPAN></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>流程版本&nbsp;&nbsp;<INPUT TYPE="text" name="flowVersion" value="0" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>流程名称&nbsp;&nbsp;<INPUT TYPE="text" NAME="flowName" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>	
+	<TR height="3">
+		<TD></TD>
+		<TD></TD>
+		<TD></TD>
+	</TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+<TR height="100%">
+	<TD></TD><TD></TD><TD></TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage> 
+<stedysoft:2k3TabPage id="TabPage2" style="width:354px;height:367px;">
+<div id="colorpanel" style="position:absolute;display:none;width:253px;height:177px;z-index:999;"></div>
+<TABLE border=0 width="100%" height="100%">
+
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;节点默认样式&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">		
+	<TR valign=top>
+		<TD></TD>
+		<TD>文本色&nbsp;&nbsp;<INPUT TYPE="text" NAME="nodeTextColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('nodeTextColor')"></TD>
+		<TD></TD>
+  </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>文本字体&nbsp;&nbsp;								
+		          <select name="nodeFontFace" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;z-index:20;">
+									    <option value="宋体">宋体</option>
+									    <option value="仿宋_GB2312">仿宋_GB2312</option>
+									    <option value="黑体">黑体</option>
+									    <option value="隶书">隶书</option>
+    									<option value="Arial Black">Arial Black</option>
+    									<option value="Arial Narrow">Arial Narrow </option>
+    									<option value="Courier New">Courier New </option>
+    									<option value="Fixedsys">Fixedsys </option>
+    									<option value="MS Sans Serif">MS Sans Serif </option>
+    									<option value="System">System </option>
+    									<option value="Times New Roman">Times New Roman </option>
+    									<option value="Verdana">Verdana </option>
+    									<option value="Wingdings">Wingdings</option>
+								</select>
+    </TD>
+		<TD></TD>
+  </TR>  
+	<TR valign=top>
+		<TD></TD>
+		<TD>文本大小&nbsp;&nbsp;								
+								<select name=nodeFontSize style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;">
+									<option value="1pt">1</option>
+									<option value="2pt">2</option>
+									<option value="3pt">3</option>
+									<option value="4pt">4</option>
+									<option value="5pt">5</option>
+									<option value="6pt">6</option>
+									<option value="7pt">7</option>
+									<option value="8pt">8</option>
+									<option value="9pt">9</option>
+									<option value="10pt">10</option>
+									<option value="11pt">11</option>
+									<option value="12pt">12</option>
+									<option value="13pt">13</option>
+									<option value="14pt">14</option>
+									<option value="15pt">15</option>
+									<option value="16pt">16</option>
+								</select>
+    </TD>
+		<TD></TD>
+  </TR>    
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>边框色&nbsp;&nbsp;<INPUT TYPE="text" NAME="nodeStrokeColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('nodeStrokeColor')"></TD>
+		<TD></TD>
+	</TR>	
+	<TR valign=top>
+		<TD></TD>
+		<TD>边框粗细&nbsp;&nbsp;								
+								<select name="nodeStrokeWeight" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;">
+									<option value="1pt">1</option>
+									<option value="2pt">2</option>
+									<option value="3pt">3</option>
+									<option value="4pt">4</option>
+								</select>
+    </TD>
+		<TD></TD>
+  </TR>    	
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>填充色&nbsp;&nbsp;<INPUT TYPE="text" NAME="nodeFillColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('nodeFillColor')"></TD>
+		<TD></TD>
+	</TR>	
+	<TR valign=top>
+		<TD></TD>
+		<TD>有无阴影&nbsp;&nbsp;<FONT style="font-size:10pt;" COLOR="#919CD0"><INPUT TYPE="radio" NAME="isNodeShadow" value="T" checked>有阴影&nbsp;<INPUT TYPE="radio" NAME="isNodeShadow" value="F">无阴影&nbsp;</FONT></TD>
+		<TD></TD>
+    </TR>	
+	<TR valign=top>
+		<TD></TD>
+		<TD>阴影色&nbsp;&nbsp;<INPUT TYPE="text" NAME="nodeShadowColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('nodeShadowColor')"></TD>
+		<TD></TD>
+    </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>选中色&nbsp;&nbsp;<INPUT TYPE="text" NAME="nodeFocusedColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('nodeFocusedColor')"></TD>
+		<TD></TD>
+    </TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;流向默认样式&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">		
+	<TR valign=top>
+		<TD></TD>
+		<TD>线段色&nbsp;&nbsp;<INPUT TYPE="text" NAME="lineStrokeColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('lineStrokeColor')"></TD>
+		<TD></TD>
+  </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>选中色&nbsp;&nbsp;<INPUT TYPE="text" NAME="lineFocusedColor" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"><img src="images/fg_color.gif" onclick="ColorClick('lineFocusedColor')"></TD>
+		<TD></TD>
+  </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>线粗细&nbsp;&nbsp;								
+								<select name="lineStrokeWeight">
+									<option value="1pt">1</option>
+									<option value="2pt">2</option>
+									<option value="3pt">3</option>
+									<option value="4pt">4</option>
+								</select>
+    </TD>
+		<TD></TD>
+  </TR>    	  
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage> 
+<stedysoft:2k3TabPage id="TabPage3" style="width:354px;height:367px;">
+<TABLE border=0 width="100%" height="100%">
+<TR height="100%">
+	<TD></TD><TD></TD><TD></TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage>
+<table cellspacing="1" cellpadding="0" border="0" style="position: absolute; top: 400px; left: 0px;">
+	<tr>
+		<td width="100%"></td>
+		<td><stedysoft:genericButton id="btnOk" text="确定" onclick="jscript: okOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnCancel" text="取消" onclick="jscript: cancelOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnApply" text="应用" onclick="jscript: applyOnClick();" enabled=true /></td>
+	</tr>
+</table> 
+	<span id="spanCode"  style="display: none;z-index:1000; position:absolute; slategray"></span>
+</BODY>
+</HTML>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<License xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Company>中科软开发者专用授权许可</Company>
+  <CompanyURL>http://www.sinosoft.com.cn/</CompanyURL>
+  <LicenseDate>2015-11-11T00:00:00</LicenseDate>
+  <DeadlineDate>2017-03-30T23:59:59</DeadlineDate>
+  <ProductNames>EasyScan.Main.dll,EasyView.Main.dll</ProductNames>
+  <EditionName>Standard</EditionName>
+  <SerialNumber>pLXj3N9CcuzYB7nuETOS/ucMN0VdpgRvXeinAJ0WQfg=</SerialNumber>
+  <Signature>8FE62F5E6E4E1ABF76D8E2EE4A753A46</Signature>
+</License>

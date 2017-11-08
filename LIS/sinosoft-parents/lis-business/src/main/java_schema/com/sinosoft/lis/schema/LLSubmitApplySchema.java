@@ -1,0 +1,1511 @@
+/**
+ * Copyright (c) 2002 sinosoft  Co. Ltd.
+ * All right reserved.
+ */
+
+package com.sinosoft.lis.schema;
+import org.apache.log4j.Logger;
+
+import java.sql.*;
+import java.io.*;
+import java.util.Date;
+import com.sinosoft.lis.pubfun.FDate;
+import com.sinosoft.utility.*;
+import com.sinosoft.lis.db.LLSubmitApplyDB;
+
+/*
+ * <p>ClassName: LLSubmitApplySchema </p>
+ * <p>Description: DB层 Schema 类文件 </p>
+ * <p>Copyright: Copyright (c) 2007</p>
+ * <p>Company: sinosoft </p>
+ * @Database: 理赔管理
+ */
+public class LLSubmitApplySchema implements Schema, Cloneable
+{
+private static Logger logger = Logger.getLogger(LLSubmitApplySchema.class);
+
+	// @Field
+	/** 赔案号 */
+	private String ClmNo;
+	/** 呈报序号 */
+	private String SubNo;
+	/** 呈报次数 */
+	private String SubCount;
+	/** 出险人客户号 */
+	private String CustomerNo;
+	/** 出险人名称 */
+	private String CustomerName;
+	/** Vip客户 */
+	private String VIPFlag;
+	/** 提起阶段 */
+	private String InitPhase;
+	/** 呈报类型 */
+	private String SubType;
+	/** 呈报原因 */
+	private String SubRCode;
+	/** 呈报描述 */
+	private String SubDesc;
+	/** 呈报人 */
+	private String SubPer;
+	/** 呈报日期 */
+	private Date SubDate;
+	/** 呈报机构 */
+	private String SubDept;
+	/** 呈报状态 */
+	private String SubState;
+	/** 承接机构代码 */
+	private String DispDept;
+	/** 承接人员编号 */
+	private String DispPer;
+	/** 处理日期 */
+	private Date DispDate;
+	/** 处理类型 */
+	private String DispType;
+	/** 处理意见 */
+	private String DispIdea;
+	/** 操作员 */
+	private String Operator;
+	/** 入机日期 */
+	private Date MakeDate;
+	/** 入机时间 */
+	private String MakeTime;
+	/** 最后一次修改日期 */
+	private Date ModifyDate;
+	/** 最后一次修改时间 */
+	private String ModifyTime;
+	/** 备注 */
+	private String Remark;
+
+	public static final int FIELDNUM = 25;	// 数据库表的字段个数
+
+	private static String[] PK;				// 主键
+
+	private FDate fDate = new FDate();		// 处理日期
+
+	public CErrors mErrors;			// 错误信息
+
+	// @Constructor
+	public LLSubmitApplySchema()
+	{
+		mErrors = new CErrors();
+
+		String[] pk = new String[3];
+		pk[0] = "ClmNo";
+		pk[1] = "SubNo";
+		pk[2] = "SubCount";
+
+		PK = pk;
+	}
+
+	/**
+	* Schema克隆
+	* @return Object
+	* @throws CloneNotSupportedException
+	*/
+	public Object clone()
+		throws CloneNotSupportedException
+	{
+		LLSubmitApplySchema cloned = (LLSubmitApplySchema)super.clone();
+		cloned.fDate = (FDate) fDate.clone();
+		cloned.mErrors = (CErrors) mErrors.clone();
+		return cloned;
+	}
+
+	// @Method
+	public String[] getPK()
+	{
+		return PK;
+	}
+
+	public String getClmNo()
+	{
+		return ClmNo;
+	}
+	public void setClmNo(String aClmNo)
+	{
+		ClmNo = aClmNo;
+	}
+	public String getSubNo()
+	{
+		return SubNo;
+	}
+	public void setSubNo(String aSubNo)
+	{
+		SubNo = aSubNo;
+	}
+	public String getSubCount()
+	{
+		return SubCount;
+	}
+	public void setSubCount(String aSubCount)
+	{
+		SubCount = aSubCount;
+	}
+	public String getCustomerNo()
+	{
+		return CustomerNo;
+	}
+	public void setCustomerNo(String aCustomerNo)
+	{
+		CustomerNo = aCustomerNo;
+	}
+	public String getCustomerName()
+	{
+		return CustomerName;
+	}
+	public void setCustomerName(String aCustomerName)
+	{
+		CustomerName = aCustomerName;
+	}
+	public String getVIPFlag()
+	{
+		return VIPFlag;
+	}
+	public void setVIPFlag(String aVIPFlag)
+	{
+		VIPFlag = aVIPFlag;
+	}
+	/**
+	* 10报案<p>
+	* 30审核
+	*/
+	public String getInitPhase()
+	{
+		return InitPhase;
+	}
+	public void setInitPhase(String aInitPhase)
+	{
+		InitPhase = aInitPhase;
+	}
+	/**
+	* 0中心到分公司<p>
+	* 1分公司到总公司<p>
+	* 2总公司到分公司
+	*/
+	public String getSubType()
+	{
+		return SubType;
+	}
+	public void setSubType(String aSubType)
+	{
+		SubType = aSubType;
+	}
+	public String getSubRCode()
+	{
+		return SubRCode;
+	}
+	public void setSubRCode(String aSubRCode)
+	{
+		SubRCode = aSubRCode;
+	}
+	/**
+	* 是否是本地调查
+	*/
+	public String getSubDesc()
+	{
+		return SubDesc;
+	}
+	public void setSubDesc(String aSubDesc)
+	{
+		SubDesc = aSubDesc;
+	}
+	public String getSubPer()
+	{
+		return SubPer;
+	}
+	public void setSubPer(String aSubPer)
+	{
+		SubPer = aSubPer;
+	}
+	public String getSubDate()
+	{
+		if( SubDate != null )
+			return fDate.getString(SubDate);
+		else
+			return null;
+	}
+	public void setSubDate(Date aSubDate)
+	{
+		SubDate = aSubDate;
+	}
+	public void setSubDate(String aSubDate)
+	{
+		if (aSubDate != null && !aSubDate.equals("") )
+		{
+			SubDate = fDate.getDate( aSubDate );
+		}
+		else
+			SubDate = null;
+	}
+
+	public String getSubDept()
+	{
+		return SubDept;
+	}
+	public void setSubDept(String aSubDept)
+	{
+		SubDept = aSubDept;
+	}
+	/**
+	* 0申请<p>
+	* 1完成
+	*/
+	public String getSubState()
+	{
+		return SubState;
+	}
+	public void setSubState(String aSubState)
+	{
+		SubState = aSubState;
+	}
+	public String getDispDept()
+	{
+		return DispDept;
+	}
+	public void setDispDept(String aDispDept)
+	{
+		DispDept = aDispDept;
+	}
+	public String getDispPer()
+	{
+		return DispPer;
+	}
+	public void setDispPer(String aDispPer)
+	{
+		DispPer = aDispPer;
+	}
+	public String getDispDate()
+	{
+		if( DispDate != null )
+			return fDate.getString(DispDate);
+		else
+			return null;
+	}
+	public void setDispDate(Date aDispDate)
+	{
+		DispDate = aDispDate;
+	}
+	public void setDispDate(String aDispDate)
+	{
+		if (aDispDate != null && !aDispDate.equals("") )
+		{
+			DispDate = fDate.getDate( aDispDate );
+		}
+		else
+			DispDate = null;
+	}
+
+	/**
+	* 2给出呈报处理意见<p>
+	* 0提起调查<p>
+	* 1呈报总公司
+	*/
+	public String getDispType()
+	{
+		return DispType;
+	}
+	public void setDispType(String aDispType)
+	{
+		DispType = aDispType;
+	}
+	public String getDispIdea()
+	{
+		return DispIdea;
+	}
+	public void setDispIdea(String aDispIdea)
+	{
+		DispIdea = aDispIdea;
+	}
+	public String getOperator()
+	{
+		return Operator;
+	}
+	public void setOperator(String aOperator)
+	{
+		Operator = aOperator;
+	}
+	public String getMakeDate()
+	{
+		if( MakeDate != null )
+			return fDate.getString(MakeDate);
+		else
+			return null;
+	}
+	public void setMakeDate(Date aMakeDate)
+	{
+		MakeDate = aMakeDate;
+	}
+	public void setMakeDate(String aMakeDate)
+	{
+		if (aMakeDate != null && !aMakeDate.equals("") )
+		{
+			MakeDate = fDate.getDate( aMakeDate );
+		}
+		else
+			MakeDate = null;
+	}
+
+	public String getMakeTime()
+	{
+		return MakeTime;
+	}
+	public void setMakeTime(String aMakeTime)
+	{
+		MakeTime = aMakeTime;
+	}
+	public String getModifyDate()
+	{
+		if( ModifyDate != null )
+			return fDate.getString(ModifyDate);
+		else
+			return null;
+	}
+	public void setModifyDate(Date aModifyDate)
+	{
+		ModifyDate = aModifyDate;
+	}
+	public void setModifyDate(String aModifyDate)
+	{
+		if (aModifyDate != null && !aModifyDate.equals("") )
+		{
+			ModifyDate = fDate.getDate( aModifyDate );
+		}
+		else
+			ModifyDate = null;
+	}
+
+	public String getModifyTime()
+	{
+		return ModifyTime;
+	}
+	public void setModifyTime(String aModifyTime)
+	{
+		ModifyTime = aModifyTime;
+	}
+	public String getRemark()
+	{
+		return Remark;
+	}
+	public void setRemark(String aRemark)
+	{
+		Remark = aRemark;
+	}
+
+	/**
+	* 使用另外一个 LLSubmitApplySchema 对象给 Schema 赋值
+	* @param: aLLSubmitApplySchema LLSubmitApplySchema
+	**/
+	public void setSchema(LLSubmitApplySchema aLLSubmitApplySchema)
+	{
+		this.ClmNo = aLLSubmitApplySchema.getClmNo();
+		this.SubNo = aLLSubmitApplySchema.getSubNo();
+		this.SubCount = aLLSubmitApplySchema.getSubCount();
+		this.CustomerNo = aLLSubmitApplySchema.getCustomerNo();
+		this.CustomerName = aLLSubmitApplySchema.getCustomerName();
+		this.VIPFlag = aLLSubmitApplySchema.getVIPFlag();
+		this.InitPhase = aLLSubmitApplySchema.getInitPhase();
+		this.SubType = aLLSubmitApplySchema.getSubType();
+		this.SubRCode = aLLSubmitApplySchema.getSubRCode();
+		this.SubDesc = aLLSubmitApplySchema.getSubDesc();
+		this.SubPer = aLLSubmitApplySchema.getSubPer();
+		this.SubDate = fDate.getDate( aLLSubmitApplySchema.getSubDate());
+		this.SubDept = aLLSubmitApplySchema.getSubDept();
+		this.SubState = aLLSubmitApplySchema.getSubState();
+		this.DispDept = aLLSubmitApplySchema.getDispDept();
+		this.DispPer = aLLSubmitApplySchema.getDispPer();
+		this.DispDate = fDate.getDate( aLLSubmitApplySchema.getDispDate());
+		this.DispType = aLLSubmitApplySchema.getDispType();
+		this.DispIdea = aLLSubmitApplySchema.getDispIdea();
+		this.Operator = aLLSubmitApplySchema.getOperator();
+		this.MakeDate = fDate.getDate( aLLSubmitApplySchema.getMakeDate());
+		this.MakeTime = aLLSubmitApplySchema.getMakeTime();
+		this.ModifyDate = fDate.getDate( aLLSubmitApplySchema.getModifyDate());
+		this.ModifyTime = aLLSubmitApplySchema.getModifyTime();
+		this.Remark = aLLSubmitApplySchema.getRemark();
+	}
+
+	/**
+	* 使用 ResultSet 中的第 i 行给 Schema 赋值
+	* @param: rs ResultSet
+	* @param: i int
+	* @return: boolean
+	**/
+	public boolean setSchema(ResultSet rs,int i)
+	{
+		try
+		{
+			//rs.absolute(i);		// 非滚动游标
+			if( rs.getString("ClmNo") == null )
+				this.ClmNo = null;
+			else
+				this.ClmNo = rs.getString("ClmNo").trim();
+
+			if( rs.getString("SubNo") == null )
+				this.SubNo = null;
+			else
+				this.SubNo = rs.getString("SubNo").trim();
+
+			if( rs.getString("SubCount") == null )
+				this.SubCount = null;
+			else
+				this.SubCount = rs.getString("SubCount").trim();
+
+			if( rs.getString("CustomerNo") == null )
+				this.CustomerNo = null;
+			else
+				this.CustomerNo = rs.getString("CustomerNo").trim();
+
+			if( rs.getString("CustomerName") == null )
+				this.CustomerName = null;
+			else
+				this.CustomerName = rs.getString("CustomerName").trim();
+
+			if( rs.getString("VIPFlag") == null )
+				this.VIPFlag = null;
+			else
+				this.VIPFlag = rs.getString("VIPFlag").trim();
+
+			if( rs.getString("InitPhase") == null )
+				this.InitPhase = null;
+			else
+				this.InitPhase = rs.getString("InitPhase").trim();
+
+			if( rs.getString("SubType") == null )
+				this.SubType = null;
+			else
+				this.SubType = rs.getString("SubType").trim();
+
+			if( rs.getString("SubRCode") == null )
+				this.SubRCode = null;
+			else
+				this.SubRCode = rs.getString("SubRCode").trim();
+
+			if( rs.getString("SubDesc") == null )
+				this.SubDesc = null;
+			else
+				this.SubDesc = rs.getString("SubDesc").trim();
+
+			if( rs.getString("SubPer") == null )
+				this.SubPer = null;
+			else
+				this.SubPer = rs.getString("SubPer").trim();
+
+			this.SubDate = rs.getDate("SubDate");
+			if( rs.getString("SubDept") == null )
+				this.SubDept = null;
+			else
+				this.SubDept = rs.getString("SubDept").trim();
+
+			if( rs.getString("SubState") == null )
+				this.SubState = null;
+			else
+				this.SubState = rs.getString("SubState").trim();
+
+			if( rs.getString("DispDept") == null )
+				this.DispDept = null;
+			else
+				this.DispDept = rs.getString("DispDept").trim();
+
+			if( rs.getString("DispPer") == null )
+				this.DispPer = null;
+			else
+				this.DispPer = rs.getString("DispPer").trim();
+
+			this.DispDate = rs.getDate("DispDate");
+			if( rs.getString("DispType") == null )
+				this.DispType = null;
+			else
+				this.DispType = rs.getString("DispType").trim();
+
+			if( rs.getString("DispIdea") == null )
+				this.DispIdea = null;
+			else
+				this.DispIdea = rs.getString("DispIdea").trim();
+
+			if( rs.getString("Operator") == null )
+				this.Operator = null;
+			else
+				this.Operator = rs.getString("Operator").trim();
+
+			this.MakeDate = rs.getDate("MakeDate");
+			if( rs.getString("MakeTime") == null )
+				this.MakeTime = null;
+			else
+				this.MakeTime = rs.getString("MakeTime").trim();
+
+			this.ModifyDate = rs.getDate("ModifyDate");
+			if( rs.getString("ModifyTime") == null )
+				this.ModifyTime = null;
+			else
+				this.ModifyTime = rs.getString("ModifyTime").trim();
+
+			if( rs.getString("Remark") == null )
+				this.Remark = null;
+			else
+				this.Remark = rs.getString("Remark").trim();
+
+		}
+		catch(SQLException sqle)
+		{
+			logger.debug("数据库中的LLSubmitApply表字段个数和Schema中的字段个数不一致，或者执行db.executeQuery查询时没有使用select * from tables");
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LLSubmitApplySchema";
+			tError.functionName = "setSchema";
+			tError.errorMessage = sqle.toString();
+			this.mErrors .addOneError(tError);
+			return false;
+		}
+		return true;
+	}
+
+	public LLSubmitApplySchema getSchema()
+	{
+		LLSubmitApplySchema aLLSubmitApplySchema = new LLSubmitApplySchema();
+		aLLSubmitApplySchema.setSchema(this);
+		return aLLSubmitApplySchema;
+	}
+
+	public LLSubmitApplyDB getDB()
+	{
+		LLSubmitApplyDB aDBOper = new LLSubmitApplyDB();
+		aDBOper.setSchema(this);
+		return aDBOper;
+	}
+
+
+	/**
+	* 数据打包，按 XML 格式打包，顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLLSubmitApply描述/A>表字段
+	* @return: String 返回打包后字符串
+	**/
+	public String encode()
+	{
+		StringBuffer strReturn = new StringBuffer(256);
+		strReturn.append(StrTool.cTrim(ClmNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubCount)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(CustomerNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(CustomerName)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(VIPFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(InitPhase)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubType)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubRCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubDesc)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubPer)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( SubDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubDept)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SubState)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DispDept)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DispPer)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( DispDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DispType)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DispIdea)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(Operator)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( MakeDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(MakeTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( ModifyDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ModifyTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(Remark));
+		return strReturn.toString();
+	}
+
+	/**
+	* 数据解包，解包顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLLSubmitApply>历史记账凭证主表信息</A>表字段
+	* @param: strMessage String 包含一条纪录数据的字符串
+	* @return: boolean
+	**/
+	public boolean decode(String strMessage)
+	{
+		try
+		{
+			ClmNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 1, SysConst.PACKAGESPILTER );
+			SubNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 2, SysConst.PACKAGESPILTER );
+			SubCount = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 3, SysConst.PACKAGESPILTER );
+			CustomerNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 4, SysConst.PACKAGESPILTER );
+			CustomerName = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 5, SysConst.PACKAGESPILTER );
+			VIPFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 6, SysConst.PACKAGESPILTER );
+			InitPhase = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 7, SysConst.PACKAGESPILTER );
+			SubType = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 8, SysConst.PACKAGESPILTER );
+			SubRCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 9, SysConst.PACKAGESPILTER );
+			SubDesc = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 10, SysConst.PACKAGESPILTER );
+			SubPer = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 11, SysConst.PACKAGESPILTER );
+			SubDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 12,SysConst.PACKAGESPILTER));
+			SubDept = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 13, SysConst.PACKAGESPILTER );
+			SubState = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 14, SysConst.PACKAGESPILTER );
+			DispDept = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 15, SysConst.PACKAGESPILTER );
+			DispPer = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 16, SysConst.PACKAGESPILTER );
+			DispDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 17,SysConst.PACKAGESPILTER));
+			DispType = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 18, SysConst.PACKAGESPILTER );
+			DispIdea = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 19, SysConst.PACKAGESPILTER );
+			Operator = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 20, SysConst.PACKAGESPILTER );
+			MakeDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 21,SysConst.PACKAGESPILTER));
+			MakeTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 22, SysConst.PACKAGESPILTER );
+			ModifyDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 23,SysConst.PACKAGESPILTER));
+			ModifyTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 24, SysConst.PACKAGESPILTER );
+			Remark = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 25, SysConst.PACKAGESPILTER );
+		}
+		catch(NumberFormatException ex)
+		{
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LLSubmitApplySchema";
+			tError.functionName = "decode";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	* 取得对应传入参数的String形式的字段值
+	* @param: FCode String 希望取得的字段名
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(String FCode)
+	{
+		String strReturn = "";
+		if (FCode.equalsIgnoreCase("ClmNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ClmNo));
+		}
+		if (FCode.equalsIgnoreCase("SubNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubNo));
+		}
+		if (FCode.equalsIgnoreCase("SubCount"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubCount));
+		}
+		if (FCode.equalsIgnoreCase("CustomerNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(CustomerNo));
+		}
+		if (FCode.equalsIgnoreCase("CustomerName"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(CustomerName));
+		}
+		if (FCode.equalsIgnoreCase("VIPFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(VIPFlag));
+		}
+		if (FCode.equalsIgnoreCase("InitPhase"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(InitPhase));
+		}
+		if (FCode.equalsIgnoreCase("SubType"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubType));
+		}
+		if (FCode.equalsIgnoreCase("SubRCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubRCode));
+		}
+		if (FCode.equalsIgnoreCase("SubDesc"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubDesc));
+		}
+		if (FCode.equalsIgnoreCase("SubPer"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubPer));
+		}
+		if (FCode.equalsIgnoreCase("SubDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getSubDate()));
+		}
+		if (FCode.equalsIgnoreCase("SubDept"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubDept));
+		}
+		if (FCode.equalsIgnoreCase("SubState"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SubState));
+		}
+		if (FCode.equalsIgnoreCase("DispDept"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DispDept));
+		}
+		if (FCode.equalsIgnoreCase("DispPer"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DispPer));
+		}
+		if (FCode.equalsIgnoreCase("DispDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getDispDate()));
+		}
+		if (FCode.equalsIgnoreCase("DispType"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DispType));
+		}
+		if (FCode.equalsIgnoreCase("DispIdea"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DispIdea));
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Operator));
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(MakeTime));
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ModifyTime));
+		}
+		if (FCode.equalsIgnoreCase("Remark"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Remark));
+		}
+		if (strReturn.equals(""))
+		{
+			strReturn = "null";
+		}
+
+		return strReturn;
+	}
+
+
+	/**
+	* 取得Schema中指定索引值所对应的字段值
+	* @param: nFieldIndex int 指定的字段索引值
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(int nFieldIndex)
+	{
+		String strFieldValue = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldValue = StrTool.GBKToUnicode(ClmNo);
+				break;
+			case 1:
+				strFieldValue = StrTool.GBKToUnicode(SubNo);
+				break;
+			case 2:
+				strFieldValue = StrTool.GBKToUnicode(SubCount);
+				break;
+			case 3:
+				strFieldValue = StrTool.GBKToUnicode(CustomerNo);
+				break;
+			case 4:
+				strFieldValue = StrTool.GBKToUnicode(CustomerName);
+				break;
+			case 5:
+				strFieldValue = StrTool.GBKToUnicode(VIPFlag);
+				break;
+			case 6:
+				strFieldValue = StrTool.GBKToUnicode(InitPhase);
+				break;
+			case 7:
+				strFieldValue = StrTool.GBKToUnicode(SubType);
+				break;
+			case 8:
+				strFieldValue = StrTool.GBKToUnicode(SubRCode);
+				break;
+			case 9:
+				strFieldValue = StrTool.GBKToUnicode(SubDesc);
+				break;
+			case 10:
+				strFieldValue = StrTool.GBKToUnicode(SubPer);
+				break;
+			case 11:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getSubDate()));
+				break;
+			case 12:
+				strFieldValue = StrTool.GBKToUnicode(SubDept);
+				break;
+			case 13:
+				strFieldValue = StrTool.GBKToUnicode(SubState);
+				break;
+			case 14:
+				strFieldValue = StrTool.GBKToUnicode(DispDept);
+				break;
+			case 15:
+				strFieldValue = StrTool.GBKToUnicode(DispPer);
+				break;
+			case 16:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getDispDate()));
+				break;
+			case 17:
+				strFieldValue = StrTool.GBKToUnicode(DispType);
+				break;
+			case 18:
+				strFieldValue = StrTool.GBKToUnicode(DispIdea);
+				break;
+			case 19:
+				strFieldValue = StrTool.GBKToUnicode(Operator);
+				break;
+			case 20:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+				break;
+			case 21:
+				strFieldValue = StrTool.GBKToUnicode(MakeTime);
+				break;
+			case 22:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+				break;
+			case 23:
+				strFieldValue = StrTool.GBKToUnicode(ModifyTime);
+				break;
+			case 24:
+				strFieldValue = StrTool.GBKToUnicode(Remark);
+				break;
+			default:
+				strFieldValue = "";
+		};
+		if( strFieldValue.equals("") ) {
+			strFieldValue = "null";
+		}
+		return strFieldValue;
+	}
+
+	/**
+	* 设置对应传入参数的String形式的字段值
+	* @param: FCode String 需要赋值的对象
+	* @param: FValue String 要赋的值
+	* @return: boolean
+	**/
+	public boolean setV(String FCode ,String FValue)
+	{
+		if( StrTool.cTrim( FCode ).equals( "" ))
+			return false;
+
+		if (FCode.equalsIgnoreCase("ClmNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ClmNo = FValue.trim();
+			}
+			else
+				ClmNo = null;
+		}
+		if (FCode.equalsIgnoreCase("SubNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubNo = FValue.trim();
+			}
+			else
+				SubNo = null;
+		}
+		if (FCode.equalsIgnoreCase("SubCount"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubCount = FValue.trim();
+			}
+			else
+				SubCount = null;
+		}
+		if (FCode.equalsIgnoreCase("CustomerNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				CustomerNo = FValue.trim();
+			}
+			else
+				CustomerNo = null;
+		}
+		if (FCode.equalsIgnoreCase("CustomerName"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				CustomerName = FValue.trim();
+			}
+			else
+				CustomerName = null;
+		}
+		if (FCode.equalsIgnoreCase("VIPFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				VIPFlag = FValue.trim();
+			}
+			else
+				VIPFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("InitPhase"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				InitPhase = FValue.trim();
+			}
+			else
+				InitPhase = null;
+		}
+		if (FCode.equalsIgnoreCase("SubType"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubType = FValue.trim();
+			}
+			else
+				SubType = null;
+		}
+		if (FCode.equalsIgnoreCase("SubRCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubRCode = FValue.trim();
+			}
+			else
+				SubRCode = null;
+		}
+		if (FCode.equalsIgnoreCase("SubDesc"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubDesc = FValue.trim();
+			}
+			else
+				SubDesc = null;
+		}
+		if (FCode.equalsIgnoreCase("SubPer"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubPer = FValue.trim();
+			}
+			else
+				SubPer = null;
+		}
+		if (FCode.equalsIgnoreCase("SubDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				SubDate = fDate.getDate( FValue );
+			}
+			else
+				SubDate = null;
+		}
+		if (FCode.equalsIgnoreCase("SubDept"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubDept = FValue.trim();
+			}
+			else
+				SubDept = null;
+		}
+		if (FCode.equalsIgnoreCase("SubState"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SubState = FValue.trim();
+			}
+			else
+				SubState = null;
+		}
+		if (FCode.equalsIgnoreCase("DispDept"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DispDept = FValue.trim();
+			}
+			else
+				DispDept = null;
+		}
+		if (FCode.equalsIgnoreCase("DispPer"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DispPer = FValue.trim();
+			}
+			else
+				DispPer = null;
+		}
+		if (FCode.equalsIgnoreCase("DispDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				DispDate = fDate.getDate( FValue );
+			}
+			else
+				DispDate = null;
+		}
+		if (FCode.equalsIgnoreCase("DispType"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DispType = FValue.trim();
+			}
+			else
+				DispType = null;
+		}
+		if (FCode.equalsIgnoreCase("DispIdea"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DispIdea = FValue.trim();
+			}
+			else
+				DispIdea = null;
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Operator = FValue.trim();
+			}
+			else
+				Operator = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				MakeDate = fDate.getDate( FValue );
+			}
+			else
+				MakeDate = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				MakeTime = FValue.trim();
+			}
+			else
+				MakeTime = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				ModifyDate = fDate.getDate( FValue );
+			}
+			else
+				ModifyDate = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ModifyTime = FValue.trim();
+			}
+			else
+				ModifyTime = null;
+		}
+		if (FCode.equalsIgnoreCase("Remark"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Remark = FValue.trim();
+			}
+			else
+				Remark = null;
+		}
+		return true;
+	}
+
+	public boolean equals(Object otherObject)
+	{
+		if (this == otherObject) return true;
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		LLSubmitApplySchema other = (LLSubmitApplySchema)otherObject;
+		return
+			ClmNo.equals(other.getClmNo())
+			&& SubNo.equals(other.getSubNo())
+			&& SubCount.equals(other.getSubCount())
+			&& CustomerNo.equals(other.getCustomerNo())
+			&& CustomerName.equals(other.getCustomerName())
+			&& VIPFlag.equals(other.getVIPFlag())
+			&& InitPhase.equals(other.getInitPhase())
+			&& SubType.equals(other.getSubType())
+			&& SubRCode.equals(other.getSubRCode())
+			&& SubDesc.equals(other.getSubDesc())
+			&& SubPer.equals(other.getSubPer())
+			&& fDate.getString(SubDate).equals(other.getSubDate())
+			&& SubDept.equals(other.getSubDept())
+			&& SubState.equals(other.getSubState())
+			&& DispDept.equals(other.getDispDept())
+			&& DispPer.equals(other.getDispPer())
+			&& fDate.getString(DispDate).equals(other.getDispDate())
+			&& DispType.equals(other.getDispType())
+			&& DispIdea.equals(other.getDispIdea())
+			&& Operator.equals(other.getOperator())
+			&& fDate.getString(MakeDate).equals(other.getMakeDate())
+			&& MakeTime.equals(other.getMakeTime())
+			&& fDate.getString(ModifyDate).equals(other.getModifyDate())
+			&& ModifyTime.equals(other.getModifyTime())
+			&& Remark.equals(other.getRemark());
+	}
+
+	/**
+	* 取得Schema拥有字段的数量
+       * @return: int
+	**/
+	public int getFieldCount()
+	{
+ 		return FIELDNUM;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的索引值
+	* 如果没有对应的字段，返回-1
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldIndex(String strFieldName)
+	{
+		if( strFieldName.equals("ClmNo") ) {
+			return 0;
+		}
+		if( strFieldName.equals("SubNo") ) {
+			return 1;
+		}
+		if( strFieldName.equals("SubCount") ) {
+			return 2;
+		}
+		if( strFieldName.equals("CustomerNo") ) {
+			return 3;
+		}
+		if( strFieldName.equals("CustomerName") ) {
+			return 4;
+		}
+		if( strFieldName.equals("VIPFlag") ) {
+			return 5;
+		}
+		if( strFieldName.equals("InitPhase") ) {
+			return 6;
+		}
+		if( strFieldName.equals("SubType") ) {
+			return 7;
+		}
+		if( strFieldName.equals("SubRCode") ) {
+			return 8;
+		}
+		if( strFieldName.equals("SubDesc") ) {
+			return 9;
+		}
+		if( strFieldName.equals("SubPer") ) {
+			return 10;
+		}
+		if( strFieldName.equals("SubDate") ) {
+			return 11;
+		}
+		if( strFieldName.equals("SubDept") ) {
+			return 12;
+		}
+		if( strFieldName.equals("SubState") ) {
+			return 13;
+		}
+		if( strFieldName.equals("DispDept") ) {
+			return 14;
+		}
+		if( strFieldName.equals("DispPer") ) {
+			return 15;
+		}
+		if( strFieldName.equals("DispDate") ) {
+			return 16;
+		}
+		if( strFieldName.equals("DispType") ) {
+			return 17;
+		}
+		if( strFieldName.equals("DispIdea") ) {
+			return 18;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return 19;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return 20;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return 21;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return 22;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return 23;
+		}
+		if( strFieldName.equals("Remark") ) {
+			return 24;
+		}
+		return -1;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段名
+	* 如果没有对应的字段，返回""
+       * @param: nFieldIndex int
+       * @return: String
+	**/
+	public String getFieldName(int nFieldIndex)
+	{
+		String strFieldName = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldName = "ClmNo";
+				break;
+			case 1:
+				strFieldName = "SubNo";
+				break;
+			case 2:
+				strFieldName = "SubCount";
+				break;
+			case 3:
+				strFieldName = "CustomerNo";
+				break;
+			case 4:
+				strFieldName = "CustomerName";
+				break;
+			case 5:
+				strFieldName = "VIPFlag";
+				break;
+			case 6:
+				strFieldName = "InitPhase";
+				break;
+			case 7:
+				strFieldName = "SubType";
+				break;
+			case 8:
+				strFieldName = "SubRCode";
+				break;
+			case 9:
+				strFieldName = "SubDesc";
+				break;
+			case 10:
+				strFieldName = "SubPer";
+				break;
+			case 11:
+				strFieldName = "SubDate";
+				break;
+			case 12:
+				strFieldName = "SubDept";
+				break;
+			case 13:
+				strFieldName = "SubState";
+				break;
+			case 14:
+				strFieldName = "DispDept";
+				break;
+			case 15:
+				strFieldName = "DispPer";
+				break;
+			case 16:
+				strFieldName = "DispDate";
+				break;
+			case 17:
+				strFieldName = "DispType";
+				break;
+			case 18:
+				strFieldName = "DispIdea";
+				break;
+			case 19:
+				strFieldName = "Operator";
+				break;
+			case 20:
+				strFieldName = "MakeDate";
+				break;
+			case 21:
+				strFieldName = "MakeTime";
+				break;
+			case 22:
+				strFieldName = "ModifyDate";
+				break;
+			case 23:
+				strFieldName = "ModifyTime";
+				break;
+			case 24:
+				strFieldName = "Remark";
+				break;
+			default:
+				strFieldName = "";
+		};
+		return strFieldName;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldType(String strFieldName)
+	{
+		if( strFieldName.equals("ClmNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubCount") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("CustomerNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("CustomerName") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("VIPFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("InitPhase") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubType") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubRCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubDesc") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubPer") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("SubDept") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SubState") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DispDept") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DispPer") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DispDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("DispType") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DispIdea") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Remark") ) {
+			return Schema.TYPE_STRING;
+		}
+		return Schema.TYPE_NOFOUND;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: nFieldIndex int
+       * @return: int
+	**/
+	public int getFieldType(int nFieldIndex)
+	{
+		int nFieldType = Schema.TYPE_NOFOUND;
+		switch(nFieldIndex) {
+			case 0:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 1:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 2:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 3:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 4:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 5:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 6:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 7:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 8:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 9:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 10:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 11:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 12:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 13:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 14:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 15:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 16:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 17:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 18:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 19:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 20:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 21:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 22:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 23:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 24:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			default:
+				nFieldType = Schema.TYPE_NOFOUND;
+		};
+		return nFieldType;
+	}
+
+}

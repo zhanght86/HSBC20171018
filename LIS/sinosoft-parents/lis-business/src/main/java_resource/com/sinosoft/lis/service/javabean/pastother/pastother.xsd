@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.pastother.javabean"
+	      targetNamespace="http://www.pastother.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="PastOtherData">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="PastOther" type="cixml:PastOtherItem" maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="PastOtherItem">          
+ 	<choice>                                      
+	  <element    name="UID"         type="string"/>
+	  <element    name="DataType"         type="string"/>
+	  <element    name="DataID"         type="string"/>
+	  <element    name="RelaID"         type="string"/>
+
+	  <element    name="AddReason"         type="string"/>
+	  <element    name="Special"         type="string"/>
+	</choice>                                     
+ </complexType>                                 
+
+</schema>

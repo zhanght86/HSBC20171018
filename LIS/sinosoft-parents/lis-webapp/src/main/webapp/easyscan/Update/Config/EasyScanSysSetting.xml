@@ -1,0 +1,113 @@
+﻿<DATA><LocalSetting><DefaultSysConfig><BussType code="TB" name="承保业务"/><SubType code="1001" name="1001-个人投保单"/><Company code="86310000" name="86310000-民生人寿保险股份有限公司上海分公司"/><Scanner code="" name="Panasonic KV-S202xC S204xC"/><ScannerSetting code="" name="A4长纸"/><BarCodeRecognizeSetting code="" name="民生单证测试"/><ScanNo code="861100000000003" name=""/><ScanType code="0" name=""/><PreBussNo code="0" name=""/></DefaultSysConfig></LocalSetting><CenterSetting>
+		<BussType code="TB" name="承保业务">
+			<SubType code="1001" name="个人投保单" papertype="A4长纸" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+			<SubType code="1002" name="团体投保单" papertype="A4双面" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+			<SubType code="1003" name="银行代理保险投保书" papertype="A4双面" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+			<SubType code="1004" name="个人寿险投保书（简易）" papertype="A4双面" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+			<SubType code="1005" name="暂收费收据" papertype="A4单面" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+			<SubType code="1007" name="核保通知书" papertype="A4单面" codeflag="1" newcaseflag="1" version="01" codelen="14"/>
+			<SubType code="1008" name="调查问卷" papertype="A4单面" codeflag="1" newcaseflag="1" version="01" codelen="14"/>
+			<SubType code="1009" name="其他资料" papertype="A4单面" codeflag="0" newcaseflag="0" version="01" codelen="14"/>
+		</BussType>
+		<BussType code="BQ" name="保全业务">
+			<SubType code="2001" name="个险保全申请书" papertype="A4双面" codeflag="1" newcaseflag="1" version="01" codelen="20"/>
+			<SubType code="2002" name="团险保全申请书" papertype="A4双面" codeflag="1" newcaseflag="1" version="01" codelen="20"/>
+			<SubType code="2003" name="保全核保通知书" papertype="A4双面" codeflag="1" newcaseflag="1" version="01" codelen="20"/>
+			<SubType code="2004" name="保全体检通知书" papertype="A4双面" codeflag="0" newcaseflag="0" version="01" codelen="20"/>
+			<SubType code="2006" name="其他资料" papertype="A4双面" codeflag="0" newcaseflag="0" version="01" codelen="20"/>
+		</BussType>
+		<BussType code="OF" name="财务外包">
+			<SubType code="4001" name="财务业务" papertype="A4半面" codeflag="1" newcaseflag="1" version="01" codelen="20"/>
+			<SubType code="4002" name="银行转帐授权书" papertype="A4单面" codeflag="1" newcaseflag="1" version="01" codelen="20"/>
+		</BussType>
+		<BussType code="BUSS_TYPE_UD" name="未知类型">
+			<SubType code="SUB_TYPE_UD" name="未知类型" papertype="" codeflag="1" newcaseflag="1" version="" codelen="0"/>
+		</BussType>
+		<Company>
+			<ManageCom code="8631" name="上海分公司"/>
+			<ManageCom code="863100" name="上海本部"/>
+			<ManageCom code="86310000" name="人寿保险股份有限公司上海分公司"/>
+			<ManageCom code="86310015" name="浦东张杨路营销服务部"/>
+			<ManageCom code="86310020" name="奉贤育秀路营销服务部"/>
+			<ManageCom code="86310099" name="上海分公司本部机关"/>
+		</Company>
+		<SystemConfig>
+			<ClientUrl code="http://10.0.22.136:6100/" name="TESTURL"/>
+			<FileSuffix code=".gif" name="TestFileSuffix"/>
+			<SaveMultipleDir code="true" name=""/>
+			<SaveFileType code="TIF" name=""/>
+			<BlankPageThreashHold code="2048" name=""/>
+			<DefaultBacthScanType code="" name=""/>
+			<!--<默认批量扫描类型 />-->
+			<AllowCenterPickUp code="1" name=""/>
+			<!--<是否允许单证在中心清分 0 允许  1 不允许 />-->
+			<AllowCheckCodeLen code="0" name=""/>
+			<!--<是否允许校验单证号码长度 0 允许  1 不允许 />-->
+			<AllowScanNoAlert code="1" name=""/>
+			<!--<是否使用批次号 0 允许  1 不允许 />-->
+		</SystemConfig>
+		<HighSpeedScanerSetting>
+			<ScannerType/>
+			<ScannerName file1="" file2="" file3=""/>
+			<ScannerName file1="" file2="" file3=""/>
+			<ScannerName file1="" file2="" file3=""/>
+			<ScannerName file1="" file2="" file3=""/>
+		</HighSpeedScanerSetting>
+		<SplitPageBarCodeSetting data="00000000000000000000"/>
+		<BarCodeRecognizeSetting>
+			<!-- 分割页处理方式 -->
+			<setting name="使用分割页" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0"/>
+				</BarCode>
+				<BarCode index="2" delitype="" delimiter="">
+					<Data type="分割页码" index="2" newdocflag=""/>
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据长度划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="投保单设置_按长度分割" barcodecount="1">
+				<BarCode index="1" delitype="LENGTH" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="" start="1" length="3"/>
+					<Data type="单证号码" index="2" newdocflag="0" start="4" length="5"/>
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据字符串划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="投保单设置_按字符串分割" barcodecount="1">
+				<BarCode index="1" delitype="CHAR" delimiter="A">
+					<Data type="单证细类" index="1" newdocflag=""/>
+					<Data type="单证号码" index="2" newdocflag="0"/>
+					<Data type="单证页码" index="3" newdocflag=""/>
+					<Data type="单证版本号" index="4" newdocflag=""/>
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据字符串划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="投保单设置_业务类型+版本+单证细类" barcodecount="2">
+				<BarCode index="1" delitype="LENGTH" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0" start="1" length="4"/>
+					<Data type="单证版本号" index="2" newdocflag="" start="5" length="2"/>
+					<Data type="单证号码" index="3" newdocflag="0" start="1" length="14"/>
+				</BarCode>
+				<BarCode index="2" delitype="" delimiter="">
+					<Data type="单证页码" index="1" newdocflag=""/>
+				</BarCode>
+			</setting>
+			<!-- 一个条码，独立条码，第一个是单证类型 -->
+			<setting name="投保单设置_一个独立条码_单证类型" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0"/>
+				</BarCode>
+			</setting>
+			<!-- 一个条码，独立条码，第一个是单证号码 -->
+			<setting name="投保单设置_一个独立条码_单证号码" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证号码" index="1" newdocflag="0"/>
+				</BarCode>
+			</setting>
+		</BarCodeRecognizeSetting>
+		<BatchScanSetting>
+			<setting name="扫描系统" type="BARCODE" code="">
+				<BarCode count="1" set="投保单设置_业务类型+版本+单证细类" type="BARCODE" code=""/>
+			</setting>
+		</BatchScanSetting>
+	</CenterSetting>
+</DATA>

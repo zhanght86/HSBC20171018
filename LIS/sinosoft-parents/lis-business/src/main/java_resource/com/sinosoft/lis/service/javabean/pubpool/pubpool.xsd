@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.pubpool.javabean"
+	      targetNamespace="http://www.pubpool.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="MessageDataPool">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="PublicPool" type="cixml:PublicPoolItem" maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="PublicPoolItem">          
+ 	<choice>                                      
+	  <element    name="UID"         type="string"/>
+	  <element    name="DataType"         type="string"/>
+	  <element    name="DataID"         type="string"/>
+	  <element    name="InsuredID"         type="string"/>
+	  <element    name="ApplyDate"         type="string"/>
+	  <element    name="InsuredMan"         type="string"/>
+	  <element    name="MainRisk"         type="string"/>
+	  <element    name="ManagerCons"         type="string"/>
+	  <element    name="MissionState"         type="string"/>
+	  <element    name="MissionID"         type="string"/>
+	  <element    name="SubMissionID"         type="string"/>
+	  <element    name="ActivityID"         type="string"/>
+	  <element    name="Com"         type="string"/>
+	  <element    name="UWLevel"         type="string"/>
+	  <element    name="PrtNo"         type="string"/>
+	  <element    name="Type"         type="string"/>
+	  <element    name="temp1"         type="string"/>
+	  <element    name="temp2"         type="string"/>
+
+	</choice>                                     
+ </complexType>                                 
+
+</schema>

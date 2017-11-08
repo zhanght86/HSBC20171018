@@ -1,0 +1,95 @@
+<PUBLIC:COMPONENT>
+<PUBLIC:attach event="onblur" onevent="fnOnBlur(element)" />
+<PUBLIC:attach event="onmouseover" onevent="fnOnMouseOver(element)" />
+<PUBLIC:attach event="onmouseout" onevent="fnOnMouseOut(element)" />
+<PUBLIC:attach event="onfocus" onevent="fnOnFocus1(element)" />
+
+<PUBLIC:property name="realValue" value="" />
+<PUBLIC:property name="errFlag" value="false" />
+<PUBLIC:property name="focusFlag" value="false" />
+
+	// 2006-03-28 Kevin
+
+	<script language=jscript>
+	
+		function fnOnBlur(vObj) {
+		
+			//alert("This is fnOnBlur");
+			vObj.focusFlag = "false";
+			vObj.style.borderColor="#799AE1" ;
+		
+			var curValue = vObj.value;
+			var vFlag = false;
+			curValue = unescape(curValue);
+			//alert(curValue+':'+unescape(curValue));
+			// check < = > % ' " ; ( ) +
+		
+			if( curValue.indexOf('<') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('=') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('>') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('%') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('\'') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('"') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf(';') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('(') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf(')') != -1 ) {
+				vFlag = true;
+			} else if( curValue.indexOf('+') != -1 ) {
+				vFlag = true;
+			}
+			
+			if( vFlag == true ) {
+				alert("非法字符！");
+				
+				//vObj.focus();
+				vObj.select();
+			}
+		}
+		
+		// 获取焦点
+		function fnOnFocus(vObj) {
+			if( vObj.errFlag = true ) {
+				vObj.errFlag = false;
+			}
+			
+			vObj.value = vObj.realValue;
+		}
+		
+		// 获取焦点
+		function fnOnFocus1(vObj) {
+			//alert("This is fnOnFocus");
+			vObj.focusFlag = "true";
+			vObj.style.borderColor="#c00" ;
+		}
+		
+		// 鼠标滑过
+		function fnOnMouseOver(vObj){
+			//alert("This is fnOnMouseOver");
+			vObj.style.cursor = "pointer";
+			vObj.style.borderColor="#060";
+		}
+		
+		// 鼠标离开
+		function fnOnMouseOut(vObj){
+			//vObj.style.borderColor="#799AE1" ;
+			//alert(vObj.focusFlag);
+			if (vObj.focusFlag == "false")
+			{
+				vObj.style.borderColor="#799AE1" ;
+			}
+			else{
+				vObj.style.borderColor="#c00" ;
+			}
+		}
+	
+	</script>
+
+</PUBLIC:COMPONENT>

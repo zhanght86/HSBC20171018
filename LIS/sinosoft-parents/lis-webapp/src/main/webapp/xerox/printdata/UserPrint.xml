@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GB2312"?>
+<DataFetch>
+	<DataSourceSet>
+		<!-- 团单险种信息查询 -->
+		<DataSource id="select" src="select a.ManageCom ManageCom,b.Name MName,a.ComCode ComCode,c.Name CName,a.PrintType PrintType,d.CodeName CodeName from LDUserPrint a,LDCom b,LABranchGroup c,LDCode d where a.ManageCom = b.ComCode and a.ComCode = c.BranchAttr and a.PrintType = d.Code and d.CodeType = 'printtype' and trim(UserCode) = ? order by ManageCom,ComCode,PrintType" />
+	</DataSourceSet>
+	<!-- 团单短险部分描述 -->
+	<FieldSet memo="" name="select" type="1">
+		<DataSourceRef>
+			<ID>select</ID>
+			<Param dataField="_USERCODE" type="0" />
+		</DataSourceRef>
+		<Field memo="" name="com" dataField="ManageCom" type="0"/>
+		<Field memo="" name="comname" dataField="MName" type="0"/>
+		<Field memo="" name="org" dataField="ComCode" type="0"/>
+		<Field memo="" name="orgname" dataField="CName" type="0"/>
+		<Field memo="" name="printtype" dataField="PrintType" type="0"/>
+		<Field memo="" name="printname" dataField="CodeName" type="0"/>
+	</FieldSet>
+</DataFetch>

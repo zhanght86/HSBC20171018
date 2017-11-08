@@ -1,0 +1,4 @@
+function returnParent()
+{
+  top.close();
+}

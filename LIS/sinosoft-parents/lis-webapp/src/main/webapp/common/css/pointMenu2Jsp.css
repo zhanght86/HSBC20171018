@@ -1,0 +1,50 @@
+
+    /*菜单样式STAR2016.3.11zmd*/
+    a.innerA{
+        margin-left: 0px;
+        padding-left: 0px;
+        color: #808080;
+		display: block;
+        width: 180px;
+        height: 30px;
+    } /*2015-9-2*/
+    a.innerA:hover{
+        color: #808080;
+    }/*2015-9-2*/
+   .middle{   margin: 0;padding: 0;font-family: "微软雅黑";color: #808080;font-size: 12px;width:220px; display: none; background:#f7f5f6; height:100%; float:left;/* display:none;*/}/*第二导航栏隐藏*/
+    .huadong1{ width:186px; height:100%; float:left;}
+    dl{margin:0px;}
+    dt,dd{width:180px; height:30px; line-height:30px; background:; font-weight:bold;  cursor: pointer;}
+	dt{ background:#f7f5f6 url(../images/butCollapse.gif) no-repeat 10px center; padding-left:45px; cursor:pointer;}
+	dt:hover{ background: #1faeff url(../images/butCollapse2.png) no-repeat 10px center; color:white;}
+    dt:hover a{
+        color: #808080;
+    }/*2015-9-2*/
+    dd:hover{ background: #1faeff ;color:white;}
+	dd{display: none;}
+	dd a:hover{
+		 background: #1faeff ;color:white;
+		}
+	img { border: none; display:inline-block;}
+	
+    .left{ width:168px; background:#fff; height:600px; float:left;}
+    .diyi{ width:168px;  text-align:center; padding:0; color:#2d83ce; font-size:15px; background:url(../TreeView/images/root.png) no-repeat 10px center;}
+    b{  cursor: pointer;}
+    li{  cursor: pointer;}
+    .left ul li{width:130px; height:32px; color: #2d83ce; background:url(../images/butCollapse.gif) no-repeat 10px center; line-height:32px; padding-left:35px; display:block; font-weight:bold;}
+    .left ul li:hover{background: #1faeff url(../images/butCollapse2.png) no-repeat 10px center;color: white;}
+    .left ul li:hover a{
+        color: #fff;
+    }
+    .left ul .goon:hover{background:#1faeff url(../TreeView/images/folder_blue.png) no-repeat 10px center;color: white;}
+    .left ul .goon:hover a{
+        color: #808080;
+    }
+    .left ul .goon{width:133px; height:32px; background:url(../TreeView/images/folder_blue.png) no-repeat 10px center; line-height:32px; padding-left:35px; display:block; font-weight:bold;}
+    .left ul{  position: relative;left: -40px;top: -20px;}
+    .third{
+		background:#f7f5f6 url(../TreeView/images/folder_blue.png) no-repeat 10px center;
+		}
+	.third:hover{background:#1faeff url(../TreeView/images/folder_blue.png) no-repeat 10px center;color: white;}	
+    /*菜单样式END*/
+	

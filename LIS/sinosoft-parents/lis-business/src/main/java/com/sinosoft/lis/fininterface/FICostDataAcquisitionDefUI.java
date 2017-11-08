@@ -1,0 +1,221 @@
+
+package com.sinosoft.lis.fininterface;
+import org.apache.log4j.Logger;
+
+import com.sinosoft.lis.fininterface.FICostDataAcquisitionDefBL;
+import com.sinosoft.lis.pubfun.GlobalInput;
+import com.sinosoft.lis.schema.FICostDataAcquisitionDefSchema;
+import com.sinosoft.service.BusinessService;
+import com.sinosoft.utility.*;
+
+public class FICostDataAcquisitionDefUI  implements BusinessService
+{
+private static Logger logger = Logger.getLogger(FICostDataAcquisitionDefUI.class);
+
+	/** 错误处理类，每个需要错误处理的类中都放置该类 */
+	public CErrors mErrors = new CErrors();
+	/** 往后面传输数据的容器 */
+	private VData mInputData = new VData();
+	/** 数据操作字符串 */
+	private String mOperate;
+	// 业务处理相关变量
+	/** 全局数据 */
+	private FICostDataAcquisitionDefSchema  mFICostDataAcquisitionDefSchema = new FICostDataAcquisitionDefSchema(); 
+	private GlobalInput mGlobalInput = new GlobalInput();
+	
+		public FICostDataAcquisitionDefUI()
+	{}
+
+	/**
+	 * 传输数据的公共方法
+	 */
+	public boolean submitData(VData cInputData, String cOperate)
+	{
+		// 将操作数据拷贝到本类中
+		this.mOperate = cOperate;
+		// 得到外部传入的数据,将数据备份到本类中
+		if (!getInputData(cInputData))
+		{
+			return false;
+		}
+		// 进行业务处理
+		if (!dealData())
+		{
+			return false;
+		}
+		// 准备往后台的数据
+		if (!prepareOutputData())
+		{
+			return false;
+		}
+		FICostDataAcquisitionDefBL tFICostDataAcquisitionDefBL = new FICostDataAcquisitionDefBL();
+		logger.debug("Start FICostDataAcquisitionDef UI Submit...");
+		tFICostDataAcquisitionDefBL.submitData(mInputData, mOperate);
+		logger.debug("End FICostDataAcquisitionDef UI Submit...");
+		// 如果有需要处理的错误，则返回
+		if (tFICostDataAcquisitionDefBL.mErrors.needDealError())
+		{
+			// @@错误处理
+			this.mErrors.copyAllErrors(tFICostDataAcquisitionDefBL.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "FICostDataAcquisitionDefUI";
+			tError.functionName = "submitData";
+			tError.errorMessage = "数据提交失败!";
+			this.mErrors.addOneError(tError);
+			return false;
+		}
+		mInputData = null;
+		return true;
+	}
+
+	public static void main(String[] args)
+	{
+	}
+
+	private boolean prepareOutputData()
+	{
+		try
+		{
+			mInputData.clear();
+			mInputData.add(this.mGlobalInput);
+			mInputData.add(this.mFICostDataAcquisitionDefSchema);
+		}
+		catch (Exception ex)
+		{
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "FICostDataAcquisitionDefUI";
+			tError.functionName = "prepareData";
+			tError.errorMessage = "在准备往后层处理所需要的数据时出错。";
+			this.mErrors.addOneError(tError);
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 根据前面的输入数据，进行UI逻辑处理 如果在处理过程中出错，则返回false,否则返回true
+	 */
+	private boolean dealData()
+	{
+		boolean tReturn = true;
+		// 此处增加一些校验代码
+		if(this.mOperate.equals("INSERT||MAIN"))
+		{
+			if (!FICostDataAcquisitionDefInsertFail())
+			{
+				CError tError = new CError();
+				tError.moduleName = "FICostDataAcquisitionDefUI";
+				tError.functionName = "dealData";
+				tError.errorMessage = "您输入的记录在数据库中已经存在，请重新录入";
+				this.mErrors.addOneError(tError);
+				return false;
+			}
+		}
+		
+		if(this.mOperate.equals("DELETE||MAIN"))
+		{
+			if(!FICostDataBaseDefDeleteFail())
+			{
+				CError tError = new CError();
+				tError.moduleName = "FICostDataAcquisitionDefUI";
+				tError.functionName = "dealData";
+				tError.errorMessage = "该条记录已被凭证费用数据源定义页面引用，请先在子页面中删除这些被引用数据后再进行此操作";
+				this.mErrors.addOneError(tError);
+				return false;
+			}
+			if(!FICostDataKeyDefDeleteFail())
+			{
+				CError tError = new CError();
+				tError.moduleName = "FICostDataAcquisitionDefUI";
+				tError.functionName = "dealData";
+				tError.errorMessage = "该条记录已被凭证费用数据主键定义子页面引用，请先在子页面中删除这些被引用数据后再进行此操作";
+				this.mErrors.addOneError(tError);
+				return false;
+			}
+		}
+		return tReturn;
+	}
+	
+	private boolean FICostDataAcquisitionDefInsertFail()
+	{
+		boolean tReturn = true;
+		int Count;
+		ExeSQL tExeSQL = new ExeSQL();
+		String sql = "select COUNT(*) from FICostDataAcquisitionDef where VersionNo='?VersionNo?'  and AcquisitionID='?AcquisitionID?' ";
+		SQLwithBindVariables sqlbv=new SQLwithBindVariables();
+		sqlbv.sql(sql);
+		sqlbv.put("VersionNo", this.mFICostDataAcquisitionDefSchema.getVersionNo());
+		sqlbv.put("AcquisitionID", this.mFICostDataAcquisitionDefSchema.getAcquisitionID());
+		Count = Integer.parseInt(tExeSQL.getOneValue(sqlbv));
+		if (Count >= 1)
+		{
+			tReturn = false;
+		}
+		return tReturn;
+	}
+	private boolean FICostDataBaseDefDeleteFail()
+	{
+		boolean tReturn = true;
+		int Count;
+		ExeSQL tExeSQL = new ExeSQL();
+		String sql = "select COUNT(*) from FICostDataBaseDef where VersionNo='?VersionNo?' and AcquisitionID='?AcquisitionID?'";
+		SQLwithBindVariables sqlbv1=new SQLwithBindVariables();
+		sqlbv1.sql(sql);
+		sqlbv1.put("VersionNo", this.mFICostDataAcquisitionDefSchema.getVersionNo());
+		sqlbv1.put("AcquisitionID", this.mFICostDataAcquisitionDefSchema.getAcquisitionID());
+		Count = Integer.parseInt(tExeSQL.getOneValue(sqlbv1));
+		if(Count >= 1)
+		{
+			tReturn = false;
+		}
+		return tReturn;
+	}
+	
+	private boolean FICostDataKeyDefDeleteFail()
+	{
+		boolean tReturn = true;
+		int Count;
+		ExeSQL tExeSQL = new ExeSQL();
+		String sql = "select COUNT(*) from FICostDataKeyDef where VersionNo='?VersionNo?' and AcquisitionID='?AcquisitionID?'";
+		SQLwithBindVariables sqlbv2=new SQLwithBindVariables();
+		sqlbv2.sql(sql);
+		sqlbv2.put("VersionNo", this.mFICostDataAcquisitionDefSchema.getVersionNo());
+		sqlbv2.put("AcquisitionID", this.mFICostDataAcquisitionDefSchema.getAcquisitionID());
+		Count = Integer.parseInt(tExeSQL.getOneValue(sqlbv2));
+		if(Count >= 1)
+		{
+			tReturn = false;
+		}
+		return tReturn;
+	}
+		
+	/**
+	 * 从输入数据中得到所有对象 输出：如果没有得到足够的业务数据对象，则返回false,否则返回true
+	 */
+	private boolean getInputData(VData cInputData)
+	{
+		// 全局变量
+		mGlobalInput.setSchema((GlobalInput) cInputData.getObjectByObjectName("GlobalInput", 0));
+		this.mFICostDataAcquisitionDefSchema.setSchema((FICostDataAcquisitionDefSchema) cInputData.getObjectByObjectName("FICostDataAcquisitionDefSchema", 0));
+		if (mGlobalInput == null)
+		{
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "FICostDataAcquisitionDefUI";
+			tError.functionName = "getInputData";
+			tError.errorMessage = "没有得到足够的信息！";
+			this.mErrors.addOneError(tError);
+			return false;
+		}
+		return true;
+	}
+
+	public CErrors getErrors() {
+		return this.mErrors;
+	}
+
+	public VData getResult() {
+		return null;
+	}
+}

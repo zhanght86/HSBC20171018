@@ -1,0 +1,17 @@
+<CONFIG>
+  <Sheet1>
+  	<COL0>ID</COL0>
+    <COL1>InsuredNo</COL1>          
+    <COL2>ContNo</COL2>  
+    <COL3>GetStartType</COL3> 
+    <COL4>GetDutyKind</COL4>
+    <COL5>PACash</COL5>
+    <COL6>PARate</COL6>
+    <COL7>PCCash</COL7>
+    <COL8>PCRate</COL8>        
+    <COL9>CACash</COL9>
+    <COL10>CARate</COL10>
+    <COL11>CCCash</COL11>
+    <COL12>CCRate</COL12>
+  </Sheet1>
+</CONFIG> 

@@ -1,0 +1,28 @@
+BODY
+{
+    BACKGROUND-COLOR: #ece9d8;
+}
+stedysoft\:2k3Tab
+{
+    POSITION: relative;
+    leftImage: url(comp/2k3Tab/themes/blue/tabLeft.gif);
+    centerImage: url(comp/2k3Tab/themes/blue/tabCenter.gif);
+    rightImage: url(comp/2k3Tab/themes/blue/tabRight.gif);
+    leftImageOver: url(comp/2k3Tab/themes/blue/tabLeftOver.gif);
+    centerImageOver: url(comp/2k3Tab/themes/blue/tabCenterOver.gif);
+    rightImageOver: url(comp/2k3Tab/themes/blue/tabRightOver.gif);
+    leftImageDown: url(comp/2k3Tab/themes/blue/tabLeftDown.gif);
+    centerImageDown: url(comp/2k3Tab/themes/blue/tabCenterDown.gif);
+    rightImageDown: url(comp/2k3Tab/themes/blue/tabRightDown.gif)
+}
+stedysoft\:2k3TabPage
+{
+    OVERFLOW: hidden;
+    POSITION: absolute;
+    TOP: -500px;
+    lightShadow: #E3E0D0;
+    midShadow: #D0CEBF;
+    pageBorder: #919B9C;
+    lightColor: #FCFCFE;
+    darkColor: #F4F3EE;
+}

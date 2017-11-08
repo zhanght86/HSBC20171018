@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.pastcontinfo.javabean"
+	      targetNamespace="http://www.pastcontinfo.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="PastContInfoData">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="PastContInfo" type="cixml:PastContInfoItem" maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="PastContInfoItem">          
+ 	<choice>                                      
+	  <element    name="UID"         type="string"/>
+	  <element    name="DataType"         type="string"/>
+	  <element    name="DataID"         type="string"/>
+	  <element    name="RelaID"         type="string"/>
+
+	  <element    name="ContNo"         type="string"/>
+	  <element    name="PrtContNo"         type="string"/>
+	  <element    name="InsureName"         type="string"/>
+	  <element    name="EffectiveDate"         type="string"/>
+	  <element    name="Amount"         type="string"/>
+	  <element    name="Mult"         type="string"/>
+	  <element    name="Prem"         type="string"/>
+	  <element    name="ContState"         type="string"/>
+
+	</choice>                                     
+ </complexType>                                 
+
+</schema>

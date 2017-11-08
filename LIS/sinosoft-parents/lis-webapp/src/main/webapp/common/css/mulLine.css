@@ -1,0 +1,447 @@
+/*-------------------------------------------------------------------------*/
+
+/*    文件名称: mulLine.css                                         */
+
+/*    文件功能: 定义多行输入的样式*/
+
+/*  最近更新人: 陈海强                                                       */
+
+/*最近更新日期: 2005-1-3                                                 */
+
+/*-------------------------------------------------------------------------*/
+
+
+
+/*--TABLE的样式--*/
+    table.muline{
+
+                 /*  background-color: #f7f7f7;*//*2015-06-24*/
+			    background-color: #fff;
+
+
+                cellspacing:0;
+
+                cellpadding:0;
+
+               /* BORDER-LEFT: #799AE1 1pt solid;
+
+                BORDER-BOTTOM: #799AE1 1pt solid; *//*2015-06-24*/
+				 
+				BORDER-LEFT: #f3f3f3 3pt solid;
+                BORDER-TOP: #f3f3f3 3pt solid;   
+                BORDER-BOTTOM: #f3f3f3 3pt solid;              
+
+
+
+                }
+
+
+/*--TD的样式--*/
+
+    td.mulinetitle {
+
+                 /*  background-color: #f7f7f7;*//*2015-06-24*/
+					  background-color: #fff;
+ 
+
+               text-align: center; 
+
+               color: #000000; 
+
+              
+               /* BORDER-LEFT: #799AE1 1pt solid;
+
+                BORDER-BOTTOM: #799AE1 1pt solid; *//*2015-06-24*/
+				 
+				BORDER-LEFT: #f3f3f3 3pt solid;
+                BORDER-TOP: #f3f3f3 3pt solid; 
+                BORDER-BOTTOM: #f3f3f3 3pt solid;                                
+			   		                            
+               }
+
+    th.mulinetitlenew {
+
+               background-color: #C5D9ED;
+
+               text-align: center; 
+
+               color: #000000; 
+
+               /*BORDER-TOP: #799AE1 1pt solid; */  
+			              
+
+
+               }
+    th.mulinetitle {
+
+               background: #fafafa url(../images/image/fhbg.jpg) repeat-x bottom;            
+
+
+               }
+
+    
+    input.title {
+
+                 /*  background-color: #f7f7f7;*//*2015-06-24*/
+					 
+					  /* background-color: #fff; */
+
+
+               text-align: center; 
+
+               color: #000000; 
+
+               BORDER-TOP: #799AE1 1pt solid;              
+
+               BORDER-RIGHT: #799AE1 1pt solid;                             
+
+               }
+
+    span.mullineorder {
+    
+               background:url(../images/image/asc.jpg) repeat-x;
+
+               text-align: center; 
+    
+    			}
+
+
+    td.muline { 
+
+                 /*  background-color: #f7f7f7;*//*2015-06-24*/
+					  background-color: #fff;
+
+
+               text-align: center;
+
+               color: #000000; 
+
+               BORDER-RIGHT: #799AE1 1pt solid; 
+
+              }
+
+
+
+/*--INPUT的样式--*/
+
+/*
+
+    input.mulLineButton { 
+
+                     background-color: lightgray;
+
+                     color: #799AE1;
+
+                     BORDER-TOP-WIDTH: 1px;
+
+                     BORDER-TOP-STYLE: solid;
+
+                     BORDER-TOP-COLOR: #ffECFA;
+
+                     BORDER-BOTTOM-WIDTH: 1px;
+
+                     BORDER-BOTTOM-STYLE: solid;
+
+                     BORDER-BOTTOM-COLOR: #ffECFA;
+
+                     BORDER-RIGHT-WIDTH: 1px;
+
+                     BORDER-RIGHT-STYLE: solid;
+
+                     BORDER-BOTTOM-COLOR: #ffECFA;
+
+                     BORDER-LEFT-WIDTH: 1px;
+
+                     BORDER-LEFT-STYLE: solid;
+
+                     BORDER-LEFT-COLOR: #FFECFA;
+
+                      }
+
+*/
+
+    input.mulinetitle{
+
+                     color: #ffffff; 
+
+                     text-align: center;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none ;                     
+
+                     FONT-SIZE: 12px; 
+					 border:1px solid #d4d4d4; height:28px; width:145px; border-radius:6px; padding-left:8px; margin-left:7px; 
+					 background:url(../images/inputbg_03.png) repeat-x left top;/*2015-06-30改*/
+
+                    /* background-image: url(MulLine.gif);*//*2015-06-30注*/
+					 background-image: url(../images/btnbg11.png);
+					
+
+                     }/*2011-07-28 newupdate modify*/
+
+                     
+
+    textarea.mulinetitle{
+
+                      /*  background-color: #f7f7f7;*//*2015-06-24*/
+					  background-color: #fff;
+
+
+                     color: #000000; 
+
+                     text-align: center;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none ;
+
+                     }
+
+    input.mulcommon   {
+
+                       /*  background-color: #f7f7f7;*//*2015-06-24*/
+					  background-color: #fff;
+					  /*height:20px;*/
+
+                     color: #000000; 
+
+                     text-align: left;
+
+                     BORDER-TOP: #799AE1 0pt solid;              
+
+                     BORDER-LEFT: #799AE1 0pt solid; 
+
+                     BORDER-BOTTOM: #B1BBCF 0pt solid;              
+
+                     BORDER-RIGHT: #799AE1 0pt solid;                      
+
+
+
+                     }
+
+    textarea.mulcommon   {
+
+                     /*  background-color: #f7f7f7;*//*2015-06-24*/
+					 
+					  /* background-color: #fff; */
+
+
+                     color: #000000; 
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+
+    input.mulreadonly { 
+
+                   /*  background-color: #f7f7f7;*//*2015-06-24*/
+					 /* background-color: #fff;*/
+
+                     color: #000000; 
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+    input.mulhighlightreadonly { 
+
+                      /*  background-color: #f7f7f7;*//*2015-06-24*/
+					  
+					   /*  background-color: #fff;   */
+
+
+                    /* color: #FF0000; *//*2015-06-29改注*/
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+    input.mulchangedreadonly { 
+
+                      /*  background-color: #f7f7f7;*//*2015-06-24*/
+					 
+					  /*  background-color: #fff;   */
+
+
+                     color: #000000; 
+                     
+                     font: bold;
+                     
+                     font-size: 12px;
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+   textarea.mulreadonly { 
+
+                      /*  background-color: #f7f7f7;*//*2015-06-24*/
+					   
+					  background-color: #fff; 
+
+                     color: #000000; 
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+                     
+
+   input.button{
+
+                    FONT-SIZE: 12px; CURSOR: hand; COLOR:#fff;background: #1faeff; border-left:1px solid #84B6D7;border-top:1px solid #9DC5DF;border-right:1px solid #397EAC;border-bottom:1px solid #387DAC; padding:0; height:22px; line-height:20px;border-radius:4px;}/*2011-07-25 newupdate modify*/
+
+    input.mulreadonlyt{
+
+                       /*  background-color: #f7f7f7;*//*2015-06-24*/
+					
+					  background-color: #fff; 
+
+                     height:20px;
+                     color: #000000; 
+
+                     text-align: left;
+
+                     BORDER-TOP-STYLE: none;
+
+                     BORDER-BOTTOM-STYLE: none;
+
+                     BORDER-RIGHT-STYLE: none;
+
+                     BORDER-LEFT-STYLE: none 
+
+                     }
+
+    input.mulnotreadonlyt{
+
+                 /*    background-color: #FBFAAB;*//*2015-06-29改注掉引下行样式*/
+					 background-color: #b1caff;
+
+                   /*  color:#1A4FC0;*/
+
+                     BORDER-LEFT: none;
+
+                     BORDER-BOTTOM: none;
+
+                     BORDER-top: none;
+
+                     BORDER-right: none;
+
+                     } 
+
+    input.mulhighlightnotreadonlyt{
+
+                    /* background-color: #FBFAAB;*//*2015-06-29改注掉引下行样式*/
+					background-color: #b1caff;
+
+                    /* color:#FF0000;*//*2015-06-29改注*/
+
+                     BORDER-LEFT: none;
+
+                     BORDER-BOTTOM: none;
+
+                     BORDER-top: none;
+
+                     BORDER-right: none;
+
+                     } 
+
+    input.codeselect{
+
+                    /* background-color: #FBFAAB;*//*2015-06-29改注掉引下行样式*/
+						background-color: #b1caff;
+
+                     color:#1A4FC0;
+
+                     BORDER-LEFT: none;
+
+                     BORDER-BOTTOM: none;
+
+                     BORDER-top: none;
+
+                     BORDER-right: none;
+
+                     border: 10px #799AE1 solid;
+
+                     height: 20px;
+
+                     width: 160px
+
+                     }                                      
+
+  	input.mulDatePicker{
+					 behavior: url(../common/behaviors/coolDatePicker.htc);
+				       /*  background-color: #f7f7f7;*//*2015-06-24*/
+					   /* background-color: #fff; */
+                      
+				     color: #000000; 
+				     text-align: left;
+				     BORDER-TOP: #799AE1 0pt solid;              
+				     BORDER-LEFT: #799AE1 0pt solid; 
+				     BORDER-BOTTOM: #B1BBCF 0pt solid;              
+				     BORDER-RIGHT: #799AE1 0pt solid;
+					} 
+	  .MulLinePageDiv
+  {
+  	FONT-SIZE: 12px; 
+  	text-align: right;
+  }
+  
+  .MulLinePageTable
+  {
+	padding:10px 0;  
+  	FONT-SIZE: 12px; 
+  	height:20px;
+	line-height:20px;
+  	valign:center;
+  }

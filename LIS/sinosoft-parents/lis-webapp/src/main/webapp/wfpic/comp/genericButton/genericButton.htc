@@ -1,0 +1,460 @@
+<head>
+	<public:component tagName="genericButton">
+		<meta http-equiv="MSThemeCompatible" content="yes">
+		<public:defaults viewLinkContent viewInheritStyle="false" contentEditable="false" tabStop="true" />
+		<public:attach event="oncontentready" onevent="initElement()" />
+		<public:attach event="onpropertychange" onevent="elementPropertyChange()" />
+		<public:property name="image" value="" />
+		<public:property name="text" value="" />
+		<public:property name="enabled" value=true />
+	</public:component>
+	
+	<style>
+		body
+		{
+			position: relative;
+			cursor: default;
+		}
+		td
+		{
+			vertical-align: middle;
+			text-align: center;
+		}
+		.buttonState
+		{
+			color: menutext;
+			background-color: transparent;
+		}
+		.buttonState #tl
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonState #t
+		{
+			height: 4px;
+		}
+		.buttonState #tr
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonState #l1
+		{
+			width: 4px;
+		}
+		.buttonState #l2
+		{
+			width: 4px;
+		}
+		.buttonState #r1
+		{
+			width: 4px;
+		}
+		.buttonState #r2
+		{
+			width: 4px;
+		}
+		.buttonState #bl
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonState #b
+		{
+			height: 4px;
+		}
+		.buttonState #br
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonState #iImage
+		{
+			padding: 0px 2px 0px 2px;
+			vertical-align: middle;
+			filter:	Alpha(Opacity=70);
+		}
+		.buttonState #iText
+		{
+			font: menu;
+			text-align: center;
+			padding: 2px 3px 2px 3px;
+		}
+		.buttonStateOver
+		{
+			color: menutext;
+			background-color: #F6F6F1;
+		}
+		.buttonStateOver #tl
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbTopLeft.gif);
+		}
+		.buttonStateOver #t
+		{
+			height: 4px;
+			background-image: url(/behaviors/images/gbTop.gif);
+		}
+		.buttonStateOver #tr
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbTopRight.gif);
+		}
+		.buttonStateOver #l1
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbLeft.gif);
+		}
+		.buttonStateOver #l2
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbLeft.gif);
+		}
+		.buttonStateOver #r1
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbRight.gif);
+		}
+		.buttonStateOver #r2
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbRight.gif);
+		}
+		.buttonStateOver #bl
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbBottomLeft.gif);
+		}
+		.buttonStateOver #b
+		{
+			height: 4px;
+			background-image: url(/behaviors/images/gbBottom.gif);
+		}
+		.buttonStateOver #br
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbBottomRight.gif);
+		}
+		.buttonStateOver #iImage
+		{
+			padding: 0px 2px 0px 2px;
+			vertical-align: middle;
+			filter:	Alpha(Opacity=100);
+		}
+		.buttonStateOver #iText
+		{
+			font: menu;
+			text-align: center;
+			padding: 2px 3px 2px 3px;
+		}
+		.buttonStateDown
+		{
+			color: white;
+			background-color: #E5E4DD;
+		}
+		.buttonStateDown #tl
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbTopLeftDown.gif);
+		}
+		.buttonStateDown #t
+		{
+			height: 4px;
+			background-image: url(/behaviors/images/gbTopDown.gif);
+		}
+		.buttonStateDown #tr
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbTopRightDown.gif);
+		}
+		.buttonStateDown #l1
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbLeftDown.gif);
+		}
+		.buttonStateDown #l2
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbLeftDown.gif);
+		}
+		.buttonStateDown #r1
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbRightDown.gif);
+		}
+		.buttonStateDown #r2
+		{
+			width: 4px;
+			background-image: url(/behaviors/images/gbRightDown.gif);
+		}
+		.buttonStateDown #bl
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbBottomLeftDown.gif);
+		}
+		.buttonStateDown #b
+		{
+			height: 4px;
+			background-image: url(/behaviors/images/gbBottomDown.gif);
+		}
+		.buttonStateDown #br
+		{
+			height: 4px;
+			width: 4px;
+			background-image: url(/behaviors/images/gbBottomRightDown.gif);
+		}
+		.buttonStateDown #iImage
+		{
+			padding: 0px 2px 0px 2px;
+			vertical-align: middle;
+			filter:	Alpha(Opacity=100);
+		}
+		.buttonStateDown #iText
+		{
+			font: menu;
+			text-align: center;
+			padding: 2px 3px 2px 3px;
+		}
+		.buttonStateDisabled
+		{
+			color: menutext;
+			background-color: transparent;
+		}
+		.buttonStateDisabled #tl
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonStateDisabled #t
+		{
+			height: 4px;
+		}
+		.buttonStateDisabled #tr
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonStateDisabled #l1
+		{
+			width: 4px;
+		}
+		.buttonStateDisabled #l2
+		{
+			width: 4px;
+		}
+		.buttonStateDisabled #r1
+		{
+			width: 4px;
+		}
+		.buttonStateDisabled #r2
+		{
+			width: 4px;
+		}
+		.buttonStateDisabled #bl
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonStateDisabled #b
+		{
+			height: 4px;
+		}
+		.buttonStateDisabled #br
+		{
+			height: 4px;
+			width: 4px;
+		}
+		.buttonStateDisabled #iImage
+		{
+			padding: 0px 2px 0px 2px;
+			vertical-align: middle;
+			filter:	Gray() Alpha(Opacity=40);
+		}
+		.buttonStateDisabled #iText
+		{
+			color: graytext;
+			font: menu;
+			text-align: center;
+			padding: 2px 3px 2px 3px;
+		}
+	</style>
+	
+	<script language="jscript">
+		var onClickHolder = null ;
+		var imgArray = new Array("gbTopLeft", "gbTop", "gbTopRight", "gbLeft", "gbRight", "gbBottomLeft", "gbBottom", "gbBottomRight") ;
+		var imgArrayDown = new Array("gbTopLeftDown", "gbTopDown", "gbTopRightDown", "gbLeftDown", "gbRightDown", "gbBottomLeftDown", "gbBottomDown", "gbBottomRightDown") ;
+		function initElement() {
+			try {
+				if (element.image != "") {
+					iImage.innerHTML = "<img src='" + element.image + "'>" ;
+				}
+				else {
+					iImageRow.style.display = "none" ;
+				}
+				iText.innerText = element.text ;
+				if (element.currentStyle.width != "") {
+					try {
+						iText.style.width = parseInt(element.currentStyle.width) - 14 ;
+					}
+					catch(e) {
+					}
+				}
+				iText.tabStop = element.tabStop ;
+				element.attachEvent("onfocus", elementOnFocus) ;
+				iBody.onselectstart = elementOnSelect ;
+				iBody.oncontextmenu = elementOnContextMenu ;
+				element.enabled = makeBooleanOfAttribute("enabled") ;
+				element.style.cursor = "default" ;
+				if (!element.enabled) {
+					showDisabled() ;
+				}
+				var arrayImages = new Array(imgArray.length) ;
+				var arrayImagesDown = new Array(imgArrayDown.length) ;
+				for (var i = 0; i < imgArray.length; i++) {
+					arrayImages[i] = new Image() ;
+					arrayImages[i].src = "/behaviors/images/" + imgArray[i] + ".gif" ;
+					arrayImagesDown[i] = new Image() ;
+					arrayImagesDown[i].src = "/behaviors/images/" + imgArrayDown[i] + ".gif" ;
+				}	
+			}
+			catch(e) {
+			}
+		}
+		function elementPropertyChange() {
+			if (window.event.propertyName == "enabled") {
+				if (element.enabled) {
+					showEnabled() ;
+				}
+				else {
+					showDisabled() ;
+				}
+			}
+		}
+		function elementOnFocus() {
+			iText.focus() ;
+		}
+		function elementOnSelect() {
+			with (window.event) {
+				cancelBubble = true ;
+				returnValue = false ;
+			}
+			return false ;
+		}
+		function elementOnContextMenu() {
+			with (window.event) {
+				cancelBubble = true ;
+				returnValue = false ;
+			}
+			return false ;
+		}
+		function isSameParent(ev) {
+			elTo = ev.toElement ;
+			elFrom = ev.fromElement ;
+			if (elTo == null || elFrom == null) { return false ; }
+			return true ;
+		}
+		function buttonOnMouseOver() {
+			if (!element.enabled) { return ; }
+			if (!isSameParent(window.event)) { iButton.className = "buttonStateOver" ; }
+		}
+		function buttonOnMouseOut() {
+			if (!element.enabled) { return ; }
+			if (!isSameParent(window.event)) { iButton.className = "buttonState" ; }
+		}
+		function buttonOnMouseDown() {
+			if (!element.enabled) { return ; }
+			iButton.className = "buttonStateDown" ;
+			iImage.style.padding = "0px 1px 0px 3px" ;
+		}
+		function buttonOnMouseUp() {
+			if (!element.enabled) { return ; }
+			iButton.className = "buttonStateOver" ;
+			iImage.style.padding = "0px 2px 0px 2px" ;
+		}
+		function showDisabled() {
+			var strClassName = iButton.className ;
+			if (strClassName.substring(0, 11) == "buttonState" && strClassName.indexOf("Disabled") == -1) {
+				iButton.className = "buttonStateDisabled" ;
+				try {
+					if (element.onclick != null) {
+						onClickHolder = element.onclick ;
+						element.onclick = null ;
+					}
+				}
+				catch(e) {
+				}
+			}
+		}
+		function showEnabled() {
+			if (iButton.className == "buttonStateDisabled") {
+				iButton.className = "buttonState" ;
+				try {
+					if (onClickHolder != null) {
+						element.onclick = onClickHolder ;
+						onClickHolder = null ;
+					}
+				}
+				catch(e) {
+				}
+			}
+		}
+		function makeBooleanOfAttribute(attName) {
+			a = element.getAttribute(attName) ;
+			if (typeof(a) == "boolean") {
+				return a ;
+			}
+			else if (a == null) {
+				a = false ;
+			}
+			else if (typeof(a) == "string") {
+				a = a.toLowerCase() ;
+				a = (a == "true" || a == "1" || a == "yes") ;
+			}
+			else {
+				a = new Boolean(a) ;
+			}
+			return a ;
+		}
+	</script>
+</head>
+
+<body id="iBody">
+	<table id="iButton"
+		   class="buttonState"
+		   cellpadding="0"
+		   cellspacing="0"
+		   onmouseover="jscript: buttonOnMouseOver();"
+		   onmouseout="jscript: buttonOnMouseOut();"
+		   onmousedown="jscript: buttonOnMouseDown();"
+		   onmouseup="jscript: buttonOnMouseUp();">
+		<tr>
+			<td	id="tl"></td>
+			<td	id="t"></td>
+			<td	id="tr"></td>
+		</tr>
+		<tr id="iImageRow">
+			<td	id="l1"></td>
+			<td id="iImage"></td>
+			<td	id="r1"></td>
+		</tr>
+		<tr>
+			<td	id="l2"></td>
+			<td id="iText"></td>
+			<td	id="r2"></td>
+		</tr>
+		<tr>
+			<td	id="bl"></td>
+			<td	id="b"></td>
+			<td	id="br"></td>
+		</tr>
+	</table>
+</body>
+

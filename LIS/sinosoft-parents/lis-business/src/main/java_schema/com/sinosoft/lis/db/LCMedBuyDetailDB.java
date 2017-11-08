@@ -1,0 +1,1283 @@
+/**
+ * Copyright (c) 2002 sinosoft  Co. Ltd.
+ * All right reserved.
+ */
+
+package com.sinosoft.lis.db;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import com.sinosoft.lis.schema.LCMedBuyDetailSchema;
+import com.sinosoft.lis.vschema.LCMedBuyDetailSet;
+import com.sinosoft.lis.pubfun.PubFun;
+import com.sinosoft.utility.*;
+
+/*
+ * <p>ClassName: LCMedBuyDetailDB </p>
+ * <p>Description: DB层数据库操作类文件 </p>
+ * <p>Copyright: Copyright (c) 2007</p>
+ * <p>Company: sinosoft </p>
+ * @Database: 泰康未整理PDM
+ */
+public class LCMedBuyDetailDB extends LCMedBuyDetailSchema
+{
+	// @Field
+	private Connection con;
+	private DBOper db;
+	/**
+	* flag = true: 传入Connection
+	* flag = false: 不传入Connection
+	**/
+	private boolean mflag = false;
+
+	public CErrors mErrors = new CErrors();		// 错误信息
+
+	/**
+	 * 为批量操作而准备的语句和游标对象
+	 */
+	private ResultSet mResultSet = null;
+	private Statement mStatement = null;
+	// @Constructor
+	public LCMedBuyDetailDB( Connection tConnection )
+	{
+		con = tConnection;
+		db = new DBOper( con, "LCMedBuyDetail" );
+		mflag = true;
+	}
+
+	public LCMedBuyDetailDB()
+	{
+		con = null;
+		db = new DBOper( "LCMedBuyDetail" );
+		mflag = false;
+	}
+
+	// @Method
+	public boolean deleteSQL()
+	{
+		LCMedBuyDetailSchema tSchema = this.getSchema();
+		if (db.deleteSQL(tSchema))
+		{
+		     return true;
+		}
+		else
+		{
+			// @@错误处理
+			this.mErrors.copyAllErrors(db.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "deleteSQL";
+			tError.errorMessage = "操作失败!";
+			this.mErrors .addOneError(tError);
+			return false;
+		}
+	}
+
+	public int getCount()
+	{
+		LCMedBuyDetailSchema tSchema = this.getSchema();
+
+		int tCount = db.getCount(tSchema);
+		if (tCount < 0)
+		{
+			// @@错误处理
+			this.mErrors.copyAllErrors(db.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "getCount";
+			tError.errorMessage = "操作失败!";
+			this.mErrors .addOneError(tError);
+
+			return -1;
+		}
+
+		return tCount;
+	}
+
+	public boolean delete()
+	{
+		PreparedStatement pstmt = null;
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			pstmt = con.prepareStatement("DELETE FROM LCMedBuyDetail WHERE  BatchNo = ? AND SeqNo = ? AND MedCardNo = ?");
+			if(this.getBatchNo() == null || this.getBatchNo().equals("null")) {
+				pstmt.setNull(1, 12);
+			} else {
+				pstmt.setString(1, this.getBatchNo());
+			}
+			if(this.getSeqNo() == null || this.getSeqNo().equals("null")) {
+				pstmt.setNull(2, 12);
+			} else {
+				pstmt.setString(2, this.getSeqNo());
+			}
+			if(this.getMedCardNo() == null || this.getMedCardNo().equals("null")) {
+				pstmt.setNull(3, 12);
+			} else {
+				pstmt.setString(3, this.getMedCardNo());
+			}
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception ex) {
+			// @@错误处理
+			this.mErrors.copyAllErrors(db.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "delete()";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+		// only for debug purpose
+		SQLString sqlObj = new SQLString("LCMedBuyDetail");
+		sqlObj.setSQL(4, this);
+		sqlObj.getSQL();
+
+			try {
+				pstmt.close();
+			} catch (Exception e){}
+
+			if( !mflag ) {
+				try {
+					con.close();
+				} catch (Exception e){}
+			}
+
+			return false;
+		}
+
+		if( !mflag ) {
+			try {
+				con.close();
+			} catch (Exception e){}
+		}
+
+		return true;
+	}
+
+	public boolean update()
+	{
+		PreparedStatement pstmt = null;
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		// only for debug purpose
+		SQLString sqlObj = new SQLString("LCMedBuyDetail");
+		sqlObj.setSQL(2, this);
+		sqlObj.getSQL();
+
+		try
+		{
+			pstmt = con.prepareStatement("UPDATE LCMedBuyDetail SET  BatchNo = ? , SeqNo = ? , MedCardNo = ? , MedName = ? , MedType1 = ? , MedType2 = ? , MedType3 = ? , Quanity = ? , UnitPrice = ? , SumPrice = ? , BXFlag = ? , MakeDate = ? , MakeTime = ? , MedShopCode = ? , ConterNo = ? , Memo = ? , StandByFlag1 = ? , StandByFlag2 = ? WHERE  BatchNo = ? AND SeqNo = ? AND MedCardNo = ?");
+			if(this.getBatchNo() == null || this.getBatchNo().equals("null")) {
+				pstmt.setNull(1, 12);
+			} else {
+				pstmt.setString(1, this.getBatchNo());
+			}
+			if(this.getSeqNo() == null || this.getSeqNo().equals("null")) {
+				pstmt.setNull(2, 12);
+			} else {
+				pstmt.setString(2, this.getSeqNo());
+			}
+			if(this.getMedCardNo() == null || this.getMedCardNo().equals("null")) {
+				pstmt.setNull(3, 12);
+			} else {
+				pstmt.setString(3, this.getMedCardNo());
+			}
+			if(this.getMedName() == null || this.getMedName().equals("null")) {
+				pstmt.setNull(4, 12);
+			} else {
+				pstmt.setString(4, this.getMedName());
+			}
+			if(this.getMedType1() == null || this.getMedType1().equals("null")) {
+				pstmt.setNull(5, 12);
+			} else {
+				pstmt.setString(5, this.getMedType1());
+			}
+			if(this.getMedType2() == null || this.getMedType2().equals("null")) {
+				pstmt.setNull(6, 12);
+			} else {
+				pstmt.setString(6, this.getMedType2());
+			}
+			if(this.getMedType3() == null || this.getMedType3().equals("null")) {
+				pstmt.setNull(7, 12);
+			} else {
+				pstmt.setString(7, this.getMedType3());
+			}
+			pstmt.setDouble(8, this.getQuanity());
+			pstmt.setDouble(9, this.getUnitPrice());
+			pstmt.setDouble(10, this.getSumPrice());
+			if(this.getBXFlag() == null || this.getBXFlag().equals("null")) {
+				pstmt.setNull(11, 12);
+			} else {
+				pstmt.setString(11, this.getBXFlag());
+			}
+			if(this.getMakeDate() == null || this.getMakeDate().equals("null")) {
+				pstmt.setNull(12, 91);
+			} else {
+				pstmt.setDate(12, Date.valueOf(this.getMakeDate()));
+			}
+			if(this.getMakeTime() == null || this.getMakeTime().equals("null")) {
+				pstmt.setNull(13, 12);
+			} else {
+				pstmt.setString(13, this.getMakeTime());
+			}
+			if(this.getMedShopCode() == null || this.getMedShopCode().equals("null")) {
+				pstmt.setNull(14, 12);
+			} else {
+				pstmt.setString(14, this.getMedShopCode());
+			}
+			if(this.getConterNo() == null || this.getConterNo().equals("null")) {
+				pstmt.setNull(15, 12);
+			} else {
+				pstmt.setString(15, this.getConterNo());
+			}
+			if(this.getMemo() == null || this.getMemo().equals("null")) {
+				pstmt.setNull(16, 12);
+			} else {
+				pstmt.setString(16, this.getMemo());
+			}
+			if(this.getStandByFlag1() == null || this.getStandByFlag1().equals("null")) {
+				pstmt.setNull(17, 12);
+			} else {
+				pstmt.setString(17, this.getStandByFlag1());
+			}
+			if(this.getStandByFlag2() == null || this.getStandByFlag2().equals("null")) {
+				pstmt.setNull(18, 12);
+			} else {
+				pstmt.setString(18, this.getStandByFlag2());
+			}
+			// set where condition
+			if(this.getBatchNo() == null || this.getBatchNo().equals("null")) {
+				pstmt.setNull(19, 12);
+			} else {
+				pstmt.setString(19, this.getBatchNo());
+			}
+			if(this.getSeqNo() == null || this.getSeqNo().equals("null")) {
+				pstmt.setNull(20, 12);
+			} else {
+				pstmt.setString(20, this.getSeqNo());
+			}
+			if(this.getMedCardNo() == null || this.getMedCardNo().equals("null")) {
+				pstmt.setNull(21, 12);
+			} else {
+				pstmt.setString(21, this.getMedCardNo());
+			}
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception ex) {
+			// @@错误处理
+			this.mErrors.copyAllErrors(db.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "update()";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+			try {
+				pstmt.close();
+			} catch (Exception e){}
+
+			if( !mflag ) {
+				try {
+					con.close();
+				} catch (Exception e){}
+			}
+
+			return false;
+		}
+
+		if( !mflag ) {
+			try {
+				con.close();
+			} catch (Exception e){}
+		}
+
+		return true;
+	}
+
+	public boolean insert()
+	{
+		PreparedStatement pstmt = null;
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		// only for debug purpose
+		SQLString sqlObj = new SQLString("LCMedBuyDetail");
+		sqlObj.setSQL(1, this);
+		sqlObj.getSQL();
+
+		try
+		{
+			pstmt = con.prepareStatement("INSERT INTO LCMedBuyDetail VALUES( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ?)");
+			if(this.getBatchNo() == null || this.getBatchNo().equals("null")) {
+				pstmt.setNull(1, 12);
+			} else {
+				pstmt.setString(1, this.getBatchNo());
+			}
+			if(this.getSeqNo() == null || this.getSeqNo().equals("null")) {
+				pstmt.setNull(2, 12);
+			} else {
+				pstmt.setString(2, this.getSeqNo());
+			}
+			if(this.getMedCardNo() == null || this.getMedCardNo().equals("null")) {
+				pstmt.setNull(3, 12);
+			} else {
+				pstmt.setString(3, this.getMedCardNo());
+			}
+			if(this.getMedName() == null || this.getMedName().equals("null")) {
+				pstmt.setNull(4, 12);
+			} else {
+				pstmt.setString(4, this.getMedName());
+			}
+			if(this.getMedType1() == null || this.getMedType1().equals("null")) {
+				pstmt.setNull(5, 12);
+			} else {
+				pstmt.setString(5, this.getMedType1());
+			}
+			if(this.getMedType2() == null || this.getMedType2().equals("null")) {
+				pstmt.setNull(6, 12);
+			} else {
+				pstmt.setString(6, this.getMedType2());
+			}
+			if(this.getMedType3() == null || this.getMedType3().equals("null")) {
+				pstmt.setNull(7, 12);
+			} else {
+				pstmt.setString(7, this.getMedType3());
+			}
+			pstmt.setDouble(8, this.getQuanity());
+			pstmt.setDouble(9, this.getUnitPrice());
+			pstmt.setDouble(10, this.getSumPrice());
+			if(this.getBXFlag() == null || this.getBXFlag().equals("null")) {
+				pstmt.setNull(11, 12);
+			} else {
+				pstmt.setString(11, this.getBXFlag());
+			}
+			if(this.getMakeDate() == null || this.getMakeDate().equals("null")) {
+				pstmt.setNull(12, 91);
+			} else {
+				pstmt.setDate(12, Date.valueOf(this.getMakeDate()));
+			}
+			if(this.getMakeTime() == null || this.getMakeTime().equals("null")) {
+				pstmt.setNull(13, 12);
+			} else {
+				pstmt.setString(13, this.getMakeTime());
+			}
+			if(this.getMedShopCode() == null || this.getMedShopCode().equals("null")) {
+				pstmt.setNull(14, 12);
+			} else {
+				pstmt.setString(14, this.getMedShopCode());
+			}
+			if(this.getConterNo() == null || this.getConterNo().equals("null")) {
+				pstmt.setNull(15, 12);
+			} else {
+				pstmt.setString(15, this.getConterNo());
+			}
+			if(this.getMemo() == null || this.getMemo().equals("null")) {
+				pstmt.setNull(16, 12);
+			} else {
+				pstmt.setString(16, this.getMemo());
+			}
+			if(this.getStandByFlag1() == null || this.getStandByFlag1().equals("null")) {
+				pstmt.setNull(17, 12);
+			} else {
+				pstmt.setString(17, this.getStandByFlag1());
+			}
+			if(this.getStandByFlag2() == null || this.getStandByFlag2().equals("null")) {
+				pstmt.setNull(18, 12);
+			} else {
+				pstmt.setString(18, this.getStandByFlag2());
+			}
+			// execute sql
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception ex) {
+			// @@错误处理
+			this.mErrors.copyAllErrors(db.mErrors);
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "insert()";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+			try {
+				pstmt.close();
+			} catch (Exception e){}
+
+			if( !mflag ) {
+				try {
+					con.close();
+				} catch (Exception e){}
+			}
+
+			return false;
+		}
+
+		if( !mflag ) {
+			try {
+				con.close();
+			} catch (Exception e){}
+		}
+
+		return true;
+	}
+
+	public boolean getInfo()
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			pstmt = con.prepareStatement("SELECT * FROM LCMedBuyDetail WHERE  BatchNo = ? AND SeqNo = ? AND MedCardNo = ?", 
+				ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+			if(this.getBatchNo() == null || this.getBatchNo().equals("null")) {
+				pstmt.setNull(1, 12);
+			} else {
+				pstmt.setString(1, this.getBatchNo());
+			}
+			if(this.getSeqNo() == null || this.getSeqNo().equals("null")) {
+				pstmt.setNull(2, 12);
+			} else {
+				pstmt.setString(2, this.getSeqNo());
+			}
+			if(this.getMedCardNo() == null || this.getMedCardNo().equals("null")) {
+				pstmt.setNull(3, 12);
+			} else {
+				pstmt.setString(3, this.getMedCardNo());
+			}
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while (rs.next())
+			{
+				i++;
+				if (!this.setSchema(rs,i))
+				{
+					// @@错误处理
+					CError tError = new CError();
+					tError.moduleName = "LCMedBuyDetailDB";
+					tError.functionName = "getInfo";
+					tError.errorMessage = "取数失败!";
+					this.mErrors .addOneError(tError);
+
+					try{ rs.close(); } catch( Exception ex ) {}
+					try{ pstmt.close(); } catch( Exception ex1 ) {}
+
+					if (!mflag)
+					{
+						try
+						{
+							con.close();
+						}
+						catch(Exception et){}
+					}
+					return false;
+				}
+				break;
+			}
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ pstmt.close(); } catch( Exception ex3 ) {}
+
+			if( i == 0 )
+			{
+				if (!mflag)
+				{
+					try
+					{
+						con.close();
+					}
+					catch(Exception et){}
+				}
+				return false;
+			}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "getInfo";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex ) {}
+			try{ pstmt.close(); } catch( Exception ex1 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+			return false;
+	    }
+	    // 断开数据库连接
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return true;
+	}
+
+	public LCMedBuyDetailSet query()
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+	  if( !mflag ) {
+		  con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			SQLString sqlObj = new SQLString("LCMedBuyDetail");
+			LCMedBuyDetailSchema aSchema = this.getSchema();
+			sqlObj.setSQLNew(5,aSchema);
+			String sql = sqlObj.getSQL();
+
+			pstmt = con.prepareStatement(StrTool.GBKToUnicode(sql),ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+			List tBV = sqlObj.getBV();
+			db.setBV(pstmt, tBV);
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while (rs.next())
+			{
+				i++;
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				s1.setSchema(rs,i);
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch( Exception ex ) {}
+			try{ pstmt.close(); } catch( Exception ex1 ) {}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "query";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ pstmt.close(); } catch( Exception ex3 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+	    }
+
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return aLCMedBuyDetailSet;
+	}
+
+	public LCMedBuyDetailSet executeQuery(String sql)
+	{
+		Statement stmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+	  if( !mflag ) {
+		  con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+
+			rs = stmt.executeQuery(StrTool.GBKToUnicode(sql));
+			int i = 0;
+			while (rs.next())
+			{
+				i++;
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				if (!s1.setSchema(rs,i))
+				{
+					// @@错误处理
+					CError tError = new CError();
+					tError.moduleName = "LCMedBuyDetailDB";
+					tError.functionName = "executeQuery";
+					tError.errorMessage = "sql语句有误，请查看表名及字段名信息!";
+					this.mErrors .addOneError(tError);
+				}
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch( Exception ex ) {}
+			try{ stmt.close(); } catch( Exception ex1 ) {}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "executeQuery";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ stmt.close(); } catch( Exception ex3 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+	    }
+
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return aLCMedBuyDetailSet;
+	}
+
+	public LCMedBuyDetailSet query(int nStart, int nCount)
+	{
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+	  if( !mflag ) {
+		  con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			SQLString sqlObj = new SQLString("LCMedBuyDetail");
+			LCMedBuyDetailSchema aSchema = this.getSchema();
+			sqlObj.setSQLNew(5,aSchema);
+			String sql = sqlObj.getSQL();
+
+			pstmt = con.prepareStatement(StrTool.GBKToUnicode(sql),ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+			List tBV = sqlObj.getBV();
+			db.setBV(pstmt, tBV);
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while (rs.next())
+			{
+				i++;
+
+				if( i < nStart ) {
+					continue;
+				}
+
+				if( i >= nStart + nCount ) {
+					break;
+				}
+
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				s1.setSchema(rs,i);
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch( Exception ex ) {}
+			try{ pstmt.close(); } catch( Exception ex1 ) {}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "query";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ pstmt.close(); } catch( Exception ex3 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+	    }
+
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return aLCMedBuyDetailSet;
+	}
+
+	public LCMedBuyDetailSet executeQuery(String sql, int nStart, int nCount)
+	{
+		Statement stmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+	  if( !mflag ) {
+		  con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+
+			rs = stmt.executeQuery(StrTool.GBKToUnicode(sql));
+			int i = 0;
+			while (rs.next())
+			{
+				i++;
+
+				if( i < nStart ) {
+					continue;
+				}
+
+				if( i >= nStart + nCount ) {
+					break;
+				}
+
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				if (!s1.setSchema(rs,i))
+				{
+					// @@错误处理
+					CError tError = new CError();
+					tError.moduleName = "LCMedBuyDetailDB";
+					tError.functionName = "executeQuery";
+					tError.errorMessage = "sql语句有误，请查看表名及字段名信息!";
+					this.mErrors .addOneError(tError);
+				}
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch( Exception ex ) {}
+			try{ stmt.close(); } catch( Exception ex1 ) {}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "executeQuery";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ stmt.close(); } catch( Exception ex3 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+	    }
+
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return aLCMedBuyDetailSet;
+	}
+
+	public boolean update(String strWherePart)
+	{
+		Statement stmt = null;
+
+	  if( !mflag ) {
+		  con = DBConnPool.getConnection();
+		}
+
+		try
+		{
+			stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+			SQLString sqlObj = new SQLString("LCMedBuyDetail");
+			LCMedBuyDetailSchema aSchema = this.getSchema();
+			sqlObj.setSQL(2,aSchema);
+			String sql = "update LCMedBuyDetail " + sqlObj.getUpdPart() + " where " + strWherePart;
+
+			int operCount = stmt.executeUpdate(sql);
+			if( operCount == 0 )
+			{
+				// @@错误处理
+				CError tError = new CError();
+				tError.moduleName = "LCMedBuyDetailDB";
+				tError.functionName = "update";
+				tError.errorMessage = "更新数据失败!";
+				this.mErrors .addOneError(tError);
+
+				if (!mflag)
+				{
+					try
+					{
+						con.close();
+					}
+					catch(Exception et){}
+				}
+				return false;
+			}
+		}
+		catch(Exception e)
+	    {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "update";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ stmt.close(); } catch( Exception ex1 ) {}
+
+			if (!mflag)
+			{
+				try
+				{
+					con.close();
+				}
+				catch(Exception et){}
+			}
+			return false;
+	    }
+	    // 断开数据库连接
+		if (!mflag)
+		{
+			try
+			{
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return true;
+	}
+
+/**
+ * 准备数据查询条件
+ * @param strSQL String
+ * @return boolean
+ */
+public boolean prepareData(String strSQL)
+{
+    if (mResultSet != null)
+    {
+        // @@错误处理
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "prepareData";
+        tError.errorMessage = "数据集非空，程序在准备数据集之后，没有关闭！";
+        this.mErrors.addOneError(tError);
+        return false;
+    }
+
+    if (!mflag)
+    {
+        con = DBConnPool.getConnection();
+    }
+    try
+    {
+        mStatement = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        mResultSet = mStatement.executeQuery(StrTool.GBKToUnicode(strSQL));
+    }
+    catch (Exception e)
+    {
+        // @@错误处理
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "prepareData";
+        tError.errorMessage = e.toString();
+        this.mErrors.addOneError(tError);
+        try
+        {
+            mResultSet.close();
+        }
+        catch (Exception ex2)
+        {}
+        try
+        {
+            mStatement.close();
+        }
+        catch (Exception ex3)
+        {}
+        if (!mflag)
+        {
+            try
+            {
+                con.close();
+            }
+            catch (Exception et)
+            {}
+        }
+        return false;
+    }
+
+    if (!mflag)
+    {
+        try
+        {
+            con.close();
+        }
+        catch (Exception e)
+        {}
+    }
+    return true;
+}
+
+/**
+ * 获取数据集
+ * @return boolean
+ */
+public boolean hasMoreData()
+{
+    boolean flag = true;
+    if (null == mResultSet)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "hasMoreData";
+        tError.errorMessage = "数据集为空，请先准备数据集！";
+        this.mErrors.addOneError(tError);
+        return false;
+    }
+    try
+    {
+        flag = mResultSet.next();
+    }
+    catch (Exception ex)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "hasMoreData";
+        tError.errorMessage = ex.toString();
+        this.mErrors.addOneError(tError);
+        try
+        {
+            mResultSet.close();
+            mResultSet = null;
+        }
+        catch (Exception ex2)
+        {}
+        try
+        {
+            mStatement.close();
+            mStatement = null;
+        }
+        catch (Exception ex3)
+        {}
+        if (!mflag)
+        {
+            try
+            {
+                con.close();
+            }
+            catch (Exception et)
+            {}
+        }
+        return false;
+    }
+    return flag;
+}
+/**
+ * 获取定量数据
+ * @return LCMedBuyDetailSet
+ */
+public LCMedBuyDetailSet getData()
+{
+    int tCount = 0;
+    LCMedBuyDetailSet tLCMedBuyDetailSet = new LCMedBuyDetailSet();
+    LCMedBuyDetailSchema tLCMedBuyDetailSchema = null;
+    if (null == mResultSet)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "getData";
+        tError.errorMessage = "数据集为空，请先准备数据集！";
+        this.mErrors.addOneError(tError);
+        return null;
+    }
+    try
+    {
+        tCount = 1;
+        tLCMedBuyDetailSchema = new LCMedBuyDetailSchema();
+        tLCMedBuyDetailSchema.setSchema(mResultSet, 1);
+        tLCMedBuyDetailSet.add(tLCMedBuyDetailSchema);
+        //注意mResultSet.next()的作用
+        while (tCount++ < SysConst.FETCHCOUNT)
+        {
+            if (mResultSet.next())
+            {
+                tLCMedBuyDetailSchema = new LCMedBuyDetailSchema();
+                tLCMedBuyDetailSchema.setSchema(mResultSet, 1);
+                tLCMedBuyDetailSet.add(tLCMedBuyDetailSchema);
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "getData";
+        tError.errorMessage = ex.toString();
+        this.mErrors.addOneError(tError);
+        try
+        {
+            mResultSet.close();
+            mResultSet = null;
+        }
+        catch (Exception ex2)
+        {}
+        try
+        {
+            mStatement.close();
+            mStatement = null;
+        }
+        catch (Exception ex3)
+        {}
+        if (!mflag)
+        {
+            try
+            {
+                con.close();
+            }
+            catch (Exception et)
+            {}
+        }
+        return null;
+    }
+    return tLCMedBuyDetailSet;
+}
+/**
+ * 关闭数据集
+ * @return boolean
+ */
+public boolean closeData()
+{
+    boolean flag = true;
+    try
+    {
+        if (null == mResultSet)
+        {
+            CError tError = new CError();
+            tError.moduleName = "LCMedBuyDetailDB";
+            tError.functionName = "closeData";
+            tError.errorMessage = "数据集已经关闭了！";
+            this.mErrors.addOneError(tError);
+            flag = false;
+        }
+        else
+        {
+            mResultSet.close();
+            mResultSet = null;
+        }
+    }
+    catch (Exception ex2)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "closeData";
+        tError.errorMessage = ex2.toString();
+        this.mErrors.addOneError(tError);
+        flag = false;
+    }
+    try
+    {
+        if (null == mStatement)
+        {
+            CError tError = new CError();
+            tError.moduleName = "LCMedBuyDetailDB";
+            tError.functionName = "closeData";
+            tError.errorMessage = "语句已经关闭了！";
+            this.mErrors.addOneError(tError);
+            flag = false;
+        }
+        else
+        {
+            mStatement.close();
+            mStatement = null;
+        }
+    }
+    catch (Exception ex3)
+    {
+        CError tError = new CError();
+        tError.moduleName = "LCMedBuyDetailDB";
+        tError.functionName = "closeData";
+        tError.errorMessage = ex3.toString();
+        this.mErrors.addOneError(tError);
+        flag = false;
+    }
+    return flag;
+}
+
+	public LCMedBuyDetailSet executeQuery(SQLwithBindVariables sqlbv) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		try {
+			pstmt = con.prepareStatement(StrTool.GBKToUnicode(sqlbv.sql()),ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+			sqlbv.setParameters(pstmt);
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while (rs.next()) {
+				i++;
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				if (!s1.setSchema(rs,i)) {
+					// @@错误处理
+					CError tError = new CError();
+					tError.moduleName = "LCMedBuyDetailDB";
+					tError.functionName = "executeQuery";
+					tError.errorMessage = "sql语句有误，请查看表名及字段名信息!";
+					this.mErrors .addOneError(tError);
+				}
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch(Exception ex) {}
+			try{ pstmt.close(); } catch(Exception ex1) {}
+		}
+		catch(Exception e) {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "executeQuery";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch(Exception ex2) {}
+			try{ pstmt.close(); } catch(Exception ex3) {}
+
+			if (!mflag) {
+				try {
+					con.close();
+				}
+				catch(Exception et){}
+			}
+		}
+
+		if (!mflag) {
+			try {
+				con.close();
+			}
+			catch(Exception e) {}
+		}
+
+		return aLCMedBuyDetailSet;
+	}
+
+	public LCMedBuyDetailSet executeQuery(SQLwithBindVariables sqlbv, int nStart, int nCount) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LCMedBuyDetailSet aLCMedBuyDetailSet = new LCMedBuyDetailSet();
+
+		if( !mflag ) {
+			con = DBConnPool.getConnection();
+		}
+
+		try {
+			pstmt = con.prepareStatement(StrTool.GBKToUnicode(sqlbv.sql()),ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+			sqlbv.setParameters(pstmt);
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while (rs.next()) {
+				i++;
+
+				if( i < nStart ) {
+					continue;
+				}
+
+				if( i >= nStart + nCount ) {
+					break; 
+				}
+
+				LCMedBuyDetailSchema s1 = new LCMedBuyDetailSchema();
+				if (!s1.setSchema(rs,i)) {
+					// @@错误处理
+					CError tError = new CError();
+					tError.moduleName = "LCMedBuyDetailDB";
+					tError.functionName = "executeQuery";
+					tError.errorMessage = "sql语句有误，请查看表名及字段名信息!";
+					this.mErrors .addOneError(tError);
+				}
+				aLCMedBuyDetailSet.add(s1);
+			}
+			try{ rs.close(); } catch(Exception ex) {}
+			try{ pstmt.close(); } catch(Exception ex1) {}
+		}
+		catch(Exception e) {
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LCMedBuyDetailDB";
+			tError.functionName = "executeQuery";
+			tError.errorMessage = e.toString();
+			this.mErrors .addOneError(tError);
+
+			try{ rs.close(); } catch( Exception ex2 ) {}
+			try{ pstmt.close(); } catch( Exception ex3 ) {}
+
+			if (!mflag) {
+				try {
+					con.close();
+				}
+				catch(Exception et){}
+			}
+		}
+
+		if (!mflag) {
+			try {
+				con.close();
+			}
+			catch(Exception e){}
+		}
+
+		return aLCMedBuyDetailSet; 
+	}
+
+}

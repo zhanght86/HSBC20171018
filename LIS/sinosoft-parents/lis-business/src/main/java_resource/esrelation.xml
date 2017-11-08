@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="GBK"?>
+<Type>
+	<!--新契约、核保-->
+	<!--1001——1014投保书-->
+	<DocType standard="TB1001" target="UA001" desc="个人保险投保单" />	
+	<DocType standard="TB1002" target="UA002" desc="团体保险投保单" />	
+	<DocType standard="TB1003" target="UA401" desc="银邮保通投保单" />	
+	
+	<!--通知书-->
+	<DocType standard="TB1011" target="UN101" desc="核保通知书(甲类)" />
+	<DocType standard="TB1012" target="UN102" desc="核保通知书(乙类)" />
+	<DocType standard="TB1013" target="UN103" desc="体检通知书" />
+	<DocType standard="TB1014" target="UN104" desc="业务员问题件通知书" />
+	<DocType standard="TB1015" target="UN105" desc="生调通知书" />
+	<DocType standard="TB1029" target="UR200" desc="人身保险投保提示" />
+	<DocType standard="TB1016" target="UR201" desc="投保要约撤销申请书" />
+	<DocType standard="TB1017" target="UR202" desc="投保要约更正申请书(打印)" />
+	<DocType standard="TB1018" target="UR203" desc="投保要约更正申请书(不打印)" />
+	<DocType standard="TB1019" target="UR204" desc="生效日回溯" />
+	<DocType standard="TB1020" target="UR205" desc="体检资料" />
+	<DocType standard="TB1021" target="UR206" desc="未成年人身故保险金特别约定(打印)" />
+	<DocType standard="TB1022" target="UR207" desc="问卷" />
+	<DocType standard="TB1023" target="UR208" desc="身份证明" />
+	<DocType standard="TB1024" target="UR209" desc="病例资料" />
+	<DocType standard="TB1025" target="UR210" desc="其他资料" />
+	<DocType standard="TB1027" target="UR211" desc="分红产品说明书" />
+	<DocType standard="TB1028" target="UR212" desc="补充告知问卷" />
+	<DocType standard="TB1026" target="UR301" desc="保单送达回执" />
+
+	<DocType standard="TB1030" target="UQ001" desc="团险业务签报" />
+	<DocType standard="TB1031" target="UQ002" desc="团险业务协议" />
+	
+	
+					
+	<!--保全-->
+	<DocType standard="BQ1001" target="BQ001" desc="个险保全申请书" /><!--YH-->
+	<DocType standard="BQ1002" target="BQ002" desc="团险保全申请书" /><!--YH-->
+	<DocType standard="BQ1003" target="BQ003" desc="个人保全问题件扫描" />
+	<DocType standard="BQ1004" target="BQ004" desc="个人保全核保问题件扫描" />
+	<DocType standard="BQ1005" target="BQ005" desc="银行转帐失败问题件通知书" />
+	<DocType standard="BQ1006" target="BQ006" desc="保单效力确认申请书" />
+	<DocType standard="BQ1007" target="PA041" desc="个人寿险保全作业申请书－基本信息" />
+	<DocType standard="BQ1008" target="PA061" desc="内部转办单" /><!--by niuzj 20051216-->
+	<DocType standard="BQ1021" target="POS100" desc="系统打印类单证" />
+	<DocType standard="BQ1022" target="POS200" desc="收据类单证" />
+	<DocType standard="BQ1023" target="POS300" desc="健康类单证" />
+	<DocType standard="BQ1024" target="POS400" desc="报告类单证" />
+	<DocType standard="BQ1025" target="POS500" desc="身份证明类单证" />
+	<DocType standard="BQ1026" target="POS600" desc="其它类单证" />
+	<DocType standard="BQ1044" target="PN031" desc="团体保全人名清单(小)" />
+	<DocType standard="BQ1045" target="PN041" desc="团体保全人名清单(大)" />
+	<DocType standard="BQ1046" target="PN011" desc="批单（小）" />
+	<DocType standard="TB1047" target="PN021" desc="批单（大）" />
+	<DocType standard="TB1048" target="UN069" desc="契约内容变更通知书_保全核保" />
+	
+	<!--理赔-->
+	<DocType standard="LP1001" target="CA001" desc="申请资料" />
+	<DocType standard="LP1002" target="CA002" desc="身份关系资料" />
+	<DocType standard="LP1003" target="CA003" desc="医疗费收据资料" />
+	<DocType standard="LP1004" target="CF011" desc="病历资料" />
+	<DocType standard="LP1005" target="CA041" desc="事故证明资料" />	
+	<DocType standard="LP1006" target="CLM100" desc="调查资料" />
+	<DocType standard="LP1007" target="CLM200" desc="其他理赔资料" />
+	<DocType standard="LP2001" target="CA101" desc="理赔核保通知书" />
+	<DocType standard="LP2002" target="CA102" desc="理赔体检通知书" />
+	<DocType standard="LP1008" target="CA005" desc="理赔转帐失败问题件通知书" />
+	
+	<!--财务-->
+	<DocType standard="OF1001" target="OF001" desc="暂收据" />
+	<DocType standard="OF1002" target="OF002" desc="银行转帐授权书" />
+	
+	<!--续保-->
+	<DocType standard="XB1001" target="XB001" desc="续保二核通知书" />
+</Type>

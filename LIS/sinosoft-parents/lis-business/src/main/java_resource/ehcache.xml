@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+	updateCheck="false" dynamicConfig="false" monitoring="off">
+	<diskStore path="java.io.tmpdir"/>
+	<!-- RMI分布式配置 -->
+	<!--cacheManagerPeerProviderFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+		properties="peerDiscovery=automatic, multicastGroupAddress=237.17.17.17,
+multicastGroupPort=1717, timeToLive=32" />
+	<cacheManagerPeerListenerFactory
+		class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"
+		properties="hostName=127.0.0.1,port=40000,socketTimeoutMillis=120000" /-->
+	<!-- 默认缓存 -->
+	<defaultCache eternal="false" maxElementsInMemory="100"
+		timeToIdleSeconds="100" timeToLiveSeconds="100" overflowToDisk="false">
+		<!--cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+replicateUpdatesViaCopy=false, replicateRemovals=true " /-->
+	</defaultCache>
+	<!-- ldcode和一些系统字典表的配置 -->
+	<cache name="codeCache" maxElementsInMemory="1500" eternal="true"
+		overflowToDisk="false">
+		<!--cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+replicateUpdatesViaCopy=false, replicateRemovals=true " /-->
+	</cache>
+	<!-- 算法缓存配置 -->
+	<cache name="calCodeCache" maxElementsInMemory="10" eternal="true"
+		overflowToDisk="false">
+		<!--cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+replicateUpdatesViaCopy=false, replicateRemovals=true " /-->
+	</cache>
+	<!-- 系统变量缓存配置 -->
+	<cache name="lisCache" maxElementsInMemory="1000" eternal="true"
+		overflowToDisk="true">
+		<!--cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+replicateUpdatesViaCopy=false, replicateRemovals=true " /-->
+	</cache>
+		<!-- 任务进度缓存配置 -->
+	<cache name="taskMonitorCache" maxElementsInMemory="10" eternal="true"
+		overflowToDisk="true">
+		<!--cacheEventListenerFactory
+			class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"
+			properties="replicateAsynchronously=true, replicatePuts=true, replicateUpdates=true,
+replicateUpdatesViaCopy=false, replicateRemovals=true " /-->
+	</cache>
+</ehcache>

@@ -1,0 +1,370 @@
+<HTML xmlns:stedysoft>
+<HEAD>
+<TITLE> 节点属性页 </TITLE>
+
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3Tab.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3TabPage.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/genericButton/genericButton.htc"?> 
+		
+<link rel="stylesheet" type="text/css" href="comp/2k3Tab/themes/blue/2k3Tab.css">
+<link href="comp/style.css" type=text/css rel=stylesheet>		
+
+<script language=jscript src="comp/function.js"></script>
+
+<SCRIPT src="../common/javascript/Common.js" ></SCRIPT>
+<SCRIPT src="../common/javascript/MulLine.js"" ></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryCache.js"></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryVer3.js"></SCRIPT>
+<SCRIPT src="../common/cvar/CCodeOperate.js"></SCRIPT>
+
+ <SCRIPT src="../common/javascript/jquery-1.7.2.js"></SCRIPT> 
+
+<LINK href="../common/css/Project.css" rel=stylesheet type=text/css>
+
+<style>
+body {
+	background-color: buttonface;
+	scroll: no;
+	margin: 7px, 0px, 0px, 7px;
+	border: none;
+	overflow: hidden;	
+
+}
+
+stedysoft\:genericButton {
+	width: 60px;
+}
+
+</style>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var opener=null;
+var url=null;
+var nodeId=null ;
+var action=null ;
+var obj=null;
+function iniWindow()
+{
+   opener = window.dialogArguments;
+   url = opener.dialogURL;
+   nodeId = url.indexOf('?nodeid=')<0?'':url.slice(url.indexOf('?nodeid=')+8,url.indexOf('&action='));
+   action = url.indexOf('&action=')<0?'':url.slice(url.indexOf('&action=')+8,url.length);
+   obj=opener.document.getElementById(nodeId);
+   
+   try
+   {
+     if(action=='new')
+     {
+	       atNewNode(nodeId);
+	   }
+	   else
+	   {
+	       atEditNode(nodeId);
+	   }
+   }
+   catch(e)
+   {
+      alert('打开节点属性对话框时出错！');
+	    window.close();
+   }
+}
+
+function okOnClick()
+{
+   applyOnClick();
+   $("body").remove();
+   window.close();
+}
+function cancelOnClick()
+{  
+   window.close();
+}
+function applyOnClick()
+{
+   try
+   {
+      if(action=="new"&&opener.document.getElementById(TabPage1.contentObject().document.all.id.value)!=null)
+      {
+          alert("节点ID不能重复！");
+          return;
+      }
+      if(!checkTime())
+      {
+         return;
+      }
+      
+      obj.id=TabPage1.contentObject().document.all.id.value;
+      
+      opener.FindChildElement(obj,'TextBox').innerText=TabPage1.contentObject().document.all.text.value;
+      var tText=opener.FindChildElement(obj,'TextBox').innerText;
+     
+      obj.style.width=TabPage2.contentObject().document.all.width.value;
+      obj.style.height=TabPage2.contentObject().document.all.height.value;
+      obj.style.left=TabPage2.contentObject().document.all.x.value;
+      obj.style.top=TabPage2.contentObject().document.all.y.value;
+      
+      opener.FindChildElement(obj,'TextBox').style.fontSize=TabPage2.contentObject().document.all.textWeight.value ;
+      obj.strokeweight=TabPage2.contentObject().document.all.strokeWeight.value;
+      obj.timeType=TabPage3.contentObject().document.all.timeType.value;
+      obj.time=TabPage3.contentObject().document.all.time.value;
+      // jiyongtian 缩略图划过程节点 
+      if(obj.tagName=="RoundRect")
+      { 
+         try
+         {    
+          if(action=="new")
+          {             
+            opener.rectMiniChart(obj,tText);
+          }
+          else
+          { 
+            opener.change(obj);
+          }
+        }
+        catch(e)
+        {
+             alert('缩略图添加过程节点出错！'+e.message);	    
+         } 
+      }
+      opener.scaleFont();
+      opener.getChartXML();  	    
+	 }
+   catch(e)
+   {
+      alert('关闭节点属性对话框时出错！');
+	    
+   }   
+}
+
+
+function atNewNode(nodeId)
+{ 
+	       //TabPage1.contentObject().document.all.id.value = nodeId;
+	       //TabPage1.contentObject().document.all.id.disabled=true;
+         //TabPage1.contentObject().document.all.text.value = opener.FindChildElement(obj,'TextBox').innerText;
+         setRadioGroupValue(TabPage1.contentObject().document.all.nodeType,obj.tagName);
+        
+         TabPage2.contentObject().document.all.width.value = obj.style.width;
+         TabPage2.contentObject().document.all.height.value = obj.style.height;
+         TabPage2.contentObject().document.all.x.value =obj.style.left;
+         TabPage2.contentObject().document.all.y.value = obj.style.top;
+         
+         TabPage2.contentObject().document.all.textWeight.value = opener.FindChildElement(obj,'TextBox').style.fontSize;
+         TabPage2.contentObject().document.all.strokeWeight.value = obj.strokeweight;
+
+}
+function atEditNode(nodeId)
+{
+         
+	       TabPage1.contentObject().document.all.id.value = nodeId;
+	       TabPage1.contentObject().document.all.id.disabled=true;
+         TabPage1.contentObject().document.all.text.value = opener.FindChildElement(obj,'TextBox').innerText;
+         TabPage1.contentObject().document.all.text.disabled=true;
+         setRadioGroupValue(TabPage1.contentObject().document.all.nodeType,obj.flowType);
+        
+         TabPage2.contentObject().document.all.width.value = obj.style.width;
+         TabPage2.contentObject().document.all.height.value = obj.style.height;
+         TabPage2.contentObject().document.all.x.value =obj.style.left;
+         TabPage2.contentObject().document.all.y.value = obj.style.top;
+         
+         TabPage2.contentObject().document.all.textWeight.value = opener.FindChildElement(obj,'TextBox').style.fontSize;
+         TabPage2.contentObject().document.all.strokeWeight.value = obj.strokeweight;
+         
+         if(obj.flowType!="begin"&&obj.flowType!="end")
+         {
+             setRadioGroupValue(TabPage3.contentObject().document.all.timeType,obj.timeType);
+             TabPage3.contentObject().document.all.time.value = obj.time;
+         }
+
+	
+}
+function checkBusiType()
+{
+	if (opener.FlowConfig.flowType=="")
+	{
+		alert("业务类型不能为空")
+		return false;
+	}
+}
+function checkTime()
+{
+    if(TabPage3.contentObject().document.all.timeType.value=="01"&&TabPage3.contentObject().document.all.time.value!=null&&TabPage3.contentObject().document.all.time.value!="")
+    {//相对型格式为 HH+MM
+    	 var check=/^\d+\-\d+/; 
+    	 if(!check.test(TabPage3.contentObject().document.all.time.value))
+    	 {
+    	   alert("时效格式应该为'小时-分钟'!");
+    	   return false;
+    	 }
+    }
+    return true;
+}
+
+//-->
+</SCRIPT> 
+
+</HEAD>
+
+<BODY onload='iniWindow()' onunload=''>
+<stedysoft:2k3Tab id="myTab" selectedIndex="0">
+  <stedysoft:2k3TabButton tabText="基本属性" tabPage="TabPage1" />
+  <stedysoft:2k3TabButton tabText="图表属性" tabPage="TabPage2" />
+  <stedysoft:2k3TabButton tabText="工作流属性" tabPage="TabPage3" />  
+</stedysoft:2k3Tab>	
+<stedysoft:2k3TabPage id="TabPage1" style="width:354px;height:367px;">
+<TABLE border=0 width="100%" height="100%">
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;基本属性&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">	
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>节点编号&nbsp;&nbsp;<INPUT style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;"   NAME="id" value="请选择" ondblclick="checkBusiType();return showCodeList('queryactivityid',[this,text],[0,1],null,opener.FlowConfig.flowType,'BusiType');" onkeyup="checkBusiType();return showCodeList('queryactivityid',[this,text],[0,1],null,opener.FlowConfig.flowType,'BusiType');"></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>节点名称&nbsp;&nbsp;<INPUT style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;"  NAME="text" value=""  readonly=true></TD>
+		<TD></TD>
+    </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>节点类型&nbsp;&nbsp;<FONT style="font-size:10pt;" COLOR="#919CD0"><INPUT TYPE="radio" NAME="nodeType" value="begin" disabled>开始节点&nbsp;<INPUT TYPE="radio" NAME="nodeType" value="end" disabled>结束节点&nbsp;<INPUT TYPE="radio" NAME="nodeType" value="course" checked disabled>过程节点&nbsp;<!--<INPUT TYPE="radio" NAME="nodeType" value="judge"  disabled>决策节点&nbsp;</FONT>--></TD>
+		<TD></TD>
+    </TR>
+	<TR height="3">
+		<TD></TD>
+		<TD></TD>
+		<TD></TD>
+	</TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+
+<TR height="100%">
+	<TD></TD><TD></TD><TD></TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage> 
+<stedysoft:2k3TabPage id="TabPage2" style="width:354px;height:367px;">
+<TABLE border=0 width="100%" height="100%">
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;坐标与大小&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">	
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>图形宽度&nbsp;&nbsp;<INPUT TYPE="text" NAME="width" value="200" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>图形高度&nbsp;&nbsp;<INPUT TYPE="text" NAME="height" value="200" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>图形X坐标&nbsp;&nbsp;<INPUT TYPE="text" NAME="x" value="1000" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>图形Y坐标&nbsp;&nbsp;<INPUT TYPE="text" NAME="y" value="150" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>
+	<TR height="3">
+		<TD></TD>
+		<TD></TD>
+		<TD></TD>
+	</TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;节点样式&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">	
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>文本大小&nbsp;&nbsp;<INPUT TYPE="text" NAME="textWeight" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>边框粗细&nbsp;&nbsp;<INPUT TYPE="text" NAME="strokeWeight" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>	
+	<TR height="3">
+		<TD></TD>
+		<TD></TD>
+		<TD></TD>
+	</TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+
+<TR height="100%">
+	<TD></TD><TD></TD><TD></TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage> 
+<stedysoft:2k3TabPage id="TabPage3" style="width:354px;height:367px;">
+
+<TABLE border=0 width="100%" height="100%">
+<TR valign=top>
+	<TD></TD>
+	<TD width="100%" valign=top>
+	<Fieldset style="border: 1px solid #C0C0C0;">
+	<LEGEND align=left style="font-size:9pt;">&nbsp;流转属性&nbsp;</LEGEND>
+	<TABLE border=0 width="100%" height="100%" style="font-size:9pt;">	
+	<TR valign=top>
+		<TD width=5></TD>
+		<TD>时效类型&nbsp;&nbsp;<SELECT NAME="timeType" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;" disabled ><option value="01" selected>相对时效</option><option value="02">绝对时效</option></SELECT></TD>
+		<TD></TD>
+	</TR>
+	<TR valign=top>
+		<TD></TD>
+		<TD>流转时效&nbsp;&nbsp;<INPUT TYPE="text" NAME="time" value="" style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;"></TD>
+		<TD></TD>
+    </TR>
+	<TR height="3">
+		<TD></TD>
+		<TD></TD>
+		<TD></TD>
+	</TR>
+	</TABLE>
+	</Fieldset>
+	</TD>
+	<TD>&nbsp;</TD>
+</TR>
+
+<TR height="100%">
+	<TD></TD><TD></TD><TD></TD>
+</TR>
+</TABLE>
+</stedysoft:2k3TabPage> 
+<table cellspacing="1" cellpadding="0" border="0" style="position: absolute; top: 400px; left: 0px;">
+	<tr>
+		<td width="100%"></td>
+		<td><stedysoft:genericButton id="btnOk" text="确定" onclick="jscript: okOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnCancel" text="取消" onclick="jscript: cancelOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnApply" text="应用" onclick="jscript: applyOnClick();" enabled=true /></td>
+	</tr>
+</table>
+<span id="spanCode"  style="display: none;z-index:1000; position:absolute; slategray"></span>
+</BODY>
+</HTML>

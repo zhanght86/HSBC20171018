@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>客户信息查询 </title>
+<%
+	String tName = "";
+	try
+	{
+		tName = request.getParameter("Name");
+		tName = new String(tName.getBytes("ISO-8859-1"), "GBK");
+	}
+	catch( Exception e )
+	{
+		tName = "";
+	}
+%>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<script language="javascript">
+	var intPageWidth=730;
+	var intPageHeight=600;
+	window.resizeTo(intPageWidth,intPageHeight);
+	window.focus();
+	
+	window.onunload = resetOperation;
+  function resetOperation() {
+    opener.mOperate = 0;
+  }
+</script>
+</head>
+<!--<frameset rows="0,0,0,65,*" frameborder="no" border="1" framespacing="0" cols="*"> -->
+<frameset name="fraMain" rows="0,0,0,0,*" frameborder="no" border="1" framespacing="0" cols="*">
+<!--标题与状态区域-->
+	<!--保存客户端变量的区域，该区域必须有-->
+	<frame name="VD" src="../common/cvar/CVarData.html">
+	
+	<!--保存客户端变量和WebServer实现交户的区域，该区域必须有-->
+	<frame name="EX" src="../common/cvar/CExec.jsp">
+	
+	<frame name="fraSubmit"  scrolling="yes" noresize src="about:blank" >
+	<frame name="fraTitle"  scrolling="no" noresize src="about:blank" >
+	<frameset name="fraSet" cols="0%,*,0%" frameborder="no" border="1" framespacing="0" rows="*">
+		<!--菜单区域-->
+		<frame name="fraMenu" scrolling="yes" noresize src="about:blank">
+		<!--交互区域-->
+		<frame id="fraInterface" name="fraInterface" scrolling="auto" src="../sys/LDPersonQueryAll.jsp?Name=<%=tName%>&IDType=<%=request.getParameter("IDType")%>&IDNo=<%=request.getParameter("IDNo")%>">
+    	<!--下一步页面区域-->
+    	<frame id="fraNext" name="fraNext" scrolling="auto" src="about:blank">
+	</frameset>
+</frameset>
+<noframes>
+	<body bgcolor="#ffffff">
+	</body>
+</noframes>
+</html>

@@ -1,0 +1,3793 @@
+/**
+ * Copyright (c) 2002 sinosoft  Co. Ltd.
+ * All right reserved.
+ */
+
+package com.sinosoft.lis.schema;
+
+import org.apache.log4j.Logger;
+import java.sql.*;
+import java.io.*;
+import java.util.Date;
+import com.sinosoft.lis.pubfun.FDate;
+import com.sinosoft.utility.*;
+import com.sinosoft.lis.db.LPDutyDB;
+
+/*
+ * <p>ClassName: LPDutySchema </p>
+ * <p>Description: DB层 Schema 类文件 </p>
+ * <p>Copyright: Copyright (c) 2007</p>
+ * <p>Company: sinosoft </p>
+ * @Database: 保全核心
+ */
+public class LPDutySchema implements Schema, Cloneable
+{
+private static Logger logger = Logger.getLogger(LPDutySchema.class);
+	// @Field
+	/** 批单号 */
+	private String EdorNo;
+	/** 批改类型 */
+	private String EdorType;
+	/** 保单险种号码 */
+	private String PolNo;
+	/** 责任编码 */
+	private String DutyCode;
+	/** 合同号码 */
+	private String ContNo;
+	/** 份数 */
+	private double Mult;
+	/** 标准保费 */
+	private double StandPrem;
+	/** 实际保费 */
+	private double Prem;
+	/** 累计保费 */
+	private double SumPrem;
+	/** 基本保额 */
+	private double Amnt;
+	/** 风险保额 */
+	private double RiskAmnt;
+	/** 交费间隔 */
+	private int PayIntv;
+	/** 交费年期 */
+	private int PayYears;
+	/** 保险年期 */
+	private int Years;
+	/** 浮动费率 */
+	private double FloatRate;
+	/** 首期交费日期 */
+	private Date FirstPayDate;
+	/** 首期交费月数 */
+	private int FirstMonth;
+	/** 交至日期 */
+	private Date PaytoDate;
+	/** 终交日期 */
+	private Date PayEndDate;
+	/** 终交年龄年期标志 */
+	private String PayEndYearFlag;
+	/** 终交年龄年期 */
+	private int PayEndYear;
+	/** 领取年龄年期标志 */
+	private String GetYearFlag;
+	/** 领取年龄年期 */
+	private int GetYear;
+	/** 保险年龄年期标志 */
+	private String InsuYearFlag;
+	/** 保险年龄年期 */
+	private int InsuYear;
+	/** 意外年龄年期标志 */
+	private String AcciYearFlag;
+	/** 意外年龄年期 */
+	private int AcciYear;
+	/** 保险责任终止日期 */
+	private Date EndDate;
+	/** 意外责任终止日期 */
+	private Date AcciEndDate;
+	/** 免交标志 */
+	private String FreeFlag;
+	/** 免交比率 */
+	private double FreeRate;
+	/** 免交起期 */
+	private Date FreeStartDate;
+	/** 免交止期 */
+	private Date FreeEndDate;
+	/** 起领日期 */
+	private Date GetStartDate;
+	/** 起领日期计算类型 */
+	private String GetStartType;
+	/** 生存金领取方式 */
+	private String LiveGetMode;
+	/** 身故金领取方式 */
+	private String DeadGetMode;
+	/** 红利金领取方式 */
+	private String BonusGetMode;
+	/** 社保标记 */
+	private String SSFlag;
+	/** 封顶线 */
+	private double PeakLine;
+	/** 起付限 */
+	private double GetLimit;
+	/** 赔付比例 */
+	private double GetRate;
+	/** 保费计算规则 */
+	private String CalRule;
+	/** 保费算保额标志 */
+	private String PremToAmnt;
+	/** 备用属性字段1 */
+	private String StandbyFlag1;
+	/** 备用属性字段2 */
+	private String StandbyFlag2;
+	/** 备用属性字段3 */
+	private String StandbyFlag3;
+	/** 操作员 */
+	private String Operator;
+	/** 入机日期 */
+	private Date MakeDate;
+	/** 入机时间 */
+	private String MakeTime;
+	/** 最后一次修改日期 */
+	private Date ModifyDate;
+	/** 最后一次修改时间 */
+	private String ModifyTime;
+	/** 险种责任生效日期 */
+	private Date CValiDate;
+	/** 领取间隔 */
+	private int GetIntv;
+	/** 归属规则 */
+	private String AscriptionRuleCode;
+	/** 缴费规则 */
+	private String PayRuleCode;
+	/** 币别 */
+	private String Currency;
+	/** 系统保险方案编码 */
+	private String ContPlanCode;
+	/** 保险方案 */
+	private String PlanCode;
+	/** 险种编码 */
+	private String RiskCode;
+	/** 期交保费 */
+	private double PeriodPrem;
+	/** 结算日期 */
+	private Date ConfDate;
+	/** 状态 */
+	private String State;
+	/** 管理机构 */
+	private String ManageCom;
+	/** 公司代码 */
+	private String ComCode;
+	/** 最后一次修改操作员 */
+	private String ModifyOperator;
+
+	public static final int FIELDNUM = 66;	// 数据库表的字段个数
+
+	private static String[] PK;				// 主键
+
+	private FDate fDate = new FDate();		// 处理日期
+
+	public CErrors mErrors;			// 错误信息
+
+	// @Constructor
+	public LPDutySchema()
+	{
+		mErrors = new CErrors();
+
+		String[] pk = new String[4];
+		pk[0] = "EdorNo";
+		pk[1] = "EdorType";
+		pk[2] = "PolNo";
+		pk[3] = "DutyCode";
+
+		PK = pk;
+	}
+
+	/**
+	* Schema克隆
+	* @return Object
+	* @throws CloneNotSupportedException
+	*/
+	public Object clone()
+		throws CloneNotSupportedException
+	{
+		LPDutySchema cloned = (LPDutySchema)super.clone();
+		cloned.fDate = (FDate) fDate.clone();
+		cloned.mErrors = (CErrors) mErrors.clone();
+		return cloned;
+	}
+
+	// @Method
+	public String[] getPK()
+	{
+		return PK;
+	}
+
+	public String getEdorNo()
+	{
+		return EdorNo;
+	}
+	public void setEdorNo(String aEdorNo)
+	{
+		if(aEdorNo!=null && aEdorNo.length()>20)
+			throw new IllegalArgumentException("批单号EdorNo值"+aEdorNo+"的长度"+aEdorNo.length()+"大于最大值20");
+		EdorNo = aEdorNo;
+	}
+	public String getEdorType()
+	{
+		return EdorType;
+	}
+	public void setEdorType(String aEdorType)
+	{
+		if(aEdorType!=null && aEdorType.length()>2)
+			throw new IllegalArgumentException("批改类型EdorType值"+aEdorType+"的长度"+aEdorType.length()+"大于最大值2");
+		EdorType = aEdorType;
+	}
+	public String getPolNo()
+	{
+		return PolNo;
+	}
+	public void setPolNo(String aPolNo)
+	{
+		if(aPolNo!=null && aPolNo.length()>20)
+			throw new IllegalArgumentException("保单险种号码PolNo值"+aPolNo+"的长度"+aPolNo.length()+"大于最大值20");
+		PolNo = aPolNo;
+	}
+	public String getDutyCode()
+	{
+		return DutyCode;
+	}
+	public void setDutyCode(String aDutyCode)
+	{
+		if(aDutyCode!=null && aDutyCode.length()>10)
+			throw new IllegalArgumentException("责任编码DutyCode值"+aDutyCode+"的长度"+aDutyCode.length()+"大于最大值10");
+		DutyCode = aDutyCode;
+	}
+	public String getContNo()
+	{
+		return ContNo;
+	}
+	public void setContNo(String aContNo)
+	{
+		if(aContNo!=null && aContNo.length()>20)
+			throw new IllegalArgumentException("合同号码ContNo值"+aContNo+"的长度"+aContNo.length()+"大于最大值20");
+		ContNo = aContNo;
+	}
+	/**
+	* 被保人险种中份数的冗余。??
+	*/
+	public double getMult()
+	{
+		return Mult;
+	}
+	public void setMult(double aMult)
+	{
+		Mult = aMult;
+	}
+	public void setMult(String aMult)
+	{
+		if (aMult != null && !aMult.equals(""))
+		{
+			Double tDouble = new Double(aMult);
+			double d = tDouble.doubleValue();
+			Mult = d;
+		}
+	}
+
+	public double getStandPrem()
+	{
+		return StandPrem;
+	}
+	public void setStandPrem(double aStandPrem)
+	{
+		StandPrem = aStandPrem;
+	}
+	public void setStandPrem(String aStandPrem)
+	{
+		if (aStandPrem != null && !aStandPrem.equals(""))
+		{
+			Double tDouble = new Double(aStandPrem);
+			double d = tDouble.doubleValue();
+			StandPrem = d;
+		}
+	}
+
+	public double getPrem()
+	{
+		return Prem;
+	}
+	public void setPrem(double aPrem)
+	{
+		Prem = aPrem;
+	}
+	public void setPrem(String aPrem)
+	{
+		if (aPrem != null && !aPrem.equals(""))
+		{
+			Double tDouble = new Double(aPrem);
+			double d = tDouble.doubleValue();
+			Prem = d;
+		}
+	}
+
+	public double getSumPrem()
+	{
+		return SumPrem;
+	}
+	public void setSumPrem(double aSumPrem)
+	{
+		SumPrem = aSumPrem;
+	}
+	public void setSumPrem(String aSumPrem)
+	{
+		if (aSumPrem != null && !aSumPrem.equals(""))
+		{
+			Double tDouble = new Double(aSumPrem);
+			double d = tDouble.doubleValue();
+			SumPrem = d;
+		}
+	}
+
+	public double getAmnt()
+	{
+		return Amnt;
+	}
+	public void setAmnt(double aAmnt)
+	{
+		Amnt = aAmnt;
+	}
+	public void setAmnt(String aAmnt)
+	{
+		if (aAmnt != null && !aAmnt.equals(""))
+		{
+			Double tDouble = new Double(aAmnt);
+			double d = tDouble.doubleValue();
+			Amnt = d;
+		}
+	}
+
+	public double getRiskAmnt()
+	{
+		return RiskAmnt;
+	}
+	public void setRiskAmnt(double aRiskAmnt)
+	{
+		RiskAmnt = aRiskAmnt;
+	}
+	public void setRiskAmnt(String aRiskAmnt)
+	{
+		if (aRiskAmnt != null && !aRiskAmnt.equals(""))
+		{
+			Double tDouble = new Double(aRiskAmnt);
+			double d = tDouble.doubleValue();
+			RiskAmnt = d;
+		}
+	}
+
+	/**
+	* 交费间隔<p>
+	* -1 -- 不定期交,<p>
+	* 0  -- 趸交,<p>
+	* 1  -- 月交<p>
+	* 3  -- 季交<p>
+	* 6  -- 半年交<p>
+	* 12 -- 年交
+	*/
+	public int getPayIntv()
+	{
+		return PayIntv;
+	}
+	public void setPayIntv(int aPayIntv)
+	{
+		PayIntv = aPayIntv;
+	}
+	public void setPayIntv(String aPayIntv)
+	{
+		if (aPayIntv != null && !aPayIntv.equals(""))
+		{
+			Integer tInteger = new Integer(aPayIntv);
+			int i = tInteger.intValue();
+			PayIntv = i;
+		}
+	}
+
+	/**
+	* 对于终交年期标志为“年”：  表示需要交费的年数。<p>
+	* 对于终交年期标志为“月”：  表示需要交费的月数<p>
+	* 对于终交年期标志为“日”：  表示需要交费的天数<p>
+	* 对于终交年期标志为“年龄”：该字段存放将根据年龄折算成的需要交费的年数。
+	*/
+	public int getPayYears()
+	{
+		return PayYears;
+	}
+	public void setPayYears(int aPayYears)
+	{
+		PayYears = aPayYears;
+	}
+	public void setPayYears(String aPayYears)
+	{
+		if (aPayYears != null && !aPayYears.equals(""))
+		{
+			Integer tInteger = new Integer(aPayYears);
+			int i = tInteger.intValue();
+			PayYears = i;
+		}
+	}
+
+	/**
+	* 保险责任区间
+	*/
+	public int getYears()
+	{
+		return Years;
+	}
+	public void setYears(int aYears)
+	{
+		Years = aYears;
+	}
+	public void setYears(String aYears)
+	{
+		if (aYears != null && !aYears.equals(""))
+		{
+			Integer tInteger = new Integer(aYears);
+			int i = tInteger.intValue();
+			Years = i;
+		}
+	}
+
+	/**
+	* 调整每个责任的保费
+	*/
+	public double getFloatRate()
+	{
+		return FloatRate;
+	}
+	public void setFloatRate(double aFloatRate)
+	{
+		FloatRate = aFloatRate;
+	}
+	public void setFloatRate(String aFloatRate)
+	{
+		if (aFloatRate != null && !aFloatRate.equals(""))
+		{
+			Double tDouble = new Double(aFloatRate);
+			double d = tDouble.doubleValue();
+			FloatRate = d;
+		}
+	}
+
+	/**
+	* 取保费中的最小首期交费日期
+	*/
+	public String getFirstPayDate()
+	{
+		if( FirstPayDate != null )
+			return fDate.getString(FirstPayDate);
+		else
+			return null;
+	}
+	public void setFirstPayDate(Date aFirstPayDate)
+	{
+		FirstPayDate = aFirstPayDate;
+	}
+	public void setFirstPayDate(String aFirstPayDate)
+	{
+		if (aFirstPayDate != null && !aFirstPayDate.equals("") )
+		{
+			FirstPayDate = fDate.getDate( aFirstPayDate );
+		}
+		else
+			FirstPayDate = null;
+	}
+
+	/**
+	* 表示首期一次性交费的期数。月数还是期数？
+	*/
+	public int getFirstMonth()
+	{
+		return FirstMonth;
+	}
+	public void setFirstMonth(int aFirstMonth)
+	{
+		FirstMonth = aFirstMonth;
+	}
+	public void setFirstMonth(String aFirstMonth)
+	{
+		if (aFirstMonth != null && !aFirstMonth.equals(""))
+		{
+			Integer tInteger = new Integer(aFirstMonth);
+			int i = tInteger.intValue();
+			FirstMonth = i;
+		}
+	}
+
+	/**
+	* 取该责任下保费项中的最大交至日期
+	*/
+	public String getPaytoDate()
+	{
+		if( PaytoDate != null )
+			return fDate.getString(PaytoDate);
+		else
+			return null;
+	}
+	public void setPaytoDate(Date aPaytoDate)
+	{
+		PaytoDate = aPaytoDate;
+	}
+	public void setPaytoDate(String aPaytoDate)
+	{
+		if (aPaytoDate != null && !aPaytoDate.equals("") )
+		{
+			PaytoDate = fDate.getDate( aPaytoDate );
+		}
+		else
+			PaytoDate = null;
+	}
+
+	/**
+	* 取该责任下保费项中的最大终交日期
+	*/
+	public String getPayEndDate()
+	{
+		if( PayEndDate != null )
+			return fDate.getString(PayEndDate);
+		else
+			return null;
+	}
+	public void setPayEndDate(Date aPayEndDate)
+	{
+		PayEndDate = aPayEndDate;
+	}
+	public void setPayEndDate(String aPayEndDate)
+	{
+		if (aPayEndDate != null && !aPayEndDate.equals("") )
+		{
+			PayEndDate = fDate.getDate( aPayEndDate );
+		}
+		else
+			PayEndDate = null;
+	}
+
+	/**
+	* A－年龄，M－月，D－日，Y－年
+	*/
+	public String getPayEndYearFlag()
+	{
+		return PayEndYearFlag;
+	}
+	public void setPayEndYearFlag(String aPayEndYearFlag)
+	{
+		if(aPayEndYearFlag!=null && aPayEndYearFlag.length()>1)
+			throw new IllegalArgumentException("终交年龄年期标志PayEndYearFlag值"+aPayEndYearFlag+"的长度"+aPayEndYearFlag.length()+"大于最大值1");
+		PayEndYearFlag = aPayEndYearFlag;
+	}
+	public int getPayEndYear()
+	{
+		return PayEndYear;
+	}
+	public void setPayEndYear(int aPayEndYear)
+	{
+		PayEndYear = aPayEndYear;
+	}
+	public void setPayEndYear(String aPayEndYear)
+	{
+		if (aPayEndYear != null && !aPayEndYear.equals(""))
+		{
+			Integer tInteger = new Integer(aPayEndYear);
+			int i = tInteger.intValue();
+			PayEndYear = i;
+		}
+	}
+
+	/**
+	* A－年龄，M－月，D－日，Y－年
+	*/
+	public String getGetYearFlag()
+	{
+		return GetYearFlag;
+	}
+	public void setGetYearFlag(String aGetYearFlag)
+	{
+		if(aGetYearFlag!=null && aGetYearFlag.length()>1)
+			throw new IllegalArgumentException("领取年龄年期标志GetYearFlag值"+aGetYearFlag+"的长度"+aGetYearFlag.length()+"大于最大值1");
+		GetYearFlag = aGetYearFlag;
+	}
+	public int getGetYear()
+	{
+		return GetYear;
+	}
+	public void setGetYear(int aGetYear)
+	{
+		GetYear = aGetYear;
+	}
+	public void setGetYear(String aGetYear)
+	{
+		if (aGetYear != null && !aGetYear.equals(""))
+		{
+			Integer tInteger = new Integer(aGetYear);
+			int i = tInteger.intValue();
+			GetYear = i;
+		}
+	}
+
+	/**
+	* A－年龄，M－月，D－日，Y－年
+	*/
+	public String getInsuYearFlag()
+	{
+		return InsuYearFlag;
+	}
+	public void setInsuYearFlag(String aInsuYearFlag)
+	{
+		if(aInsuYearFlag!=null && aInsuYearFlag.length()>1)
+			throw new IllegalArgumentException("保险年龄年期标志InsuYearFlag值"+aInsuYearFlag+"的长度"+aInsuYearFlag.length()+"大于最大值1");
+		InsuYearFlag = aInsuYearFlag;
+	}
+	public int getInsuYear()
+	{
+		return InsuYear;
+	}
+	public void setInsuYear(int aInsuYear)
+	{
+		InsuYear = aInsuYear;
+	}
+	public void setInsuYear(String aInsuYear)
+	{
+		if (aInsuYear != null && !aInsuYear.equals(""))
+		{
+			Integer tInteger = new Integer(aInsuYear);
+			int i = tInteger.intValue();
+			InsuYear = i;
+		}
+	}
+
+	/**
+	* 备用
+	*/
+	public String getAcciYearFlag()
+	{
+		return AcciYearFlag;
+	}
+	public void setAcciYearFlag(String aAcciYearFlag)
+	{
+		if(aAcciYearFlag!=null && aAcciYearFlag.length()>1)
+			throw new IllegalArgumentException("意外年龄年期标志AcciYearFlag值"+aAcciYearFlag+"的长度"+aAcciYearFlag.length()+"大于最大值1");
+		AcciYearFlag = aAcciYearFlag;
+	}
+	public int getAcciYear()
+	{
+		return AcciYear;
+	}
+	public void setAcciYear(int aAcciYear)
+	{
+		AcciYear = aAcciYear;
+	}
+	public void setAcciYear(String aAcciYear)
+	{
+		if (aAcciYear != null && !aAcciYear.equals(""))
+		{
+			Integer tInteger = new Integer(aAcciYear);
+			int i = tInteger.intValue();
+			AcciYear = i;
+		}
+	}
+
+	public String getEndDate()
+	{
+		if( EndDate != null )
+			return fDate.getString(EndDate);
+		else
+			return null;
+	}
+	public void setEndDate(Date aEndDate)
+	{
+		EndDate = aEndDate;
+	}
+	public void setEndDate(String aEndDate)
+	{
+		if (aEndDate != null && !aEndDate.equals("") )
+		{
+			EndDate = fDate.getDate( aEndDate );
+		}
+		else
+			EndDate = null;
+	}
+
+	public String getAcciEndDate()
+	{
+		if( AcciEndDate != null )
+			return fDate.getString(AcciEndDate);
+		else
+			return null;
+	}
+	public void setAcciEndDate(Date aAcciEndDate)
+	{
+		AcciEndDate = aAcciEndDate;
+	}
+	public void setAcciEndDate(String aAcciEndDate)
+	{
+		if (aAcciEndDate != null && !aAcciEndDate.equals("") )
+		{
+			AcciEndDate = fDate.getDate( aAcciEndDate );
+		}
+		else
+			AcciEndDate = null;
+	}
+
+	/**
+	* 1---表示免交。<p>
+	* 0---不免交.
+	*/
+	public String getFreeFlag()
+	{
+		return FreeFlag;
+	}
+	public void setFreeFlag(String aFreeFlag)
+	{
+		if(aFreeFlag!=null && aFreeFlag.length()>1)
+			throw new IllegalArgumentException("免交标志FreeFlag值"+aFreeFlag+"的长度"+aFreeFlag.length()+"大于最大值1");
+		FreeFlag = aFreeFlag;
+	}
+	/**
+	* 0 －－ 表示全免<p>
+	* 1 －－ 表示不免交。
+	*/
+	public double getFreeRate()
+	{
+		return FreeRate;
+	}
+	public void setFreeRate(double aFreeRate)
+	{
+		FreeRate = aFreeRate;
+	}
+	public void setFreeRate(String aFreeRate)
+	{
+		if (aFreeRate != null && !aFreeRate.equals(""))
+		{
+			Double tDouble = new Double(aFreeRate);
+			double d = tDouble.doubleValue();
+			FreeRate = d;
+		}
+	}
+
+	public String getFreeStartDate()
+	{
+		if( FreeStartDate != null )
+			return fDate.getString(FreeStartDate);
+		else
+			return null;
+	}
+	public void setFreeStartDate(Date aFreeStartDate)
+	{
+		FreeStartDate = aFreeStartDate;
+	}
+	public void setFreeStartDate(String aFreeStartDate)
+	{
+		if (aFreeStartDate != null && !aFreeStartDate.equals("") )
+		{
+			FreeStartDate = fDate.getDate( aFreeStartDate );
+		}
+		else
+			FreeStartDate = null;
+	}
+
+	public String getFreeEndDate()
+	{
+		if( FreeEndDate != null )
+			return fDate.getString(FreeEndDate);
+		else
+			return null;
+	}
+	public void setFreeEndDate(Date aFreeEndDate)
+	{
+		FreeEndDate = aFreeEndDate;
+	}
+	public void setFreeEndDate(String aFreeEndDate)
+	{
+		if (aFreeEndDate != null && !aFreeEndDate.equals("") )
+		{
+			FreeEndDate = fDate.getDate( aFreeEndDate );
+		}
+		else
+			FreeEndDate = null;
+	}
+
+	public String getGetStartDate()
+	{
+		if( GetStartDate != null )
+			return fDate.getString(GetStartDate);
+		else
+			return null;
+	}
+	public void setGetStartDate(Date aGetStartDate)
+	{
+		GetStartDate = aGetStartDate;
+	}
+	public void setGetStartDate(String aGetStartDate)
+	{
+		if (aGetStartDate != null && !aGetStartDate.equals("") )
+		{
+			GetStartDate = fDate.getDate( aGetStartDate );
+		}
+		else
+			GetStartDate = null;
+	}
+
+	/**
+	* 生日对应日或者保单生效对应日<p>
+	* 0 --生日对应<p>
+	* 1 --起保对应
+	*/
+	public String getGetStartType()
+	{
+		return GetStartType;
+	}
+	public void setGetStartType(String aGetStartType)
+	{
+		if(aGetStartType!=null && aGetStartType.length()>1)
+			throw new IllegalArgumentException("起领日期计算类型GetStartType值"+aGetStartType+"的长度"+aGetStartType.length()+"大于最大值1");
+		GetStartType = aGetStartType;
+	}
+	/**
+	* 1--领取现金<p>
+	* 2--抵缴保费<p>
+	* 3--购买缴清增额保险<p>
+	* 4--累积生息<p>
+	* 9--其他
+	*/
+	public String getLiveGetMode()
+	{
+		return LiveGetMode;
+	}
+	public void setLiveGetMode(String aLiveGetMode)
+	{
+		if(aLiveGetMode!=null && aLiveGetMode.length()>1)
+			throw new IllegalArgumentException("生存金领取方式LiveGetMode值"+aLiveGetMode+"的长度"+aLiveGetMode.length()+"大于最大值1");
+		LiveGetMode = aLiveGetMode;
+	}
+	/**
+	* 1--领取现金<p>
+	* 2--抵缴保费<p>
+	* 3--购买缴清增额保险<p>
+	* 4--累积生息<p>
+	* 9--其他
+	*/
+	public String getDeadGetMode()
+	{
+		return DeadGetMode;
+	}
+	public void setDeadGetMode(String aDeadGetMode)
+	{
+		if(aDeadGetMode!=null && aDeadGetMode.length()>1)
+			throw new IllegalArgumentException("身故金领取方式DeadGetMode值"+aDeadGetMode+"的长度"+aDeadGetMode.length()+"大于最大值1");
+		DeadGetMode = aDeadGetMode;
+	}
+	/**
+	* 1--累积生息<p>
+	* 2--领取现金<p>
+	* 3--抵缴保费<p>
+	* 4--其他<p>
+	* 5--增额交清
+	*/
+	public String getBonusGetMode()
+	{
+		return BonusGetMode;
+	}
+	public void setBonusGetMode(String aBonusGetMode)
+	{
+		if(aBonusGetMode!=null && aBonusGetMode.length()>1)
+			throw new IllegalArgumentException("红利金领取方式BonusGetMode值"+aBonusGetMode+"的长度"+aBonusGetMode.length()+"大于最大值1");
+		BonusGetMode = aBonusGetMode;
+	}
+	/**
+	* 0-非社保<p>
+	* 1-参加社保
+	*/
+	public String getSSFlag()
+	{
+		return SSFlag;
+	}
+	public void setSSFlag(String aSSFlag)
+	{
+		if(aSSFlag!=null && aSSFlag.length()>1)
+			throw new IllegalArgumentException("社保标记SSFlag值"+aSSFlag+"的长度"+aSSFlag.length()+"大于最大值1");
+		SSFlag = aSSFlag;
+	}
+	public double getPeakLine()
+	{
+		return PeakLine;
+	}
+	public void setPeakLine(double aPeakLine)
+	{
+		PeakLine = aPeakLine;
+	}
+	public void setPeakLine(String aPeakLine)
+	{
+		if (aPeakLine != null && !aPeakLine.equals(""))
+		{
+			Double tDouble = new Double(aPeakLine);
+			double d = tDouble.doubleValue();
+			PeakLine = d;
+		}
+	}
+
+	public double getGetLimit()
+	{
+		return GetLimit;
+	}
+	public void setGetLimit(double aGetLimit)
+	{
+		GetLimit = aGetLimit;
+	}
+	public void setGetLimit(String aGetLimit)
+	{
+		if (aGetLimit != null && !aGetLimit.equals(""))
+		{
+			Double tDouble = new Double(aGetLimit);
+			double d = tDouble.doubleValue();
+			GetLimit = d;
+		}
+	}
+
+	public double getGetRate()
+	{
+		return GetRate;
+	}
+	public void setGetRate(double aGetRate)
+	{
+		GetRate = aGetRate;
+	}
+	public void setGetRate(String aGetRate)
+	{
+		if (aGetRate != null && !aGetRate.equals(""))
+		{
+			Double tDouble = new Double(aGetRate);
+			double d = tDouble.doubleValue();
+			GetRate = d;
+		}
+	}
+
+	/**
+	* 0-表定费率；1-统一费率；2-表定费率折扣；3-约定费率
+	*/
+	public String getCalRule()
+	{
+		return CalRule;
+	}
+	public void setCalRule(String aCalRule)
+	{
+		if(aCalRule!=null && aCalRule.length()>1)
+			throw new IllegalArgumentException("保费计算规则CalRule值"+aCalRule+"的长度"+aCalRule.length()+"大于最大值1");
+		CalRule = aCalRule;
+	}
+	public String getPremToAmnt()
+	{
+		return PremToAmnt;
+	}
+	public void setPremToAmnt(String aPremToAmnt)
+	{
+		if(aPremToAmnt!=null && aPremToAmnt.length()>1)
+			throw new IllegalArgumentException("保费算保额标志PremToAmnt值"+aPremToAmnt+"的长度"+aPremToAmnt.length()+"大于最大值1");
+		PremToAmnt = aPremToAmnt;
+	}
+	/**
+	* 根据不同险种的特殊要求，存放不同的数据<p>
+	* 譬如 对于险种编码：<p>
+	* 311603-存放的是同心卡的开卡日期<p>
+	* 211801-团商险存放(在职/退休)作为计算要素传到计算类
+	*/
+	public String getStandbyFlag1()
+	{
+		return StandbyFlag1;
+	}
+	public void setStandbyFlag1(String aStandbyFlag1)
+	{
+		if(aStandbyFlag1!=null && aStandbyFlag1.length()>10)
+			throw new IllegalArgumentException("备用属性字段1StandbyFlag1值"+aStandbyFlag1+"的长度"+aStandbyFlag1.length()+"大于最大值10");
+		StandbyFlag1 = aStandbyFlag1;
+	}
+	/**
+	* 根据不同险种的特殊要求，存放不同的数据<p>
+	* 银代险的内部优惠标志：（该字段对所有银代险有效）<p>
+	* 1 默认 其他<p>
+	*/
+	public String getStandbyFlag2()
+	{
+		return StandbyFlag2;
+	}
+	public void setStandbyFlag2(String aStandbyFlag2)
+	{
+		if(aStandbyFlag2!=null && aStandbyFlag2.length()>20)
+			throw new IllegalArgumentException("备用属性字段2StandbyFlag2值"+aStandbyFlag2+"的长度"+aStandbyFlag2.length()+"大于最大值20");
+		StandbyFlag2 = aStandbyFlag2;
+	}
+	/**
+	* 根据不同险种的特殊要求，存放不同的数据
+	*/
+	public String getStandbyFlag3()
+	{
+		return StandbyFlag3;
+	}
+	public void setStandbyFlag3(String aStandbyFlag3)
+	{
+		if(aStandbyFlag3!=null && aStandbyFlag3.length()>10)
+			throw new IllegalArgumentException("备用属性字段3StandbyFlag3值"+aStandbyFlag3+"的长度"+aStandbyFlag3.length()+"大于最大值10");
+		StandbyFlag3 = aStandbyFlag3;
+	}
+	public String getOperator()
+	{
+		return Operator;
+	}
+	public void setOperator(String aOperator)
+	{
+		if(aOperator!=null && aOperator.length()>10)
+			throw new IllegalArgumentException("操作员Operator值"+aOperator+"的长度"+aOperator.length()+"大于最大值10");
+		Operator = aOperator;
+	}
+	public String getMakeDate()
+	{
+		if( MakeDate != null )
+			return fDate.getString(MakeDate);
+		else
+			return null;
+	}
+	public void setMakeDate(Date aMakeDate)
+	{
+		MakeDate = aMakeDate;
+	}
+	public void setMakeDate(String aMakeDate)
+	{
+		if (aMakeDate != null && !aMakeDate.equals("") )
+		{
+			MakeDate = fDate.getDate( aMakeDate );
+		}
+		else
+			MakeDate = null;
+	}
+
+	public String getMakeTime()
+	{
+		return MakeTime;
+	}
+	public void setMakeTime(String aMakeTime)
+	{
+		if(aMakeTime!=null && aMakeTime.length()>8)
+			throw new IllegalArgumentException("入机时间MakeTime值"+aMakeTime+"的长度"+aMakeTime.length()+"大于最大值8");
+		MakeTime = aMakeTime;
+	}
+	public String getModifyDate()
+	{
+		if( ModifyDate != null )
+			return fDate.getString(ModifyDate);
+		else
+			return null;
+	}
+	public void setModifyDate(Date aModifyDate)
+	{
+		ModifyDate = aModifyDate;
+	}
+	public void setModifyDate(String aModifyDate)
+	{
+		if (aModifyDate != null && !aModifyDate.equals("") )
+		{
+			ModifyDate = fDate.getDate( aModifyDate );
+		}
+		else
+			ModifyDate = null;
+	}
+
+	public String getModifyTime()
+	{
+		return ModifyTime;
+	}
+	public void setModifyTime(String aModifyTime)
+	{
+		if(aModifyTime!=null && aModifyTime.length()>8)
+			throw new IllegalArgumentException("最后一次修改时间ModifyTime值"+aModifyTime+"的长度"+aModifyTime.length()+"大于最大值8");
+		ModifyTime = aModifyTime;
+	}
+	public String getCValiDate()
+	{
+		if( CValiDate != null )
+			return fDate.getString(CValiDate);
+		else
+			return null;
+	}
+	public void setCValiDate(Date aCValiDate)
+	{
+		CValiDate = aCValiDate;
+	}
+	public void setCValiDate(String aCValiDate)
+	{
+		if (aCValiDate != null && !aCValiDate.equals("") )
+		{
+			CValiDate = fDate.getDate( aCValiDate );
+		}
+		else
+			CValiDate = null;
+	}
+
+	/**
+	* 0 -- 趸领<p>
+	* 1 －－ 月领<p>
+	* 3 －－ 季领<p>
+	* 12－－ 年龄<p>
+	* 36－－ 每3年领
+	*/
+	public int getGetIntv()
+	{
+		return GetIntv;
+	}
+	public void setGetIntv(int aGetIntv)
+	{
+		GetIntv = aGetIntv;
+	}
+	public void setGetIntv(String aGetIntv)
+	{
+		if (aGetIntv != null && !aGetIntv.equals(""))
+		{
+			Integer tInteger = new Integer(aGetIntv);
+			int i = tInteger.intValue();
+			GetIntv = i;
+		}
+	}
+
+	public String getAscriptionRuleCode()
+	{
+		return AscriptionRuleCode;
+	}
+	public void setAscriptionRuleCode(String aAscriptionRuleCode)
+	{
+		if(aAscriptionRuleCode!=null && aAscriptionRuleCode.length()>10)
+			throw new IllegalArgumentException("归属规则AscriptionRuleCode值"+aAscriptionRuleCode+"的长度"+aAscriptionRuleCode.length()+"大于最大值10");
+		AscriptionRuleCode = aAscriptionRuleCode;
+	}
+	public String getPayRuleCode()
+	{
+		return PayRuleCode;
+	}
+	public void setPayRuleCode(String aPayRuleCode)
+	{
+		if(aPayRuleCode!=null && aPayRuleCode.length()>10)
+			throw new IllegalArgumentException("缴费规则PayRuleCode值"+aPayRuleCode+"的长度"+aPayRuleCode.length()+"大于最大值10");
+		PayRuleCode = aPayRuleCode;
+	}
+	public String getCurrency()
+	{
+		return Currency;
+	}
+	public void setCurrency(String aCurrency)
+	{
+		if(aCurrency!=null && aCurrency.length()>3)
+			throw new IllegalArgumentException("币别Currency值"+aCurrency+"的长度"+aCurrency.length()+"大于最大值3");
+		Currency = aCurrency;
+	}
+	public String getContPlanCode()
+	{
+		return ContPlanCode;
+	}
+	public void setContPlanCode(String aContPlanCode)
+	{
+		if(aContPlanCode!=null && aContPlanCode.length()>10)
+			throw new IllegalArgumentException("系统保险方案编码ContPlanCode值"+aContPlanCode+"的长度"+aContPlanCode.length()+"大于最大值10");
+		ContPlanCode = aContPlanCode;
+	}
+	public String getPlanCode()
+	{
+		return PlanCode;
+	}
+	public void setPlanCode(String aPlanCode)
+	{
+		if(aPlanCode!=null && aPlanCode.length()>15)
+			throw new IllegalArgumentException("保险方案PlanCode值"+aPlanCode+"的长度"+aPlanCode.length()+"大于最大值15");
+		PlanCode = aPlanCode;
+	}
+	public String getRiskCode()
+	{
+		return RiskCode;
+	}
+	public void setRiskCode(String aRiskCode)
+	{
+		if(aRiskCode!=null && aRiskCode.length()>20)
+			throw new IllegalArgumentException("险种编码RiskCode值"+aRiskCode+"的长度"+aRiskCode.length()+"大于最大值20");
+		RiskCode = aRiskCode;
+	}
+	public double getPeriodPrem()
+	{
+		return PeriodPrem;
+	}
+	public void setPeriodPrem(double aPeriodPrem)
+	{
+		PeriodPrem = aPeriodPrem;
+	}
+	public void setPeriodPrem(String aPeriodPrem)
+	{
+		if (aPeriodPrem != null && !aPeriodPrem.equals(""))
+		{
+			Double tDouble = new Double(aPeriodPrem);
+			double d = tDouble.doubleValue();
+			PeriodPrem = d;
+		}
+	}
+
+	public String getConfDate()
+	{
+		if( ConfDate != null )
+			return fDate.getString(ConfDate);
+		else
+			return null;
+	}
+	public void setConfDate(Date aConfDate)
+	{
+		ConfDate = aConfDate;
+	}
+	public void setConfDate(String aConfDate)
+	{
+		if (aConfDate != null && !aConfDate.equals("") )
+		{
+			ConfDate = fDate.getDate( aConfDate );
+		}
+		else
+			ConfDate = null;
+	}
+
+	/**
+	* 00-无效，10-有效
+	*/
+	public String getState()
+	{
+		return State;
+	}
+	public void setState(String aState)
+	{
+		if(aState!=null && aState.length()>10)
+			throw new IllegalArgumentException("状态State值"+aState+"的长度"+aState.length()+"大于最大值10");
+		State = aState;
+	}
+	public String getManageCom()
+	{
+		return ManageCom;
+	}
+	public void setManageCom(String aManageCom)
+	{
+		if(aManageCom!=null && aManageCom.length()>20)
+			throw new IllegalArgumentException("管理机构ManageCom值"+aManageCom+"的长度"+aManageCom.length()+"大于最大值20");
+		ManageCom = aManageCom;
+	}
+	public String getComCode()
+	{
+		return ComCode;
+	}
+	public void setComCode(String aComCode)
+	{
+		if(aComCode!=null && aComCode.length()>20)
+			throw new IllegalArgumentException("公司代码ComCode值"+aComCode+"的长度"+aComCode.length()+"大于最大值20");
+		ComCode = aComCode;
+	}
+	public String getModifyOperator()
+	{
+		return ModifyOperator;
+	}
+	public void setModifyOperator(String aModifyOperator)
+	{
+		if(aModifyOperator!=null && aModifyOperator.length()>30)
+			throw new IllegalArgumentException("最后一次修改操作员ModifyOperator值"+aModifyOperator+"的长度"+aModifyOperator.length()+"大于最大值30");
+		ModifyOperator = aModifyOperator;
+	}
+
+	/**
+	* 使用另外一个 LPDutySchema 对象给 Schema 赋值
+	* @param: aLPDutySchema LPDutySchema
+	**/
+	public void setSchema(LPDutySchema aLPDutySchema)
+	{
+		this.EdorNo = aLPDutySchema.getEdorNo();
+		this.EdorType = aLPDutySchema.getEdorType();
+		this.PolNo = aLPDutySchema.getPolNo();
+		this.DutyCode = aLPDutySchema.getDutyCode();
+		this.ContNo = aLPDutySchema.getContNo();
+		this.Mult = aLPDutySchema.getMult();
+		this.StandPrem = aLPDutySchema.getStandPrem();
+		this.Prem = aLPDutySchema.getPrem();
+		this.SumPrem = aLPDutySchema.getSumPrem();
+		this.Amnt = aLPDutySchema.getAmnt();
+		this.RiskAmnt = aLPDutySchema.getRiskAmnt();
+		this.PayIntv = aLPDutySchema.getPayIntv();
+		this.PayYears = aLPDutySchema.getPayYears();
+		this.Years = aLPDutySchema.getYears();
+		this.FloatRate = aLPDutySchema.getFloatRate();
+		this.FirstPayDate = fDate.getDate( aLPDutySchema.getFirstPayDate());
+		this.FirstMonth = aLPDutySchema.getFirstMonth();
+		this.PaytoDate = fDate.getDate( aLPDutySchema.getPaytoDate());
+		this.PayEndDate = fDate.getDate( aLPDutySchema.getPayEndDate());
+		this.PayEndYearFlag = aLPDutySchema.getPayEndYearFlag();
+		this.PayEndYear = aLPDutySchema.getPayEndYear();
+		this.GetYearFlag = aLPDutySchema.getGetYearFlag();
+		this.GetYear = aLPDutySchema.getGetYear();
+		this.InsuYearFlag = aLPDutySchema.getInsuYearFlag();
+		this.InsuYear = aLPDutySchema.getInsuYear();
+		this.AcciYearFlag = aLPDutySchema.getAcciYearFlag();
+		this.AcciYear = aLPDutySchema.getAcciYear();
+		this.EndDate = fDate.getDate( aLPDutySchema.getEndDate());
+		this.AcciEndDate = fDate.getDate( aLPDutySchema.getAcciEndDate());
+		this.FreeFlag = aLPDutySchema.getFreeFlag();
+		this.FreeRate = aLPDutySchema.getFreeRate();
+		this.FreeStartDate = fDate.getDate( aLPDutySchema.getFreeStartDate());
+		this.FreeEndDate = fDate.getDate( aLPDutySchema.getFreeEndDate());
+		this.GetStartDate = fDate.getDate( aLPDutySchema.getGetStartDate());
+		this.GetStartType = aLPDutySchema.getGetStartType();
+		this.LiveGetMode = aLPDutySchema.getLiveGetMode();
+		this.DeadGetMode = aLPDutySchema.getDeadGetMode();
+		this.BonusGetMode = aLPDutySchema.getBonusGetMode();
+		this.SSFlag = aLPDutySchema.getSSFlag();
+		this.PeakLine = aLPDutySchema.getPeakLine();
+		this.GetLimit = aLPDutySchema.getGetLimit();
+		this.GetRate = aLPDutySchema.getGetRate();
+		this.CalRule = aLPDutySchema.getCalRule();
+		this.PremToAmnt = aLPDutySchema.getPremToAmnt();
+		this.StandbyFlag1 = aLPDutySchema.getStandbyFlag1();
+		this.StandbyFlag2 = aLPDutySchema.getStandbyFlag2();
+		this.StandbyFlag3 = aLPDutySchema.getStandbyFlag3();
+		this.Operator = aLPDutySchema.getOperator();
+		this.MakeDate = fDate.getDate( aLPDutySchema.getMakeDate());
+		this.MakeTime = aLPDutySchema.getMakeTime();
+		this.ModifyDate = fDate.getDate( aLPDutySchema.getModifyDate());
+		this.ModifyTime = aLPDutySchema.getModifyTime();
+		this.CValiDate = fDate.getDate( aLPDutySchema.getCValiDate());
+		this.GetIntv = aLPDutySchema.getGetIntv();
+		this.AscriptionRuleCode = aLPDutySchema.getAscriptionRuleCode();
+		this.PayRuleCode = aLPDutySchema.getPayRuleCode();
+		this.Currency = aLPDutySchema.getCurrency();
+		this.ContPlanCode = aLPDutySchema.getContPlanCode();
+		this.PlanCode = aLPDutySchema.getPlanCode();
+		this.RiskCode = aLPDutySchema.getRiskCode();
+		this.PeriodPrem = aLPDutySchema.getPeriodPrem();
+		this.ConfDate = fDate.getDate( aLPDutySchema.getConfDate());
+		this.State = aLPDutySchema.getState();
+		this.ManageCom = aLPDutySchema.getManageCom();
+		this.ComCode = aLPDutySchema.getComCode();
+		this.ModifyOperator = aLPDutySchema.getModifyOperator();
+	}
+
+	/**
+	* 使用 ResultSet 中的第 i 行给 Schema 赋值
+	* @param: rs ResultSet
+	* @param: i int
+	* @return: boolean
+	**/
+	public boolean setSchema(ResultSet rs,int i)
+	{
+		try
+		{
+			//rs.absolute(i);		// 非滚动游标
+			if( rs.getString("EdorNo") == null )
+				this.EdorNo = null;
+			else
+				this.EdorNo = rs.getString("EdorNo").trim();
+
+			if( rs.getString("EdorType") == null )
+				this.EdorType = null;
+			else
+				this.EdorType = rs.getString("EdorType").trim();
+
+			if( rs.getString("PolNo") == null )
+				this.PolNo = null;
+			else
+				this.PolNo = rs.getString("PolNo").trim();
+
+			if( rs.getString("DutyCode") == null )
+				this.DutyCode = null;
+			else
+				this.DutyCode = rs.getString("DutyCode").trim();
+
+			if( rs.getString("ContNo") == null )
+				this.ContNo = null;
+			else
+				this.ContNo = rs.getString("ContNo").trim();
+
+			this.Mult = rs.getDouble("Mult");
+			this.StandPrem = rs.getDouble("StandPrem");
+			this.Prem = rs.getDouble("Prem");
+			this.SumPrem = rs.getDouble("SumPrem");
+			this.Amnt = rs.getDouble("Amnt");
+			this.RiskAmnt = rs.getDouble("RiskAmnt");
+			this.PayIntv = rs.getInt("PayIntv");
+			this.PayYears = rs.getInt("PayYears");
+			this.Years = rs.getInt("Years");
+			this.FloatRate = rs.getDouble("FloatRate");
+			this.FirstPayDate = rs.getDate("FirstPayDate");
+			this.FirstMonth = rs.getInt("FirstMonth");
+			this.PaytoDate = rs.getDate("PaytoDate");
+			this.PayEndDate = rs.getDate("PayEndDate");
+			if( rs.getString("PayEndYearFlag") == null )
+				this.PayEndYearFlag = null;
+			else
+				this.PayEndYearFlag = rs.getString("PayEndYearFlag").trim();
+
+			this.PayEndYear = rs.getInt("PayEndYear");
+			if( rs.getString("GetYearFlag") == null )
+				this.GetYearFlag = null;
+			else
+				this.GetYearFlag = rs.getString("GetYearFlag").trim();
+
+			this.GetYear = rs.getInt("GetYear");
+			if( rs.getString("InsuYearFlag") == null )
+				this.InsuYearFlag = null;
+			else
+				this.InsuYearFlag = rs.getString("InsuYearFlag").trim();
+
+			this.InsuYear = rs.getInt("InsuYear");
+			if( rs.getString("AcciYearFlag") == null )
+				this.AcciYearFlag = null;
+			else
+				this.AcciYearFlag = rs.getString("AcciYearFlag").trim();
+
+			this.AcciYear = rs.getInt("AcciYear");
+			this.EndDate = rs.getDate("EndDate");
+			this.AcciEndDate = rs.getDate("AcciEndDate");
+			if( rs.getString("FreeFlag") == null )
+				this.FreeFlag = null;
+			else
+				this.FreeFlag = rs.getString("FreeFlag").trim();
+
+			this.FreeRate = rs.getDouble("FreeRate");
+			this.FreeStartDate = rs.getDate("FreeStartDate");
+			this.FreeEndDate = rs.getDate("FreeEndDate");
+			this.GetStartDate = rs.getDate("GetStartDate");
+			if( rs.getString("GetStartType") == null )
+				this.GetStartType = null;
+			else
+				this.GetStartType = rs.getString("GetStartType").trim();
+
+			if( rs.getString("LiveGetMode") == null )
+				this.LiveGetMode = null;
+			else
+				this.LiveGetMode = rs.getString("LiveGetMode").trim();
+
+			if( rs.getString("DeadGetMode") == null )
+				this.DeadGetMode = null;
+			else
+				this.DeadGetMode = rs.getString("DeadGetMode").trim();
+
+			if( rs.getString("BonusGetMode") == null )
+				this.BonusGetMode = null;
+			else
+				this.BonusGetMode = rs.getString("BonusGetMode").trim();
+
+			if( rs.getString("SSFlag") == null )
+				this.SSFlag = null;
+			else
+				this.SSFlag = rs.getString("SSFlag").trim();
+
+			this.PeakLine = rs.getDouble("PeakLine");
+			this.GetLimit = rs.getDouble("GetLimit");
+			this.GetRate = rs.getDouble("GetRate");
+			if( rs.getString("CalRule") == null )
+				this.CalRule = null;
+			else
+				this.CalRule = rs.getString("CalRule").trim();
+
+			if( rs.getString("PremToAmnt") == null )
+				this.PremToAmnt = null;
+			else
+				this.PremToAmnt = rs.getString("PremToAmnt").trim();
+
+			if( rs.getString("StandbyFlag1") == null )
+				this.StandbyFlag1 = null;
+			else
+				this.StandbyFlag1 = rs.getString("StandbyFlag1").trim();
+
+			if( rs.getString("StandbyFlag2") == null )
+				this.StandbyFlag2 = null;
+			else
+				this.StandbyFlag2 = rs.getString("StandbyFlag2").trim();
+
+			if( rs.getString("StandbyFlag3") == null )
+				this.StandbyFlag3 = null;
+			else
+				this.StandbyFlag3 = rs.getString("StandbyFlag3").trim();
+
+			if( rs.getString("Operator") == null )
+				this.Operator = null;
+			else
+				this.Operator = rs.getString("Operator").trim();
+
+			this.MakeDate = rs.getDate("MakeDate");
+			if( rs.getString("MakeTime") == null )
+				this.MakeTime = null;
+			else
+				this.MakeTime = rs.getString("MakeTime").trim();
+
+			this.ModifyDate = rs.getDate("ModifyDate");
+			if( rs.getString("ModifyTime") == null )
+				this.ModifyTime = null;
+			else
+				this.ModifyTime = rs.getString("ModifyTime").trim();
+
+			this.CValiDate = rs.getDate("CValiDate");
+			this.GetIntv = rs.getInt("GetIntv");
+			if( rs.getString("AscriptionRuleCode") == null )
+				this.AscriptionRuleCode = null;
+			else
+				this.AscriptionRuleCode = rs.getString("AscriptionRuleCode").trim();
+
+			if( rs.getString("PayRuleCode") == null )
+				this.PayRuleCode = null;
+			else
+				this.PayRuleCode = rs.getString("PayRuleCode").trim();
+
+			if( rs.getString("Currency") == null )
+				this.Currency = null;
+			else
+				this.Currency = rs.getString("Currency").trim();
+
+			if( rs.getString("ContPlanCode") == null )
+				this.ContPlanCode = null;
+			else
+				this.ContPlanCode = rs.getString("ContPlanCode").trim();
+
+			if( rs.getString("PlanCode") == null )
+				this.PlanCode = null;
+			else
+				this.PlanCode = rs.getString("PlanCode").trim();
+
+			if( rs.getString("RiskCode") == null )
+				this.RiskCode = null;
+			else
+				this.RiskCode = rs.getString("RiskCode").trim();
+
+			this.PeriodPrem = rs.getDouble("PeriodPrem");
+			this.ConfDate = rs.getDate("ConfDate");
+			if( rs.getString("State") == null )
+				this.State = null;
+			else
+				this.State = rs.getString("State").trim();
+
+			if( rs.getString("ManageCom") == null )
+				this.ManageCom = null;
+			else
+				this.ManageCom = rs.getString("ManageCom").trim();
+
+			if( rs.getString("ComCode") == null )
+				this.ComCode = null;
+			else
+				this.ComCode = rs.getString("ComCode").trim();
+
+			if( rs.getString("ModifyOperator") == null )
+				this.ModifyOperator = null;
+			else
+				this.ModifyOperator = rs.getString("ModifyOperator").trim();
+
+		}
+		catch(SQLException sqle)
+		{
+			logger.debug("数据库中的LPDuty表字段个数和Schema中的字段个数不一致，或者执行db.executeQuery查询时没有使用select * from tables");
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LPDutySchema";
+			tError.functionName = "setSchema";
+			tError.errorMessage = sqle.toString();
+			this.mErrors .addOneError(tError);
+			return false;
+		}
+		return true;
+	}
+
+	public LPDutySchema getSchema()
+	{
+		LPDutySchema aLPDutySchema = new LPDutySchema();
+		aLPDutySchema.setSchema(this);
+		return aLPDutySchema;
+	}
+
+	public LPDutyDB getDB()
+	{
+		LPDutyDB aDBOper = new LPDutyDB();
+		aDBOper.setSchema(this);
+		return aDBOper;
+	}
+
+
+	/**
+	* 数据打包，按 XML 格式打包，顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLPDuty描述/A>表字段
+	* @return: String 返回打包后字符串
+	**/
+	public String encode()
+	{
+		StringBuffer strReturn = new StringBuffer(256);
+		strReturn.append(StrTool.cTrim(EdorNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(EdorType)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PolNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DutyCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ContNo)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(Mult));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(StandPrem));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(Prem));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(SumPrem));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(Amnt));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(RiskAmnt));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(PayIntv));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(PayYears));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(Years));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(FloatRate));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( FirstPayDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(FirstMonth));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( PaytoDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( PayEndDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PayEndYearFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(PayEndYear));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(GetYearFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(GetYear));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(InsuYearFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(InsuYear));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(AcciYearFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(AcciYear));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( EndDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( AcciEndDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(FreeFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(FreeRate));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( FreeStartDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( FreeEndDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( GetStartDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(GetStartType)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(LiveGetMode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(DeadGetMode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(BonusGetMode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(SSFlag)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(PeakLine));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(GetLimit));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(GetRate));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(CalRule)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PremToAmnt)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(StandbyFlag1)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(StandbyFlag2)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(StandbyFlag3)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(Operator)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( MakeDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(MakeTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( ModifyDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ModifyTime)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( CValiDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(GetIntv));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(AscriptionRuleCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PayRuleCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(Currency)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ContPlanCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(PlanCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(RiskCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append( ChgData.chgData(PeriodPrem));strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(fDate.getString( ConfDate ))); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(State)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ManageCom)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ComCode)); strReturn.append(SysConst.PACKAGESPILTER);
+		strReturn.append(StrTool.cTrim(ModifyOperator));
+		return strReturn.toString();
+	}
+
+	/**
+	* 数据解包，解包顺序参见<A href ={@docRoot}/dataStructure/tb.html#PrpLPDuty>历史记账凭证主表信息</A>表字段
+	* @param: strMessage String 包含一条纪录数据的字符串
+	* @return: boolean
+	**/
+	public boolean decode(String strMessage)
+	{
+		try
+		{
+			EdorNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 1, SysConst.PACKAGESPILTER );
+			EdorType = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 2, SysConst.PACKAGESPILTER );
+			PolNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 3, SysConst.PACKAGESPILTER );
+			DutyCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 4, SysConst.PACKAGESPILTER );
+			ContNo = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 5, SysConst.PACKAGESPILTER );
+			Mult = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,6,SysConst.PACKAGESPILTER))).doubleValue();
+			StandPrem = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,7,SysConst.PACKAGESPILTER))).doubleValue();
+			Prem = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,8,SysConst.PACKAGESPILTER))).doubleValue();
+			SumPrem = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,9,SysConst.PACKAGESPILTER))).doubleValue();
+			Amnt = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,10,SysConst.PACKAGESPILTER))).doubleValue();
+			RiskAmnt = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,11,SysConst.PACKAGESPILTER))).doubleValue();
+			PayIntv= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,12,SysConst.PACKAGESPILTER))).intValue();
+			PayYears= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,13,SysConst.PACKAGESPILTER))).intValue();
+			Years= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,14,SysConst.PACKAGESPILTER))).intValue();
+			FloatRate = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,15,SysConst.PACKAGESPILTER))).doubleValue();
+			FirstPayDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 16,SysConst.PACKAGESPILTER));
+			FirstMonth= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,17,SysConst.PACKAGESPILTER))).intValue();
+			PaytoDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 18,SysConst.PACKAGESPILTER));
+			PayEndDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 19,SysConst.PACKAGESPILTER));
+			PayEndYearFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 20, SysConst.PACKAGESPILTER );
+			PayEndYear= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,21,SysConst.PACKAGESPILTER))).intValue();
+			GetYearFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 22, SysConst.PACKAGESPILTER );
+			GetYear= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,23,SysConst.PACKAGESPILTER))).intValue();
+			InsuYearFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 24, SysConst.PACKAGESPILTER );
+			InsuYear= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,25,SysConst.PACKAGESPILTER))).intValue();
+			AcciYearFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 26, SysConst.PACKAGESPILTER );
+			AcciYear= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,27,SysConst.PACKAGESPILTER))).intValue();
+			EndDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 28,SysConst.PACKAGESPILTER));
+			AcciEndDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 29,SysConst.PACKAGESPILTER));
+			FreeFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 30, SysConst.PACKAGESPILTER );
+			FreeRate = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,31,SysConst.PACKAGESPILTER))).doubleValue();
+			FreeStartDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 32,SysConst.PACKAGESPILTER));
+			FreeEndDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 33,SysConst.PACKAGESPILTER));
+			GetStartDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 34,SysConst.PACKAGESPILTER));
+			GetStartType = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 35, SysConst.PACKAGESPILTER );
+			LiveGetMode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 36, SysConst.PACKAGESPILTER );
+			DeadGetMode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 37, SysConst.PACKAGESPILTER );
+			BonusGetMode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 38, SysConst.PACKAGESPILTER );
+			SSFlag = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 39, SysConst.PACKAGESPILTER );
+			PeakLine = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,40,SysConst.PACKAGESPILTER))).doubleValue();
+			GetLimit = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,41,SysConst.PACKAGESPILTER))).doubleValue();
+			GetRate = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,42,SysConst.PACKAGESPILTER))).doubleValue();
+			CalRule = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 43, SysConst.PACKAGESPILTER );
+			PremToAmnt = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 44, SysConst.PACKAGESPILTER );
+			StandbyFlag1 = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 45, SysConst.PACKAGESPILTER );
+			StandbyFlag2 = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 46, SysConst.PACKAGESPILTER );
+			StandbyFlag3 = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 47, SysConst.PACKAGESPILTER );
+			Operator = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 48, SysConst.PACKAGESPILTER );
+			MakeDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 49,SysConst.PACKAGESPILTER));
+			MakeTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 50, SysConst.PACKAGESPILTER );
+			ModifyDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 51,SysConst.PACKAGESPILTER));
+			ModifyTime = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 52, SysConst.PACKAGESPILTER );
+			CValiDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 53,SysConst.PACKAGESPILTER));
+			GetIntv= new Integer(ChgData.chgNumericStr(StrTool.getStr(strMessage,54,SysConst.PACKAGESPILTER))).intValue();
+			AscriptionRuleCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 55, SysConst.PACKAGESPILTER );
+			PayRuleCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 56, SysConst.PACKAGESPILTER );
+			Currency = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 57, SysConst.PACKAGESPILTER );
+			ContPlanCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 58, SysConst.PACKAGESPILTER );
+			PlanCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 59, SysConst.PACKAGESPILTER );
+			RiskCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 60, SysConst.PACKAGESPILTER );
+			PeriodPrem = new Double(ChgData.chgNumericStr(StrTool.getStr(strMessage,61,SysConst.PACKAGESPILTER))).doubleValue();
+			ConfDate = fDate.getDate(StrTool.getStr(StrTool.GBKToUnicode(strMessage), 62,SysConst.PACKAGESPILTER));
+			State = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 63, SysConst.PACKAGESPILTER );
+			ManageCom = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 64, SysConst.PACKAGESPILTER );
+			ComCode = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 65, SysConst.PACKAGESPILTER );
+			ModifyOperator = StrTool.getStr(StrTool.GBKToUnicode(strMessage), 66, SysConst.PACKAGESPILTER );
+		}
+		catch(NumberFormatException ex)
+		{
+			// @@错误处理
+			CError tError = new CError();
+			tError.moduleName = "LPDutySchema";
+			tError.functionName = "decode";
+			tError.errorMessage = ex.toString();
+			this.mErrors .addOneError(tError);
+
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	* 取得对应传入参数的String形式的字段值
+	* @param: FCode String 希望取得的字段名
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(String FCode)
+	{
+		String strReturn = "";
+		if (FCode.equalsIgnoreCase("EdorNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(EdorNo));
+		}
+		if (FCode.equalsIgnoreCase("EdorType"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(EdorType));
+		}
+		if (FCode.equalsIgnoreCase("PolNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PolNo));
+		}
+		if (FCode.equalsIgnoreCase("DutyCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DutyCode));
+		}
+		if (FCode.equalsIgnoreCase("ContNo"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ContNo));
+		}
+		if (FCode.equalsIgnoreCase("Mult"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Mult));
+		}
+		if (FCode.equalsIgnoreCase("StandPrem"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(StandPrem));
+		}
+		if (FCode.equalsIgnoreCase("Prem"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Prem));
+		}
+		if (FCode.equalsIgnoreCase("SumPrem"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SumPrem));
+		}
+		if (FCode.equalsIgnoreCase("Amnt"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Amnt));
+		}
+		if (FCode.equalsIgnoreCase("RiskAmnt"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(RiskAmnt));
+		}
+		if (FCode.equalsIgnoreCase("PayIntv"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PayIntv));
+		}
+		if (FCode.equalsIgnoreCase("PayYears"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PayYears));
+		}
+		if (FCode.equalsIgnoreCase("Years"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Years));
+		}
+		if (FCode.equalsIgnoreCase("FloatRate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(FloatRate));
+		}
+		if (FCode.equalsIgnoreCase("FirstPayDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getFirstPayDate()));
+		}
+		if (FCode.equalsIgnoreCase("FirstMonth"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(FirstMonth));
+		}
+		if (FCode.equalsIgnoreCase("PaytoDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getPaytoDate()));
+		}
+		if (FCode.equalsIgnoreCase("PayEndDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getPayEndDate()));
+		}
+		if (FCode.equalsIgnoreCase("PayEndYearFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PayEndYearFlag));
+		}
+		if (FCode.equalsIgnoreCase("PayEndYear"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PayEndYear));
+		}
+		if (FCode.equalsIgnoreCase("GetYearFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetYearFlag));
+		}
+		if (FCode.equalsIgnoreCase("GetYear"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetYear));
+		}
+		if (FCode.equalsIgnoreCase("InsuYearFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(InsuYearFlag));
+		}
+		if (FCode.equalsIgnoreCase("InsuYear"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(InsuYear));
+		}
+		if (FCode.equalsIgnoreCase("AcciYearFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(AcciYearFlag));
+		}
+		if (FCode.equalsIgnoreCase("AcciYear"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(AcciYear));
+		}
+		if (FCode.equalsIgnoreCase("EndDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getEndDate()));
+		}
+		if (FCode.equalsIgnoreCase("AcciEndDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getAcciEndDate()));
+		}
+		if (FCode.equalsIgnoreCase("FreeFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(FreeFlag));
+		}
+		if (FCode.equalsIgnoreCase("FreeRate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(FreeRate));
+		}
+		if (FCode.equalsIgnoreCase("FreeStartDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getFreeStartDate()));
+		}
+		if (FCode.equalsIgnoreCase("FreeEndDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getFreeEndDate()));
+		}
+		if (FCode.equalsIgnoreCase("GetStartDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getGetStartDate()));
+		}
+		if (FCode.equalsIgnoreCase("GetStartType"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetStartType));
+		}
+		if (FCode.equalsIgnoreCase("LiveGetMode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(LiveGetMode));
+		}
+		if (FCode.equalsIgnoreCase("DeadGetMode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(DeadGetMode));
+		}
+		if (FCode.equalsIgnoreCase("BonusGetMode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(BonusGetMode));
+		}
+		if (FCode.equalsIgnoreCase("SSFlag"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(SSFlag));
+		}
+		if (FCode.equalsIgnoreCase("PeakLine"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PeakLine));
+		}
+		if (FCode.equalsIgnoreCase("GetLimit"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetLimit));
+		}
+		if (FCode.equalsIgnoreCase("GetRate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetRate));
+		}
+		if (FCode.equalsIgnoreCase("CalRule"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(CalRule));
+		}
+		if (FCode.equalsIgnoreCase("PremToAmnt"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PremToAmnt));
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag1"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(StandbyFlag1));
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag2"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(StandbyFlag2));
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag3"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(StandbyFlag3));
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Operator));
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(MakeTime));
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ModifyTime));
+		}
+		if (FCode.equalsIgnoreCase("CValiDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getCValiDate()));
+		}
+		if (FCode.equalsIgnoreCase("GetIntv"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(GetIntv));
+		}
+		if (FCode.equalsIgnoreCase("AscriptionRuleCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(AscriptionRuleCode));
+		}
+		if (FCode.equalsIgnoreCase("PayRuleCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PayRuleCode));
+		}
+		if (FCode.equalsIgnoreCase("Currency"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(Currency));
+		}
+		if (FCode.equalsIgnoreCase("ContPlanCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ContPlanCode));
+		}
+		if (FCode.equalsIgnoreCase("PlanCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PlanCode));
+		}
+		if (FCode.equalsIgnoreCase("RiskCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(RiskCode));
+		}
+		if (FCode.equalsIgnoreCase("PeriodPrem"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(PeriodPrem));
+		}
+		if (FCode.equalsIgnoreCase("ConfDate"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf( this.getConfDate()));
+		}
+		if (FCode.equalsIgnoreCase("State"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(State));
+		}
+		if (FCode.equalsIgnoreCase("ManageCom"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ManageCom));
+		}
+		if (FCode.equalsIgnoreCase("ComCode"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ComCode));
+		}
+		if (FCode.equalsIgnoreCase("ModifyOperator"))
+		{
+			strReturn = StrTool.GBKToUnicode(String.valueOf(ModifyOperator));
+		}
+		if (strReturn.equals(""))
+		{
+			strReturn = "null";
+		}
+
+		return strReturn;
+	}
+
+
+	/**
+	* 取得Schema中指定索引值所对应的字段值
+	* @param: nFieldIndex int 指定的字段索引值
+	* @return: String
+	* 如果没有对应的字段，返回""
+	* 如果字段值为空，返回"null"
+	**/
+	public String getV(int nFieldIndex)
+	{
+		String strFieldValue = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldValue = StrTool.GBKToUnicode(EdorNo);
+				break;
+			case 1:
+				strFieldValue = StrTool.GBKToUnicode(EdorType);
+				break;
+			case 2:
+				strFieldValue = StrTool.GBKToUnicode(PolNo);
+				break;
+			case 3:
+				strFieldValue = StrTool.GBKToUnicode(DutyCode);
+				break;
+			case 4:
+				strFieldValue = StrTool.GBKToUnicode(ContNo);
+				break;
+			case 5:
+				strFieldValue = String.valueOf(Mult);
+				break;
+			case 6:
+				strFieldValue = String.valueOf(StandPrem);
+				break;
+			case 7:
+				strFieldValue = String.valueOf(Prem);
+				break;
+			case 8:
+				strFieldValue = String.valueOf(SumPrem);
+				break;
+			case 9:
+				strFieldValue = String.valueOf(Amnt);
+				break;
+			case 10:
+				strFieldValue = String.valueOf(RiskAmnt);
+				break;
+			case 11:
+				strFieldValue = String.valueOf(PayIntv);
+				break;
+			case 12:
+				strFieldValue = String.valueOf(PayYears);
+				break;
+			case 13:
+				strFieldValue = String.valueOf(Years);
+				break;
+			case 14:
+				strFieldValue = String.valueOf(FloatRate);
+				break;
+			case 15:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getFirstPayDate()));
+				break;
+			case 16:
+				strFieldValue = String.valueOf(FirstMonth);
+				break;
+			case 17:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getPaytoDate()));
+				break;
+			case 18:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getPayEndDate()));
+				break;
+			case 19:
+				strFieldValue = StrTool.GBKToUnicode(PayEndYearFlag);
+				break;
+			case 20:
+				strFieldValue = String.valueOf(PayEndYear);
+				break;
+			case 21:
+				strFieldValue = StrTool.GBKToUnicode(GetYearFlag);
+				break;
+			case 22:
+				strFieldValue = String.valueOf(GetYear);
+				break;
+			case 23:
+				strFieldValue = StrTool.GBKToUnicode(InsuYearFlag);
+				break;
+			case 24:
+				strFieldValue = String.valueOf(InsuYear);
+				break;
+			case 25:
+				strFieldValue = StrTool.GBKToUnicode(AcciYearFlag);
+				break;
+			case 26:
+				strFieldValue = String.valueOf(AcciYear);
+				break;
+			case 27:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getEndDate()));
+				break;
+			case 28:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getAcciEndDate()));
+				break;
+			case 29:
+				strFieldValue = StrTool.GBKToUnicode(FreeFlag);
+				break;
+			case 30:
+				strFieldValue = String.valueOf(FreeRate);
+				break;
+			case 31:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getFreeStartDate()));
+				break;
+			case 32:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getFreeEndDate()));
+				break;
+			case 33:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getGetStartDate()));
+				break;
+			case 34:
+				strFieldValue = StrTool.GBKToUnicode(GetStartType);
+				break;
+			case 35:
+				strFieldValue = StrTool.GBKToUnicode(LiveGetMode);
+				break;
+			case 36:
+				strFieldValue = StrTool.GBKToUnicode(DeadGetMode);
+				break;
+			case 37:
+				strFieldValue = StrTool.GBKToUnicode(BonusGetMode);
+				break;
+			case 38:
+				strFieldValue = StrTool.GBKToUnicode(SSFlag);
+				break;
+			case 39:
+				strFieldValue = String.valueOf(PeakLine);
+				break;
+			case 40:
+				strFieldValue = String.valueOf(GetLimit);
+				break;
+			case 41:
+				strFieldValue = String.valueOf(GetRate);
+				break;
+			case 42:
+				strFieldValue = StrTool.GBKToUnicode(CalRule);
+				break;
+			case 43:
+				strFieldValue = StrTool.GBKToUnicode(PremToAmnt);
+				break;
+			case 44:
+				strFieldValue = StrTool.GBKToUnicode(StandbyFlag1);
+				break;
+			case 45:
+				strFieldValue = StrTool.GBKToUnicode(StandbyFlag2);
+				break;
+			case 46:
+				strFieldValue = StrTool.GBKToUnicode(StandbyFlag3);
+				break;
+			case 47:
+				strFieldValue = StrTool.GBKToUnicode(Operator);
+				break;
+			case 48:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getMakeDate()));
+				break;
+			case 49:
+				strFieldValue = StrTool.GBKToUnicode(MakeTime);
+				break;
+			case 50:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getModifyDate()));
+				break;
+			case 51:
+				strFieldValue = StrTool.GBKToUnicode(ModifyTime);
+				break;
+			case 52:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getCValiDate()));
+				break;
+			case 53:
+				strFieldValue = String.valueOf(GetIntv);
+				break;
+			case 54:
+				strFieldValue = StrTool.GBKToUnicode(AscriptionRuleCode);
+				break;
+			case 55:
+				strFieldValue = StrTool.GBKToUnicode(PayRuleCode);
+				break;
+			case 56:
+				strFieldValue = StrTool.GBKToUnicode(Currency);
+				break;
+			case 57:
+				strFieldValue = StrTool.GBKToUnicode(ContPlanCode);
+				break;
+			case 58:
+				strFieldValue = StrTool.GBKToUnicode(PlanCode);
+				break;
+			case 59:
+				strFieldValue = StrTool.GBKToUnicode(RiskCode);
+				break;
+			case 60:
+				strFieldValue = String.valueOf(PeriodPrem);
+				break;
+			case 61:
+				strFieldValue = StrTool.GBKToUnicode(String.valueOf( this.getConfDate()));
+				break;
+			case 62:
+				strFieldValue = StrTool.GBKToUnicode(State);
+				break;
+			case 63:
+				strFieldValue = StrTool.GBKToUnicode(ManageCom);
+				break;
+			case 64:
+				strFieldValue = StrTool.GBKToUnicode(ComCode);
+				break;
+			case 65:
+				strFieldValue = StrTool.GBKToUnicode(ModifyOperator);
+				break;
+			default:
+				strFieldValue = "";
+		};
+		if( strFieldValue.equals("") ) {
+			strFieldValue = "null";
+		}
+		return strFieldValue;
+	}
+
+	/**
+	* 设置对应传入参数的String形式的字段值
+	* @param: FCode String 需要赋值的对象
+	* @param: FValue String 要赋的值
+	* @return: boolean
+	**/
+	public boolean setV(String FCode ,String FValue)
+	{
+		if( StrTool.cTrim( FCode ).equals( "" ))
+			return false;
+
+		if (FCode.equalsIgnoreCase("EdorNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				EdorNo = FValue.trim();
+			}
+			else
+				EdorNo = null;
+		}
+		if (FCode.equalsIgnoreCase("EdorType"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				EdorType = FValue.trim();
+			}
+			else
+				EdorType = null;
+		}
+		if (FCode.equalsIgnoreCase("PolNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PolNo = FValue.trim();
+			}
+			else
+				PolNo = null;
+		}
+		if (FCode.equalsIgnoreCase("DutyCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DutyCode = FValue.trim();
+			}
+			else
+				DutyCode = null;
+		}
+		if (FCode.equalsIgnoreCase("ContNo"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ContNo = FValue.trim();
+			}
+			else
+				ContNo = null;
+		}
+		if (FCode.equalsIgnoreCase("Mult"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				Mult = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("StandPrem"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				StandPrem = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("Prem"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				Prem = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("SumPrem"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				SumPrem = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("Amnt"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				Amnt = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("RiskAmnt"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				RiskAmnt = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("PayIntv"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				PayIntv = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("PayYears"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				PayYears = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("Years"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				Years = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("FloatRate"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				FloatRate = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("FirstPayDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				FirstPayDate = fDate.getDate( FValue );
+			}
+			else
+				FirstPayDate = null;
+		}
+		if (FCode.equalsIgnoreCase("FirstMonth"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				FirstMonth = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("PaytoDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				PaytoDate = fDate.getDate( FValue );
+			}
+			else
+				PaytoDate = null;
+		}
+		if (FCode.equalsIgnoreCase("PayEndDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				PayEndDate = fDate.getDate( FValue );
+			}
+			else
+				PayEndDate = null;
+		}
+		if (FCode.equalsIgnoreCase("PayEndYearFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PayEndYearFlag = FValue.trim();
+			}
+			else
+				PayEndYearFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("PayEndYear"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				PayEndYear = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("GetYearFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				GetYearFlag = FValue.trim();
+			}
+			else
+				GetYearFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("GetYear"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				GetYear = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("InsuYearFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				InsuYearFlag = FValue.trim();
+			}
+			else
+				InsuYearFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("InsuYear"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				InsuYear = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("AcciYearFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				AcciYearFlag = FValue.trim();
+			}
+			else
+				AcciYearFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("AcciYear"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				AcciYear = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("EndDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				EndDate = fDate.getDate( FValue );
+			}
+			else
+				EndDate = null;
+		}
+		if (FCode.equalsIgnoreCase("AcciEndDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				AcciEndDate = fDate.getDate( FValue );
+			}
+			else
+				AcciEndDate = null;
+		}
+		if (FCode.equalsIgnoreCase("FreeFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				FreeFlag = FValue.trim();
+			}
+			else
+				FreeFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("FreeRate"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				FreeRate = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("FreeStartDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				FreeStartDate = fDate.getDate( FValue );
+			}
+			else
+				FreeStartDate = null;
+		}
+		if (FCode.equalsIgnoreCase("FreeEndDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				FreeEndDate = fDate.getDate( FValue );
+			}
+			else
+				FreeEndDate = null;
+		}
+		if (FCode.equalsIgnoreCase("GetStartDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				GetStartDate = fDate.getDate( FValue );
+			}
+			else
+				GetStartDate = null;
+		}
+		if (FCode.equalsIgnoreCase("GetStartType"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				GetStartType = FValue.trim();
+			}
+			else
+				GetStartType = null;
+		}
+		if (FCode.equalsIgnoreCase("LiveGetMode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				LiveGetMode = FValue.trim();
+			}
+			else
+				LiveGetMode = null;
+		}
+		if (FCode.equalsIgnoreCase("DeadGetMode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				DeadGetMode = FValue.trim();
+			}
+			else
+				DeadGetMode = null;
+		}
+		if (FCode.equalsIgnoreCase("BonusGetMode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				BonusGetMode = FValue.trim();
+			}
+			else
+				BonusGetMode = null;
+		}
+		if (FCode.equalsIgnoreCase("SSFlag"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				SSFlag = FValue.trim();
+			}
+			else
+				SSFlag = null;
+		}
+		if (FCode.equalsIgnoreCase("PeakLine"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				PeakLine = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("GetLimit"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				GetLimit = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("GetRate"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				GetRate = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("CalRule"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				CalRule = FValue.trim();
+			}
+			else
+				CalRule = null;
+		}
+		if (FCode.equalsIgnoreCase("PremToAmnt"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PremToAmnt = FValue.trim();
+			}
+			else
+				PremToAmnt = null;
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag1"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				StandbyFlag1 = FValue.trim();
+			}
+			else
+				StandbyFlag1 = null;
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag2"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				StandbyFlag2 = FValue.trim();
+			}
+			else
+				StandbyFlag2 = null;
+		}
+		if (FCode.equalsIgnoreCase("StandbyFlag3"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				StandbyFlag3 = FValue.trim();
+			}
+			else
+				StandbyFlag3 = null;
+		}
+		if (FCode.equalsIgnoreCase("Operator"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Operator = FValue.trim();
+			}
+			else
+				Operator = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				MakeDate = fDate.getDate( FValue );
+			}
+			else
+				MakeDate = null;
+		}
+		if (FCode.equalsIgnoreCase("MakeTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				MakeTime = FValue.trim();
+			}
+			else
+				MakeTime = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				ModifyDate = fDate.getDate( FValue );
+			}
+			else
+				ModifyDate = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyTime"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ModifyTime = FValue.trim();
+			}
+			else
+				ModifyTime = null;
+		}
+		if (FCode.equalsIgnoreCase("CValiDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				CValiDate = fDate.getDate( FValue );
+			}
+			else
+				CValiDate = null;
+		}
+		if (FCode.equalsIgnoreCase("GetIntv"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Integer tInteger = new Integer( FValue );
+				int i = tInteger.intValue();
+				GetIntv = i;
+			}
+		}
+		if (FCode.equalsIgnoreCase("AscriptionRuleCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				AscriptionRuleCode = FValue.trim();
+			}
+			else
+				AscriptionRuleCode = null;
+		}
+		if (FCode.equalsIgnoreCase("PayRuleCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PayRuleCode = FValue.trim();
+			}
+			else
+				PayRuleCode = null;
+		}
+		if (FCode.equalsIgnoreCase("Currency"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Currency = FValue.trim();
+			}
+			else
+				Currency = null;
+		}
+		if (FCode.equalsIgnoreCase("ContPlanCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ContPlanCode = FValue.trim();
+			}
+			else
+				ContPlanCode = null;
+		}
+		if (FCode.equalsIgnoreCase("PlanCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				PlanCode = FValue.trim();
+			}
+			else
+				PlanCode = null;
+		}
+		if (FCode.equalsIgnoreCase("RiskCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				RiskCode = FValue.trim();
+			}
+			else
+				RiskCode = null;
+		}
+		if (FCode.equalsIgnoreCase("PeriodPrem"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				Double tDouble = new Double( FValue );
+				double d = tDouble.doubleValue();
+				PeriodPrem = d;
+			}
+		}
+		if (FCode.equalsIgnoreCase("ConfDate"))
+		{
+			if( FValue != null && !FValue.equals("") )
+			{
+				ConfDate = fDate.getDate( FValue );
+			}
+			else
+				ConfDate = null;
+		}
+		if (FCode.equalsIgnoreCase("State"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				State = FValue.trim();
+			}
+			else
+				State = null;
+		}
+		if (FCode.equalsIgnoreCase("ManageCom"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ManageCom = FValue.trim();
+			}
+			else
+				ManageCom = null;
+		}
+		if (FCode.equalsIgnoreCase("ComCode"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ComCode = FValue.trim();
+			}
+			else
+				ComCode = null;
+		}
+		if (FCode.equalsIgnoreCase("ModifyOperator"))
+		{
+			if( FValue != null && !FValue.equals(""))
+			{
+				ModifyOperator = FValue.trim();
+			}
+			else
+				ModifyOperator = null;
+		}
+		return true;
+	}
+
+	public boolean equals(Object otherObject)
+	{
+		if (this == otherObject) return true;
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		LPDutySchema other = (LPDutySchema)otherObject;
+		return
+			EdorNo.equals(other.getEdorNo())
+			&& EdorType.equals(other.getEdorType())
+			&& PolNo.equals(other.getPolNo())
+			&& DutyCode.equals(other.getDutyCode())
+			&& ContNo.equals(other.getContNo())
+			&& Mult == other.getMult()
+			&& StandPrem == other.getStandPrem()
+			&& Prem == other.getPrem()
+			&& SumPrem == other.getSumPrem()
+			&& Amnt == other.getAmnt()
+			&& RiskAmnt == other.getRiskAmnt()
+			&& PayIntv == other.getPayIntv()
+			&& PayYears == other.getPayYears()
+			&& Years == other.getYears()
+			&& FloatRate == other.getFloatRate()
+			&& fDate.getString(FirstPayDate).equals(other.getFirstPayDate())
+			&& FirstMonth == other.getFirstMonth()
+			&& fDate.getString(PaytoDate).equals(other.getPaytoDate())
+			&& fDate.getString(PayEndDate).equals(other.getPayEndDate())
+			&& PayEndYearFlag.equals(other.getPayEndYearFlag())
+			&& PayEndYear == other.getPayEndYear()
+			&& GetYearFlag.equals(other.getGetYearFlag())
+			&& GetYear == other.getGetYear()
+			&& InsuYearFlag.equals(other.getInsuYearFlag())
+			&& InsuYear == other.getInsuYear()
+			&& AcciYearFlag.equals(other.getAcciYearFlag())
+			&& AcciYear == other.getAcciYear()
+			&& fDate.getString(EndDate).equals(other.getEndDate())
+			&& fDate.getString(AcciEndDate).equals(other.getAcciEndDate())
+			&& FreeFlag.equals(other.getFreeFlag())
+			&& FreeRate == other.getFreeRate()
+			&& fDate.getString(FreeStartDate).equals(other.getFreeStartDate())
+			&& fDate.getString(FreeEndDate).equals(other.getFreeEndDate())
+			&& fDate.getString(GetStartDate).equals(other.getGetStartDate())
+			&& GetStartType.equals(other.getGetStartType())
+			&& LiveGetMode.equals(other.getLiveGetMode())
+			&& DeadGetMode.equals(other.getDeadGetMode())
+			&& BonusGetMode.equals(other.getBonusGetMode())
+			&& SSFlag.equals(other.getSSFlag())
+			&& PeakLine == other.getPeakLine()
+			&& GetLimit == other.getGetLimit()
+			&& GetRate == other.getGetRate()
+			&& CalRule.equals(other.getCalRule())
+			&& PremToAmnt.equals(other.getPremToAmnt())
+			&& StandbyFlag1.equals(other.getStandbyFlag1())
+			&& StandbyFlag2.equals(other.getStandbyFlag2())
+			&& StandbyFlag3.equals(other.getStandbyFlag3())
+			&& Operator.equals(other.getOperator())
+			&& fDate.getString(MakeDate).equals(other.getMakeDate())
+			&& MakeTime.equals(other.getMakeTime())
+			&& fDate.getString(ModifyDate).equals(other.getModifyDate())
+			&& ModifyTime.equals(other.getModifyTime())
+			&& fDate.getString(CValiDate).equals(other.getCValiDate())
+			&& GetIntv == other.getGetIntv()
+			&& AscriptionRuleCode.equals(other.getAscriptionRuleCode())
+			&& PayRuleCode.equals(other.getPayRuleCode())
+			&& Currency.equals(other.getCurrency())
+			&& ContPlanCode.equals(other.getContPlanCode())
+			&& PlanCode.equals(other.getPlanCode())
+			&& RiskCode.equals(other.getRiskCode())
+			&& PeriodPrem == other.getPeriodPrem()
+			&& fDate.getString(ConfDate).equals(other.getConfDate())
+			&& State.equals(other.getState())
+			&& ManageCom.equals(other.getManageCom())
+			&& ComCode.equals(other.getComCode())
+			&& ModifyOperator.equals(other.getModifyOperator());
+	}
+
+	/**
+	* 取得Schema拥有字段的数量
+       * @return: int
+	**/
+	public int getFieldCount()
+	{
+ 		return FIELDNUM;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的索引值
+	* 如果没有对应的字段，返回-1
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldIndex(String strFieldName)
+	{
+		if( strFieldName.equals("EdorNo") ) {
+			return 0;
+		}
+		if( strFieldName.equals("EdorType") ) {
+			return 1;
+		}
+		if( strFieldName.equals("PolNo") ) {
+			return 2;
+		}
+		if( strFieldName.equals("DutyCode") ) {
+			return 3;
+		}
+		if( strFieldName.equals("ContNo") ) {
+			return 4;
+		}
+		if( strFieldName.equals("Mult") ) {
+			return 5;
+		}
+		if( strFieldName.equals("StandPrem") ) {
+			return 6;
+		}
+		if( strFieldName.equals("Prem") ) {
+			return 7;
+		}
+		if( strFieldName.equals("SumPrem") ) {
+			return 8;
+		}
+		if( strFieldName.equals("Amnt") ) {
+			return 9;
+		}
+		if( strFieldName.equals("RiskAmnt") ) {
+			return 10;
+		}
+		if( strFieldName.equals("PayIntv") ) {
+			return 11;
+		}
+		if( strFieldName.equals("PayYears") ) {
+			return 12;
+		}
+		if( strFieldName.equals("Years") ) {
+			return 13;
+		}
+		if( strFieldName.equals("FloatRate") ) {
+			return 14;
+		}
+		if( strFieldName.equals("FirstPayDate") ) {
+			return 15;
+		}
+		if( strFieldName.equals("FirstMonth") ) {
+			return 16;
+		}
+		if( strFieldName.equals("PaytoDate") ) {
+			return 17;
+		}
+		if( strFieldName.equals("PayEndDate") ) {
+			return 18;
+		}
+		if( strFieldName.equals("PayEndYearFlag") ) {
+			return 19;
+		}
+		if( strFieldName.equals("PayEndYear") ) {
+			return 20;
+		}
+		if( strFieldName.equals("GetYearFlag") ) {
+			return 21;
+		}
+		if( strFieldName.equals("GetYear") ) {
+			return 22;
+		}
+		if( strFieldName.equals("InsuYearFlag") ) {
+			return 23;
+		}
+		if( strFieldName.equals("InsuYear") ) {
+			return 24;
+		}
+		if( strFieldName.equals("AcciYearFlag") ) {
+			return 25;
+		}
+		if( strFieldName.equals("AcciYear") ) {
+			return 26;
+		}
+		if( strFieldName.equals("EndDate") ) {
+			return 27;
+		}
+		if( strFieldName.equals("AcciEndDate") ) {
+			return 28;
+		}
+		if( strFieldName.equals("FreeFlag") ) {
+			return 29;
+		}
+		if( strFieldName.equals("FreeRate") ) {
+			return 30;
+		}
+		if( strFieldName.equals("FreeStartDate") ) {
+			return 31;
+		}
+		if( strFieldName.equals("FreeEndDate") ) {
+			return 32;
+		}
+		if( strFieldName.equals("GetStartDate") ) {
+			return 33;
+		}
+		if( strFieldName.equals("GetStartType") ) {
+			return 34;
+		}
+		if( strFieldName.equals("LiveGetMode") ) {
+			return 35;
+		}
+		if( strFieldName.equals("DeadGetMode") ) {
+			return 36;
+		}
+		if( strFieldName.equals("BonusGetMode") ) {
+			return 37;
+		}
+		if( strFieldName.equals("SSFlag") ) {
+			return 38;
+		}
+		if( strFieldName.equals("PeakLine") ) {
+			return 39;
+		}
+		if( strFieldName.equals("GetLimit") ) {
+			return 40;
+		}
+		if( strFieldName.equals("GetRate") ) {
+			return 41;
+		}
+		if( strFieldName.equals("CalRule") ) {
+			return 42;
+		}
+		if( strFieldName.equals("PremToAmnt") ) {
+			return 43;
+		}
+		if( strFieldName.equals("StandbyFlag1") ) {
+			return 44;
+		}
+		if( strFieldName.equals("StandbyFlag2") ) {
+			return 45;
+		}
+		if( strFieldName.equals("StandbyFlag3") ) {
+			return 46;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return 47;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return 48;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return 49;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return 50;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return 51;
+		}
+		if( strFieldName.equals("CValiDate") ) {
+			return 52;
+		}
+		if( strFieldName.equals("GetIntv") ) {
+			return 53;
+		}
+		if( strFieldName.equals("AscriptionRuleCode") ) {
+			return 54;
+		}
+		if( strFieldName.equals("PayRuleCode") ) {
+			return 55;
+		}
+		if( strFieldName.equals("Currency") ) {
+			return 56;
+		}
+		if( strFieldName.equals("ContPlanCode") ) {
+			return 57;
+		}
+		if( strFieldName.equals("PlanCode") ) {
+			return 58;
+		}
+		if( strFieldName.equals("RiskCode") ) {
+			return 59;
+		}
+		if( strFieldName.equals("PeriodPrem") ) {
+			return 60;
+		}
+		if( strFieldName.equals("ConfDate") ) {
+			return 61;
+		}
+		if( strFieldName.equals("State") ) {
+			return 62;
+		}
+		if( strFieldName.equals("ManageCom") ) {
+			return 63;
+		}
+		if( strFieldName.equals("ComCode") ) {
+			return 64;
+		}
+		if( strFieldName.equals("ModifyOperator") ) {
+			return 65;
+		}
+		return -1;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段名
+	* 如果没有对应的字段，返回""
+       * @param: nFieldIndex int
+       * @return: String
+	**/
+	public String getFieldName(int nFieldIndex)
+	{
+		String strFieldName = "";
+		switch(nFieldIndex) {
+			case 0:
+				strFieldName = "EdorNo";
+				break;
+			case 1:
+				strFieldName = "EdorType";
+				break;
+			case 2:
+				strFieldName = "PolNo";
+				break;
+			case 3:
+				strFieldName = "DutyCode";
+				break;
+			case 4:
+				strFieldName = "ContNo";
+				break;
+			case 5:
+				strFieldName = "Mult";
+				break;
+			case 6:
+				strFieldName = "StandPrem";
+				break;
+			case 7:
+				strFieldName = "Prem";
+				break;
+			case 8:
+				strFieldName = "SumPrem";
+				break;
+			case 9:
+				strFieldName = "Amnt";
+				break;
+			case 10:
+				strFieldName = "RiskAmnt";
+				break;
+			case 11:
+				strFieldName = "PayIntv";
+				break;
+			case 12:
+				strFieldName = "PayYears";
+				break;
+			case 13:
+				strFieldName = "Years";
+				break;
+			case 14:
+				strFieldName = "FloatRate";
+				break;
+			case 15:
+				strFieldName = "FirstPayDate";
+				break;
+			case 16:
+				strFieldName = "FirstMonth";
+				break;
+			case 17:
+				strFieldName = "PaytoDate";
+				break;
+			case 18:
+				strFieldName = "PayEndDate";
+				break;
+			case 19:
+				strFieldName = "PayEndYearFlag";
+				break;
+			case 20:
+				strFieldName = "PayEndYear";
+				break;
+			case 21:
+				strFieldName = "GetYearFlag";
+				break;
+			case 22:
+				strFieldName = "GetYear";
+				break;
+			case 23:
+				strFieldName = "InsuYearFlag";
+				break;
+			case 24:
+				strFieldName = "InsuYear";
+				break;
+			case 25:
+				strFieldName = "AcciYearFlag";
+				break;
+			case 26:
+				strFieldName = "AcciYear";
+				break;
+			case 27:
+				strFieldName = "EndDate";
+				break;
+			case 28:
+				strFieldName = "AcciEndDate";
+				break;
+			case 29:
+				strFieldName = "FreeFlag";
+				break;
+			case 30:
+				strFieldName = "FreeRate";
+				break;
+			case 31:
+				strFieldName = "FreeStartDate";
+				break;
+			case 32:
+				strFieldName = "FreeEndDate";
+				break;
+			case 33:
+				strFieldName = "GetStartDate";
+				break;
+			case 34:
+				strFieldName = "GetStartType";
+				break;
+			case 35:
+				strFieldName = "LiveGetMode";
+				break;
+			case 36:
+				strFieldName = "DeadGetMode";
+				break;
+			case 37:
+				strFieldName = "BonusGetMode";
+				break;
+			case 38:
+				strFieldName = "SSFlag";
+				break;
+			case 39:
+				strFieldName = "PeakLine";
+				break;
+			case 40:
+				strFieldName = "GetLimit";
+				break;
+			case 41:
+				strFieldName = "GetRate";
+				break;
+			case 42:
+				strFieldName = "CalRule";
+				break;
+			case 43:
+				strFieldName = "PremToAmnt";
+				break;
+			case 44:
+				strFieldName = "StandbyFlag1";
+				break;
+			case 45:
+				strFieldName = "StandbyFlag2";
+				break;
+			case 46:
+				strFieldName = "StandbyFlag3";
+				break;
+			case 47:
+				strFieldName = "Operator";
+				break;
+			case 48:
+				strFieldName = "MakeDate";
+				break;
+			case 49:
+				strFieldName = "MakeTime";
+				break;
+			case 50:
+				strFieldName = "ModifyDate";
+				break;
+			case 51:
+				strFieldName = "ModifyTime";
+				break;
+			case 52:
+				strFieldName = "CValiDate";
+				break;
+			case 53:
+				strFieldName = "GetIntv";
+				break;
+			case 54:
+				strFieldName = "AscriptionRuleCode";
+				break;
+			case 55:
+				strFieldName = "PayRuleCode";
+				break;
+			case 56:
+				strFieldName = "Currency";
+				break;
+			case 57:
+				strFieldName = "ContPlanCode";
+				break;
+			case 58:
+				strFieldName = "PlanCode";
+				break;
+			case 59:
+				strFieldName = "RiskCode";
+				break;
+			case 60:
+				strFieldName = "PeriodPrem";
+				break;
+			case 61:
+				strFieldName = "ConfDate";
+				break;
+			case 62:
+				strFieldName = "State";
+				break;
+			case 63:
+				strFieldName = "ManageCom";
+				break;
+			case 64:
+				strFieldName = "ComCode";
+				break;
+			case 65:
+				strFieldName = "ModifyOperator";
+				break;
+			default:
+				strFieldName = "";
+		};
+		return strFieldName;
+	}
+
+	/**
+	* 取得Schema中指定字段名所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: strFieldName String
+       * @return: int
+	**/
+	public int getFieldType(String strFieldName)
+	{
+		if( strFieldName.equals("EdorNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("EdorType") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PolNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DutyCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ContNo") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Mult") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("StandPrem") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("Prem") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("SumPrem") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("Amnt") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("RiskAmnt") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("PayIntv") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("PayYears") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("Years") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("FloatRate") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("FirstPayDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("FirstMonth") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("PaytoDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("PayEndDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("PayEndYearFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PayEndYear") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("GetYearFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("GetYear") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("InsuYearFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("InsuYear") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("AcciYearFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("AcciYear") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("EndDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("AcciEndDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("FreeFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("FreeRate") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("FreeStartDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("FreeEndDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("GetStartDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("GetStartType") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("LiveGetMode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("DeadGetMode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("BonusGetMode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("SSFlag") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PeakLine") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("GetLimit") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("GetRate") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("CalRule") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PremToAmnt") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("StandbyFlag1") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("StandbyFlag2") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("StandbyFlag3") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Operator") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("MakeDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("MakeTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ModifyDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("ModifyTime") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("CValiDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("GetIntv") ) {
+			return Schema.TYPE_INT;
+		}
+		if( strFieldName.equals("AscriptionRuleCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PayRuleCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("Currency") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ContPlanCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PlanCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("RiskCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("PeriodPrem") ) {
+			return Schema.TYPE_DOUBLE;
+		}
+		if( strFieldName.equals("ConfDate") ) {
+			return Schema.TYPE_DATE;
+		}
+		if( strFieldName.equals("State") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ManageCom") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ComCode") ) {
+			return Schema.TYPE_STRING;
+		}
+		if( strFieldName.equals("ModifyOperator") ) {
+			return Schema.TYPE_STRING;
+		}
+		return Schema.TYPE_NOFOUND;
+	}
+
+	/**
+	* 取得Schema中指定索引值所对应的字段类型
+	* 如果没有对应的字段，返回Schema.TYPE_NOFOUND
+       * @param: nFieldIndex int
+       * @return: int
+	**/
+	public int getFieldType(int nFieldIndex)
+	{
+		int nFieldType = Schema.TYPE_NOFOUND;
+		switch(nFieldIndex) {
+			case 0:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 1:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 2:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 3:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 4:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 5:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 6:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 7:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 8:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 9:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 10:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 11:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 12:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 13:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 14:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 15:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 16:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 17:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 18:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 19:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 20:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 21:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 22:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 23:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 24:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 25:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 26:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 27:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 28:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 29:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 30:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 31:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 32:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 33:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 34:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 35:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 36:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 37:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 38:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 39:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 40:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 41:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 42:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 43:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 44:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 45:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 46:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 47:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 48:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 49:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 50:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 51:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 52:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 53:
+				nFieldType = Schema.TYPE_INT;
+				break;
+			case 54:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 55:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 56:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 57:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 58:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 59:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 60:
+				nFieldType = Schema.TYPE_DOUBLE;
+				break;
+			case 61:
+				nFieldType = Schema.TYPE_DATE;
+				break;
+			case 62:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 63:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 64:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			case 65:
+				nFieldType = Schema.TYPE_STRING;
+				break;
+			default:
+				nFieldType = Schema.TYPE_NOFOUND;
+		};
+		return nFieldType;
+	}
+}

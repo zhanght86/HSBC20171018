@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.prtcontlist.javabean"
+	      targetNamespace="http://www.prtcontlist.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="PrtContListData">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="PrtContList" type="cixml:PrtContListItem" maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="PrtContListItem">          
+ 	<choice>                                      
+	  <element    name="UID"         type="string"/>
+	  <element    name="DataType"         type="string"/>
+	  <element    name="DataID"         type="string"/>
+	  <element    name="RelaID"         type="string"/>
+
+	  <element    name="PrintNo"         type="string"/>
+	  <element    name="RiskName"         type="string"/>
+	  <element    name="InsureName"         type="string"/>
+	  <element    name="InsuredName"         type="string"/>
+	  <element    name="InsuredOccupType"         type="string"/>
+	  <element    name="Amount"         type="string"/>
+	  <element    name="Mult"         type="string"/>
+	  <element    name="Prem"         type="string"/>
+
+	</choice>                                     
+ </complexType>                                 
+
+</schema>

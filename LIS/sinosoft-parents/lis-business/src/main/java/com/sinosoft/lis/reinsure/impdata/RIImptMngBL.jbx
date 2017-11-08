@@ -1,0 +1,13 @@
+[PropertyInfo]
+globalInput,com.sinosoft.lis.pubfun.GlobalInput,false,false, , ,false,<default>
+MErrors,com.sinosoft.utility.CErrors,false,false, , ,false,<default>
+MInputData,com.sinosoft.utility.VData,false,false, , ,false,<default>
+MMap,com.sinosoft.lis.pubfun.MMap,false,false, , ,false,<default>
+MOperate,String,false,false, , ,false,<default>
+MResult,com.sinosoft.utility.VData,false,false, , ,false,<default>
+result,com.sinosoft.utility.VData,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

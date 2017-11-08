@@ -1,0 +1,5 @@
+keystore"file:appletprint.store","JKS";
+grantsignedBy"print"
+{
+	permission java.io.AllPermission;
+};

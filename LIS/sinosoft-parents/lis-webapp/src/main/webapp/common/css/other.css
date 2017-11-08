@@ -1,0 +1,93 @@
+/*------------------------------------------------------------------*/
+
+/*    文件名称: other.css                                           */
+
+/*    文件功能: 定义menutop.jsp,quick.jsp,menu.jsp,station.jsp      */
+
+/*  最近更新人: 陈海强                                              */
+
+/*最近更新日期: 2004-12-22                                          */
+
+/*------------------------------------------------------------------*/
+
+
+
+/*body {
+
+font: tahoma,verdana,arial,helvetica,sans-serif;
+
+font-size: 12px; margin-top:0px;
+
+SCROLLBAR-FACE-COLOR: #97CBFF; SCROLLBAR-HIGHLIGHT-COLOR:#fff; 
+
+SCROLLBAR-SHADOW-COLOR:#97CBFF; SCROLLBAR-DARKSHADOW-COLOR:#819FD3; 
+
+SCROLLBAR-3DLIGHT-COLOR:#819FD3; SCROLLBAR-ARROW-COLOR:#3F65AD;
+
+SCROLLBAR-TRACK-COLOR: #E4E4E4;
+
+}
+
+TD {
+
+	FONT-SIZE: 12px
+
+}
+
+TH {
+
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; BACKGROUND-IMAGE: url(../images/bg_h.gif); COLOR: white; BACKGROUND-COLOR: #4455aa
+
+}
+
+
+
+input{font-size: 10pt}
+
+input.common2{background-color: #DAE9F8;border: 1px #0A6CCD solid;height: 20px}
+
+input.code2{background-color: #AED1F4;border: 1px #0A6CCD solid;height: 20px}
+
+.table {
+
+border: 1px solid #0A6CCD;
+
+}*/
+
+.search{ position:relative; margin-top:2px; margin-left:2px;}
+.search input{ width:126px;/* width:157px!important;*/height:22px; background-color:#d5d7d8; color:#FFF; padding-left:28px;}
+.search img{ position:absolute; left:12px; top:6px;}
+
+
+
+
+/*导航你的位置 */
+
+.top{ margin-top:0px; margin-bottom:0px; font-size:12px; font-family:"宋体"; } 
+.top h2{width:100%;
+padding-left:40px;
+ padding-top:6px; 
+ padding-bottom:6px;
+ background:url(../images/touu_03.png) no-repeat left;
+ margin-left:0px;
+  font-size:12px;
+   font-family:"宋体";
+   font-weight:normal;
+   margin-top: 4px;
+   } 
+.left{
+	width: 5px;
+  height: 5px;
+  background:  url(../images/l.jpg) no-repeat;
+  position:absolute;
+  left: 0;
+  top: 0;
+}
+.right{
+	width: 5px;
+  height: 5px;
+  background:  url(../images/r.jpg) no-repeat;
+  position:absolute;
+  right: 0;
+  top: 0;
+}

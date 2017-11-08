@@ -1,0 +1,52 @@
+body{background:#fff;color:#000;font-family:"ËÎÌå";font-size:12px;margin:0 auto;padding:0; text-align:center;}
+h1,h2,h3,h4,h5,h6,p,ul,li,div,form,dl,dt,dd{font-size:12px;font-weight:normal;line-height:18px;margin:0;padding:0;}
+ul,li{list-style:none;}
+i,em{font-style:normal;}
+img{border:0;}
+table,td,th{border-collapse:collapse;}
+
+.head{ width:100%; height:65px; background:url(../images/headbgloop.jpg) repeat-x; padding-top:7px;}
+.logo{ float:left; 
+       width:14%;
+       padding-left:16px;
+	   padding-top:6px;}
+.right{
+	float:right;
+	width:82%;
+	height:72px;
+	}	   
+	   
+.loginarea{ float:right; width:256px;height:26px}
+.loginarea ul li{ float:left;  padding-right:4px; color: #2480BD;}
+.ico01{background:url(../images/ico01.gif) no-repeat;padding-left:19px; }
+.ico02{background:url(../images/ico02.gif) no-repeat;padding-left:19px; }
+.ico03{ no-repeat;padding-left:140px; }
+.ico04{ no-repeat;padding-left:30px;}
+/*ÖØÖÃ*/
+*{ font-size:12px; font-family:Arial, Helvetica, sans-serif;}
+body,h1,h2,p,h3,dd,dl{ margin:0;}
+h1,h3{ font-weight:normal;}
+h2{ color:#505050;}
+a{ text-decoration:none; color:#FFF; }
+input{ padding:0; border:none 0;}
+img{ border:none 0;}
+ul,li{margin:0;padding:0;border:0;list-style:none;}
+/*nav*/
+
+.nav li a{ float:left; font-family:"ËÎÌå"; font-size:15px; font-weight:bold; padding:0 11px; line-height:34px;*+line-height:31px;}
+.nav li a:hover{ border-radius:4px 4px 0 0; background-color:#fff;  color:#06517c; text-decoration:none;}
+.selected{color:#06517c;border-radius:4px 4px 0 0; background-color:#fff;   text-decoration:none;}
+
+/*    ×óÓÒÇÐ»»   */
+.content{height:40px;width:98%;position:relative;overflow:hidden;}
+.drama-poster{margin:0 auto;width:92%;height:30px;overflow:hidden;position:relative;margin-top:8px}
+.drama-poster ul{width:10000px;position:relative;}
+.drama-poster li{padding:0 2px}
+.show-poster-3{float:left}
+.change li a{  cursor: pointer;}
+.drama-slide li{position:absolute;top:18px;}
+.drama-slide li.prev{left:2%;}
+.drama-slide li.next{right:1%}
+.drama-slide li a{display:block;width:13px;height:25px;}
+.drama-slide li.prev a{background:url(../images/left.png) no-repeat}
+.drama-slide li.next a{background:url(../images/right.png) no-repeat}

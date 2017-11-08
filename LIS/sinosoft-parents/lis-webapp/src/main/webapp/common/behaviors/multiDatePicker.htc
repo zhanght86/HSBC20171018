@@ -1,0 +1,34 @@
+<PUBLIC:COMPONENT
+锟斤拷锟斤拷lightWeight锟�=锟絫rue
+>
+
+<PUBLIC:DEFAULTS
+锟斤拷锟斤拷contentEditable锟�=锟絝alse
+锟斤拷锟斤拷tabStop锟�=锟絫rue
+/>
+
+<script language="JScript">
+</script>
+
+<PUBLIC:attach event="ondocumentready" onevent="initMultiTimer()" />
+<PUBLIC:attach event="onpropertychange" onevent="changeMultiDate(element.name,element.id)" />
+<script language="JScript">
+
+function initMultiTimer()
+{
+	if( element.getAttribute("timerflag")==null ) {
+		var ShowClass = "multiDatePickerLeft";
+		if(element.getAttribute("ShowClass") != null) ShowClass = element.getAttribute("ShowClass");
+		var ShowStyle = "";
+		if(element.getAttribute("ShowStyle") != null) ShowStyle = element.getAttribute("ShowStyle");
+		var ShowId = "";
+		if(element.id != "") ShowId = "id='Show" + element.id + "'";
+		element.insertAdjacentHTML("beforeBegin","<input class='" + ShowClass + "' " + ShowId + " name='" + "Show" + element.name + "' " + ShowStyle + " onchange='changeRawDate(\"" + element.name + "\",\"" + element.id + "\")'>");   
+		element.insertAdjacentHTML("beforeBegin","<img src='../common/images/calendar.gif' vspace='1' onclick='calendar("+element.name+",\"" + element.id + "\")'>");  
+		element.setAttribute("timerflag","1");
+	}
+}
+
+</script>
+
+</PUBLIC:COMPONENT>

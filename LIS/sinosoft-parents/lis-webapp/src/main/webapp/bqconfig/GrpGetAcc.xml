@@ -1,0 +1,12 @@
+<CONFIG>
+  <Sheet1>
+  	<COL0>ID</COL0>
+    <COL1>ContNo</COL1>           
+    <COL2>PayMode</COL2> 
+    <COL3>Drawer</COL3>
+    <COL4>IDNo</COL4>
+    <COL5>BankCode</COL5>
+    <COL6>BankAccNo</COL6>
+    <COL7>AccName</COL7>
+  </Sheet1>
+</CONFIG> 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JRptConfig>
+    <path Absolute="false">
+      <config-directory>Web/Config</config-directory>
+      <template-directory>f1print/template</template-directory>
+      <generated-directory>web/Generated</generated-directory>
+    </path>
+</JRptConfig>

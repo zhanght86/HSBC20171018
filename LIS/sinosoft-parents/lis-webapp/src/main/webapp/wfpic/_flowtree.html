@@ -1,0 +1,16 @@
+<html> 
+<head>
+<link href="comp/xtree/xtree.css" type=text/css rel=stylesheet>
+<script language=jscript src="comp/xtree/xtree.js"></script>
+<script language=jscript src="comp/xtree/tree.js"></script>
+<script language=jscript src="comp/function.js"></script>
+</head>
+<body topmargin="3" leftmargin="6" style="background-color: white;" >
+<span id=flowTree></span>
+</body>
+  <SCRIPT LANGUAGE="JavaScript">
+      //var xml='<?xml version="1.0" encoding="GBK"?><WorkFlow><FlowConfig><BaseProperties flowId="newFlow" flowName="新流程"/><VMLProperties nodeTextColor="black" nodeFillColor="#EEEEEE" nodeStrokeColor="#95DB4F" nodeShadowColor="black" nodeFocusedColor="#8E83F5" nodeStrokeWeight="2pt" isNodeShadow="T" lineStrokeColor="#FF6600" lineFocusedColor="#8E83F5" lineStrokeWeight="2pt" fontColor="black" fontSize="12pt" scale="1"/><FlowProperties/></FlowConfig><Nodes><node><BaseProperties id="begin" nodeName="开始" nodeType="oval"/><VMLProperties width="50px" height="40px" x="275px" y="80px"/><FlowProperties flowType="begin"/></node><node><BaseProperties id="1111" nodeName="1111" nodeType="RoundRect"/><VMLProperties width="100px" height="50px" x="250px" y="175px"/><FlowProperties flowType="course"/></node><node><BaseProperties id="2222" nodeName="2222" nodeType="RoundRect"/><VMLProperties width="100px" height="50px" x="250px" y="275px"/><FlowProperties flowType="course"/></node><node><BaseProperties id="end" nodeName="结束" nodeType="oval"/><VMLProperties width="50px" height="40px" x="275px" y="380px"/><FlowProperties flowType="end"/></node></Nodes><Lines><line><BaseProperties id="beginand1111" lineName="开始 到 1111" lineType="PolyLine" from="begin" to="1111"/><VMLProperties startArrow="diamond" endArrow="classic"/><FlowProperties flowType="connect" conditon="" time=""/></line><line><BaseProperties id="1111and2222" lineName="1111 到 2222" lineType="PolyLine" from="1111" to="2222"/><VMLProperties startArrow="diamond" endArrow="classic"/><FlowProperties flowType="connect" conditon="" time=""/></line><line><BaseProperties id="2222andend" lineName="2222 到 结束" lineType="PolyLine" from="2222" to="end"/><VMLProperties startArrow="diamond" endArrow="classic"/><FlowProperties flowType="connect" conditon="" time=""/></line></Lines></WorkFlow>';
+      drawTree(parent.document.all.FlowXML.value);
+      //drawTree(xml);
+  </SCRIPT>
+</html>  

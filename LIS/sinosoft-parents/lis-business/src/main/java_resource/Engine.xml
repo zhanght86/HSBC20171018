@@ -1,0 +1,1542 @@
+<server>
+	<GlobalHandle>
+		<RequestHandle>
+			<Handle name="log" type="com.sinosoft.service.handle.LogHandle">
+				<init-param>
+					<param-name>file</param-name>
+					<param-value>d:/log.txt</param-value>
+				</init-param>
+			</Handle>
+		</RequestHandle>
+		<ResponseHandle>
+		</ResponseHandle>
+	</GlobalHandle>
+	<Service name="EasyQueryUI" type="com.sinosoft.lis.pubfun.EasyQueryUI">
+		<!--RequestHandle>
+			<Handle name="Sql" type="com.sinosoft.service.handle.QueryHandle">
+			</Handle>
+		</RequestHandle-->
+		<RequestHandle>
+			<Handle name="Sql" type="com.sinosoft.service.handle.QueryHandleBV">
+			</Handle>
+		</RequestHandle>
+	</Service>
+
+	<Service name="CodeQueryUI" type="com.sinosoft.lis.pubfun.CodeQueryUI">
+	</Service>	
+	<Service name="LisEncryptUI" type="com.sinosoft.lis.encrypt.LisEncryptUI">
+	</Service>	
+	<Service name="LDChangePwdUI" type="com.sinosoft.lis.changePwd.LDChangePwdUI">
+	</Service>	
+	<Service name="RIAccRDDetailUI" type="com.sinosoft.lis.reinsure.RIAccRDDetailUI">
+	</Service>
+	<!--log4jui-->
+	<Service name="UILog4j" type="com.sinosoft.utility.UILog4j">
+	</Service>	
+	
+	<Service name="RIRateMaintUI" type="com.sinosoft.lis.reinsure.RIRateMaintUI">
+	</Service>
+	<Service name="LDUserUI" type="com.sinosoft.lis.menumang.LDUserUI">
+	</Service>
+	<Service name="logoutUI" type="com.sinosoft.lis.logon.logoutUI">
+	</Service>
+	<Service name="LDMenuQueryUI" type="com.sinosoft.lis.menumang.LDMenuQueryUI">
+	</Service>	
+	<Service name="ExeSQLUI" type="com.sinosoft.utility.ExeSQLUI">
+	</Service>	
+	<Service name="MenuShowUI" type="com.sinosoft.lis.logon.MenuShowUI">
+	</Service>		
+	<Service name="Station" type="com.sinosoft.lis.logon.Station">
+	</Service>	
+	<Service name="Access" type="com.sinosoft.lis.access.Access">
+	</Service>	
+	<Service name="ExportExcel" type="com.sinosoft.lis.pubfun.ExportExcel">
+	</Service>	
+	<Service name="PubConcurrencyLockUI" type="com.sinosoft.lis.pubfun.PubConcurrencyLock">
+	</Service>		
+	<!--bq-->
+	<Service name="PEdorPopedomConfigUI" type="com.sinosoft.lis.bq.PEdorPopedomConfigUI">
+	</Service>		
+	<Service name="UserEdorPopedomUI" type="com.sinosoft.lis.bq.UserEdorPopedomUI">
+	</Service>	
+	<Service name="EdorWorkFlowUI" type="com.sinosoft.workflow.bq.EdorWorkFlowUI">
+	</Service>
+	<Service name="WorkFlowUI" type="com.sinosoft.workflowengine.WorkFlowUI">
+	</Service>
+	<Service name="PEdorAppItemUI" type="com.sinosoft.lis.bq.PEdorAppItemUI">
+	</Service>					
+	<Service name="EdorDetailUI" type="com.sinosoft.lis.bq.EdorDetailUI">
+	</Service>		
+	<Service name="GEdorDetailUI" type="com.sinosoft.lis.bq.GEdorDetailUI">
+	</Service>		
+	<Service name="PGrpEdorCancelUI" type="com.sinosoft.lis.bq.PGrpEdorCancelUI">
+	</Service>			
+	<Service name="PEdorImageCopy" type="com.sinosoft.lis.bq.PEdorImageCopy">
+	</Service>	
+	<Service name="EdorNoticeBL" type="com.sinosoft.lis.bq.EdorNoticeBL">
+	</Service>
+	<Service name="BQPritUI" type="com.sinosoft.lis.f1print.BqPrintUI">
+	</Service>
+	<Service name="ExportImageImbl" type="com.sinosoft.workflowengine.ExportImageImbl"></Service>
+	<Service name="WorkLoadUI" type="com.sinosoft.lis.f1print.WorkLoadUI"></Service>	
+	<Service name="ProcessRelUI" type="com.sinosoft.lis.workflowmanage.ProcessRelUI"></Service>
+	<Service name="LdwfMulLineUI" type="com.sinosoft.lis.workflowmanage.LdwfMulLineUI"></Service>
+	<Service name="BqFileNameUI" type="com.sinosoft.lis.f1print.BqFileNameUI">
+	</Service>		
+	<Service name="IndiDueFeePartUI" type="com.sinosoft.lis.operfee.IndiDueFeePartUI">
+	</Service>	
+	<Service name="SignatureBL" type="com.sinosoft.lis.pubfun.SignatureBL">
+	</Service>	
+	
+	
+	<Service name="FICertificateTypeDefUI" type="com.sinosoft.lis.fininterface.FICertificateTypeDefUI">
+	</Service>	
+	<Service name="PEdorCSDetailBL" type="com.sinosoft.lis.bq.PEdorCSDetailBL">
+	</Service>
+	<Service name="PEdorOverDueBL" type="com.sinosoft.lis.bq.PEdorOverDueBL">
+	</Service>
+	<!--xq-->	
+	
+	
+	<Service name="RnewAutoHealthUI" type="com.sinosoft.lis.xbcheck.RnewAutoHealthUI">
+	</Service>
+	
+	<Service name="FICostTypeDefUI" type="com.sinosoft.lis.fininterface.FICostTypeDefUI">
+	</Service>
+	<Service name="FICostDataAcquisitionDefUI" type="com.sinosoft.lis.fininterface.FICostDataAcquisitionDefUI">
+	</Service>	
+	<Service name="RnewUWErrUI" type="com.sinosoft.lis.xbcheck.RnewUWErrUI">
+	</Service>	
+	<Service name="RnewWorkFlowUI" type="com.sinosoft.workflow.xb.RnewWorkFlowUI">
+	</Service>	
+	<Service name="RnewPENoticePrintUI" type="com.sinosoft.lis.f1print.RnewPENoticePrintUI">
+	</Service>	
+	<Service name="RnewRReportChkUI" type="com.sinosoft.lis.xbcheck.RnewRReportChkUI">
+	</Service>	
+	<Service name="RnewMeetF1PUI" type="com.sinosoft.lis.f1print.RnewMeetF1PUI">
+	</Service>	
+	<!-- bq  added by  cyj -->
+	<Service name="tPEdorPopedomCheckBL" type="com.sinosoft.lis.bq.PEdorPopedomCheckBL"></Service>
+	<Service name="tUWEdorWorkFlowUI" type="com.sinosoft.workflow.bq.EdorWorkFlowUI"></Service>
+	<Service name="tMUWEdorWorkFlowUI" type="com.sinosoft.workflow.bq.EdorWorkFlowUI"></Service>
+	<Service name="tConfEdorWorkFlowUI" type="com.sinosoft.workflow.bq.EdorWorkFlowUI"></Service>
+	<Service name="tWorkFlowUI" type="com.sinosoft.workflowengine.WorkFlowUI"></Service>
+	<Service name="tPEdorErrorForceBackBL" type="com.sinosoft.lis.bq.PEdorErrorForceBackBL"></Service>
+	<Service name="tBQBankTransferFailureStatBL" type="com.sinosoft.lis.f1print.BQBankTransferFailureStatBL"></Service>
+	<Service name="tPEdorAADetailUI" type="com.sinosoft.lis.bq.PEdorAADetailUI"></Service>
+	<Service name="tPEdorNSDetailBLF" type="com.sinosoft.lis.bq.PEdorNSDetailBLF"></Service>
+	<Service name="tProductSaleControlBL" type="com.sinosoft.lis.tb.ProductSaleControlBL"></Service>
+	<Service name="tPEdorPTDetailUI" type="com.sinosoft.lis.bq.PEdorPTDetailUI"></Service>
+	<Service name="tPEdorXSDetailUI" type="com.sinosoft.lis.bq.PEdorXSDetailUI"></Service>
+	<Service name="tPEdorADDetailUI" type="com.sinosoft.lis.bq.PEdorADDetailUI"></Service>
+	<Service name="PEdorLNDetailUI" type="com.sinosoft.lis.bq.PEdorLNDetailBLF"></Service>
+	<Service name="PEdorRFDetailUI" type="com.sinosoft.lis.bq.PEdorRFDetailBLF"></Service>
+	<Service name="PEdorIPDetailBL" type="com.sinosoft.lis.bq.PEdorIPDetailBL"></Service>
+	<Service name="BQAutoHealthUI" type="com.sinosoft.lis.cbcheck.BQAutoHealthUI"></Service>
+	<Service name="BQManuAddCHKUI" type="com.sinosoft.lis.cbcheck.BQManuAddChkUI"></Service>
+	<Service name="PEdorContManuUWUI" type="com.sinosoft.lis.bq.PEdorContManuUWUI"></Service>
+	<Service name="PEdorPolManuUWUI" type="com.sinosoft.lis.bq.PEdorPolManuUWUI"></Service>
+	<Service name="BQRReportChkUI" type="com.sinosoft.lis.cbcheck.BQRReportChkUI"></Service>
+	<Service name="BQQuestInputChkUI" type="com.sinosoft.lis.bq.BQQuestInputChkUI"></Service>
+	<Service name="BqNoticeUI" type="com.sinosoft.lis.f1print.BqNoticeUI"></Service>
+	<Service name="UWApplyUI" type="com.sinosoft.lis.cbcheck.UWApplyUI"></Service>
+	<Service name="EdorWorkFlowUI" type="com.sinosoft.workflow.bq.EdorWorkFlowUI"></Service>
+	<Service name="BQOperatorNoticeF1PUI" type="com.sinosoft.lis.f1print.BQOperatorNoticeF1PUI"></Service>
+	<Service name="BqPENoticePrintUI" type="com.sinosoft.lis.f1print.BqPENoticePrintUI"></Service>
+	<Service name="EdorUWNoticeUI" type="com.sinosoft.lis.f1print.EdorUWNoticeUI"></Service>
+	<Service name="EdorAskPrintUI" type="com.sinosoft.lis.f1print.EdorAskPrintUI"></Service>
+	<Service name="MSUWRReportReplyUI" type="com.sinosoft.lis.cbcheck.MSUWRReportReplyUI"></Service>
+	<Service name="BQMeetF1PUI" type="com.sinosoft.lis.f1print.BQMeetF1PUI"></Service>
+	<!-- bq  end by  cyj -->	
+	
+	<!--reinsure -->
+    <Service name="RIBussRateUI" type="com.sinosoft.lis.reinsure.RIBussRateUI"></Service>
+    <Service name="RIRateMaintUI" type="com.sinosoft.lis.reinsure.RIRateMaintUI"></Service>
+    <Service name="ReComManageUI" type="com.sinosoft.lis.reinsure.ReComManageUI"></Service>
+    <Service name="RIAccRDUI" type="com.sinosoft.lis.reinsure.RIAccRDUI"></Service>
+    <Service name="RIAccRDDetailUI" type="com.sinosoft.lis.reinsure.RIAccRDDetailUI"></Service>
+    <Service name="LRFeeRateDefUI" type="com.sinosoft.lis.reinsure.LRFeeRateDefUI"></Service>
+    <Service name="LRFeeRateBatchDefUI" type="com.sinosoft.lis.reinsure.LRFeeRateBatchDefUI"></Service>
+    <Service name="LRFeeRateImport" type="com.sinosoft.lis.reinsure.LRFeeRateImport"></Service>
+    <Service name="RIItemCalUI" type="com.sinosoft.lis.reinsure.RIItemCalUI"></Service>
+    <Service name="RIItemCalDetailBL" type="com.sinosoft.lis.reinsure.RIItemCalDetailBL"></Service>
+    <Service name="LRContManageUI" type="com.sinosoft.lis.reinsure.LRContManageUI"></Service>
+    <Service name="LRPreceptBL" type="com.sinosoft.lis.reinsure.LRPreceptBL"></Service>
+    <Service name="RiDataImpUI" type="com.sinosoft.lis.reinsure.RiDataImpUI"></Service>
+    <Service name="RITaskApplyBL" type="com.sinosoft.lis.reinsure.calculate.manage.RITaskApplyBL"></Service>
+    <Service name="RIWFManage" type="com.sinosoft.lis.reinsure.calculate.manage.RIWFManage"></Service>
+    <Service name="RIDataRevertUI" type="com.sinosoft.lis.reinsure.RIDataRevertUI"></Service>
+    <Service name="RIDataModifyUI" type="com.sinosoft.lis.reinsure.RIDataModifyUI"></Service>
+    <Service name="RIProfitLossDefUI" type="com.sinosoft.lis.reinsure.profitloss.RIProfitLossDefUI"></Service>
+    <Service name="RIProfitLossCalUI" type="com.sinosoft.lis.reinsure.profitloss.RIProfitLossCalUI"></Service>
+    <Service name="RIProfitLossCalmUI" type="com.sinosoft.lis.reinsure.profitloss.RIProfitLossCalmUI"></Service>
+    <Service name="RIProfitLossUWUI" type="com.sinosoft.lis.reinsure.profitloss.RIProfitLossUWUI"></Service>
+    <Service name="RIBigRateFeeUI" type="com.sinosoft.lis.reinsure.RIBigRateFeeUI"></Service>
+    <Service name="RIBsnsBillLockUI" type="com.sinosoft.lis.reinsure.RIBsnsBillLockUI"></Service>
+    <Service name="RIBsnsBillCalUI" type="com.sinosoft.lis.reinsure.RIBsnsBillCalUI"></Service>
+    <Service name="RIBsnsBillModifyUI" type="com.sinosoft.lis.reinsure.RIBsnsBillModifyUI"></Service>
+    <Service name="RIBsnsBillUWUI" type="com.sinosoft.lis.reinsure.RIBsnsBillUWUI"></Service>
+    <Service name="RITempConclusionBL" type="com.sinosoft.lis.reinsure.faculreinsure.RITempConclusionBL"></Service>
+    <Service name="RIIndTempConclusionBL" type="com.sinosoft.lis.reinsure.faculreinsure.RIIndTempConclusionBL"></Service>
+    <!--reinsure -->
+	
+	<!--mdy-->
+	 <Service name="tbAbnormityErrAndRecordErrUI" type="tbAbnormityErrAndRecordErrUI"></Service>
+  <Service name="cbcheckUWQualityManageUI" type="com.sinosoft.lis.cbcheck.UWQualityManageUI"></Service>
+  <Service name="tbgrpAirGrpPolContBL" type="com.sinosoft.lis.tbgrp.AirGrpPolContBL"></Service>
+  <Service name="tbgrpAirPolCont" type="com.sinosoft.lis.tbgrp.AirPolCont"></Service>
+  <Service name="cbcheckGrpQuestInputChkUI" type="com.sinosoft.lis.cbcheck.GrpQuestInputChkUI"></Service>
+  <Service name="tbLCAscriptionRuleFactoryUI" type="com.sinosoft.lis.tb.LCAscriptionRuleFactoryUI"></Service>
+  <Service name="tbLCBalContSignUI" type="com.sinosoft.lis.tb.LCBalContSignUI"></Service>
+  <Service name="tbContInsuredUI" type="com.sinosoft.lis.tb.ContInsuredUI"></Service>
+  <Service name="tbContUI" type="com.sinosoft.lis.tb.ContUI"></Service>
+  <Service name="f1printBPOOperatorWorkQueryUI" type="com.sinosoft.lis.f1print.BPOOperatorWorkQueryUI"></Service>
+  <Service name="tbBPOReSendBL" type="com.sinosoft.lis.tb.BPOReSendBL"></Service>
+  <Service name="f1printAppCheckUI" type="com.sinosoft.lis.f1print.AppCheckUI"></Service>
+  <Service name="tbCardProposalBL" type="com.sinosoft.lis.tb.CardProposalBL"></Service>
+  <Service name="tbLCContSignBL" type="com.sinosoft.lis.tb.LCContSignBL"></Service>
+  <Service name="tbProposalUI" type="com.sinosoft.lis.tb.ProposalUI"></Service>
+  <Service name="tbPreComputAccBala" type="com.sinosoft.lis.tb.PreComputAccBala"></Service>
+  <Service name="tbContInsuredAllDelUI" type="com.sinosoft.lis.tb.ContInsuredAllDelUI"></Service>
+  <Service name="tbLCContPlanFactoryUI" type="com.sinosoft.lis.tb.LCContPlanFactoryUI"></Service>
+  <Service name="tbLCContPlanUI" type="com.sinosoft.lis.tb.LCContPlanUI"></Service>
+  <Service name="cardgrpGroupContUI" type="com.sinosoft.lis.cardgrp.GroupContUI"></Service>
+  <Service name="pubfunLockTableUI" type="com.sinosoft.lis.pubfun.LockTableUI"></Service>
+  <Service name="cbcheckCustomerUnionUI" type="com.sinosoft.lis.cbcheck.CustomerUnionUI"></Service>
+  <Service name="cbcheckDelPrtUI" type="com.sinosoft.lis.cbcheck.DelPrtUI"></Service>
+  <Service name="tbGrpCarImportUI" type="com.sinosoft.lis.tb.GrpCarImportUI"></Service>
+  <Service name="tbParseGuideInUI" type="com.sinosoft.lis.tb.ParseGuideInUI"></Service>
+  <Service name="tbDSContUI" type="com.sinosoft.lis.tb.DSContUI"></Service>
+  <Service name="tbDSProposalUI" type="com.sinosoft.lis.tb.DSProposalUI"></Service>
+  <Service name="tbDSErrorReasonUI" type="com.sinosoft.lis.tb.DSErrorReasonUI"></Service>
+  <Service name="tbDSGetUI" type="com.sinosoft.lis.tb.DSGetUI"></Service>
+  <Service name="tbDSImpartUI" type="com.sinosoft.lis.tb.DSImpartUI"></Service>
+  <Service name="tbgrpGrpTbWorkFlowUI" type="com.sinosoft.workflow.tbgrp.GrpTbWorkFlowUI"></Service>
+  <Service name="f1printLCGrpContF1PUI" type="com.sinosoft.lis.f1print.LCGrpContF1PUI"></Service>
+  <Service name="tbGroupRiskUI" type="com.sinosoft.lis.tb.GroupRiskUI"></Service>
+  <Service name="tbGrpCardInsuredUI" type="com.sinosoft.lis.tb.GrpCardInsuredUI"></Service>
+  <Service name="tbGrpCardImport" type="com.sinosoft.lis.tb.GrpCardImport"></Service>
+  <Service name="tbGrpCardNoListImport" type="com.sinosoft.lis.tb.GrpCardNoListImport"></Service>
+  <Service name="tbGrpContCarAllDelUI" type="com.sinosoft.lis.tb.GrpContCarAllDelUI"></Service>
+  <Service name="tbGrpPersonAgeUI" type="com.sinosoft.lis.tb.GrpPersonAgeUI"></Service>
+  <Service name="tbGrpPlanRiskUI" type="com.sinosoft.lis.tb.GrpPlanRiskUI"></Service>
+  <Service name="cbcheckUWHospitalManageUI" type="com.sinosoft.lis.cbcheck.UWHospitalManageUI"></Service>
+  <Service name="tbLCGrpAccTriggerUI" type="com.sinosoft.lis.tb.LCGrpAccTriggerUI"></Service>
+  <Service name="tbLMGrpChargeBL" type="com.sinosoft.lis.tb.LMGrpChargeBL"></Service>
+  <Service name="cbcheckNBWMissionReassignUI" type="com.sinosoft.lis.cbcheck.NBWMissionReassignUI"></Service>
+  <Service name="f1printNewPolInputErrRateUI" type="com.sinosoft.lis.f1print.NewPolInputErrRateUI"></Service>
+  <Service name="f1printNoBackPolQueryLisUI" type="com.sinosoft.lis.f1print.NoBackPolQueryLisUI"></Service>
+  <Service name="tbTbWorkFlowUI" type="com.sinosoft.workflow.tb.TbWorkFlowUI"></Service>
+  <Service name="cbcheckChangePlanUI" type="com.sinosoft.lis.cbcheck.ChangePlanUI"></Service>
+  <Service name="tbLCPayRuleFactoryUI" type="com.sinosoft.lis.tb.LCPayRuleFactoryUI"></Service>
+  <Service name="tbProposalApproveUI" type="com.sinosoft.lis.tb.ProposalApproveUI"></Service>
+  <Service name="tbProposalDeleteUI" type="com.sinosoft.lis.tb.ProposalDeleteUI"></Service>
+  <Service name="tbProposalFeeUI" type="com.sinosoft.lis.tb.ProposalFeeUI"></Service>
+  <Service name="f1printProposalIndQueryLisUI" type="com.sinosoft.lis.f1print.ProposalIndQueryLisUI"></Service>
+  <Service name="f1printProposalNoRespQueryUI" type="com.sinosoft.lis.f1print.ProposalNoRespQueryUI"></Service>
+  <Service name="f1printLCPolF1P_IDGFUI" type="com.sinosoft.lis.f1print.LCPolF1P_IDGFUI"></Service>
+  <Service name="cbcheckQueryPolInfoBL" type="com.sinosoft.lis.cbcheck.QueryPolInfoBL"></Service>
+  <Service name="f1printProposalSignErrQueryUI" type="com.sinosoft.lis.f1print.ProposalSignErrQueryUI"></Service>
+  <Service name="tbProposalSpotCheckUI" type="com.sinosoft.lis.tb.ProposalSpotCheckUI"></Service>
+  <Service name="tbContDeleteUI" type="com.sinosoft.lis.tb.ContDeleteUI"></Service>
+  <Service name="tbParseGuideIn" type="com.sinosoft.lis.tb.ParseGuideIn"></Service>
+  <Service name="f1printQuestQueryLisUI" type="com.sinosoft.lis.f1print.QuestQueryLisUI"></Service>
+  <Service name="tbDealWithQuestUI" type="com.sinosoft.lis.tb.DealWithQuestUI"></Service>
+  <Service name="f1printReLCGrpContF1PUI" type="com.sinosoft.lis.f1print.ReLCGrpContF1PUI"></Service>
+  <Service name="f1printReLCContF1PUI" type="com.sinosoft.lis.f1print.ReLCContF1PUI"></Service>
+  <Service name="tbGrpFeeUI" type="com.sinosoft.lis.tb.GrpFeeUI"></Service>
+  <Service name="tbScanContDeleteUI" type="com.sinosoft.lis.tb.ScanContDeleteUI"></Service>
+  <Service name="tbSelAssignPlanUI" type="com.sinosoft.lis.tb.SelAssignPlanUI"></Service>
+  <Service name="tbGroupSubContUI" type="com.sinosoft.lis.tb.GroupSubContUI"></Service>
+  <Service name="finfeeTempFeeWithdrawUI" type="com.sinosoft.lis.finfee.TempFeeWithdrawUI"></Service>
+  <Service name="f1printUnSignPolQueryUI" type="com.sinosoft.lis.f1print.UnSignPolQueryUI"></Service>
+  <Service name="tbYBTAppCont" type="com.sinosoft.lis.tb.YBTAppCont"></Service>
+  <Service name="easyscanApplyOtherDocUI" type="com.sinosoft.lis.easyscan.ApplyOtherDocUI"></Service>
+  <Service name="easyscanQueryOtherDocSaveUI" type="com.sinosoft.lis.easyscan.QueryOtherDocSaveUI"></Service>
+  <Service name="easyscanAcceptOtherDocUI" type="com.sinosoft.lis.easyscan.AcceptOtherDocUI"></Service>
+  <Service name="tbAutoMoveCustomUI" type="com.sinosoft.lis.tb.AutoMoveCustomUI"></Service>
+  <Service name="cbcheckUWApplyUI" type="com.sinosoft.lis.cbcheck.UWApplyUI"></Service>
+  <Service name="tbScanApplyUI" type="com.sinosoft.lis.tb.ScanApplyUI"></Service>
+  <Service name="cbcheckQuestInputChkUI" type="com.sinosoft.lis.cbcheck.QuestInputChkUI"></Service>
+  <Service name="cbcheckCustomerUnionUI" type="com.sinosoft.lis.cbcheck.CustomerUnionUI"></Service>
+  <Service name="cbcheckQuestErrFlagChkUI" type="com.sinosoft.lis.cbcheck.QuestErrFlagChkUI"></Service>
+  <Service name="cbcheckQuestReplyChkUI" type="com.sinosoft.lis.cbcheck.QuestReplyChkUI"></Service>
+  <Service name="cbcheckQuestPrintFlagUI" type="com.sinosoft.lis.cbcheck.QuestPrintFlagUI"></Service>
+  <Service name="cbcheckGrpQuestReplyChkUI" type="com.sinosoft.lis.cbcheck.GrpQuestReplyChkUI"></Service>
+  <Service name="tbGrpAppModifyMakeSureUI" type="com.sinosoft.lis.tb.GrpAppModifyMakeSureUI"></Service>
+  <Service name="tbWorkFlowNotePadUI" type="com.sinosoft.workflow.tb.WorkFlowNotePadUI"></Service>
+  <Service name="tbProposalQueryUI" type="com.sinosoft.lis.tb.ProposalQueryUI"></Service>
+  <Service name="cbcheckLCUWMasterQueryUI" type="com.sinosoft.workflow.cbcheck.LCUWMasterQueryUI"></Service>
+  <Service name="cbcheckAskGrpUWUI" type="com.sinosoft.workflow.cbcheck.AskGrpUWUI"></Service>
+  <Service name="askAskWorkFlowUI" type="com.sinosoft.workflow.ask.AskWorkFlowUI"></Service>
+  <Service name="cbcheckUWFBCal" type="com.sinosoft.lis.cbcheck.UWFBCal"></Service>
+  <Service name="cbcheckUWManuChgPlanConclusionChkUI" type="com.sinosoft.lis.cbcheck.UWManuChgPlanConclusionChkUI"></Service>
+  <Service name="cbcheckGrpUWAutoHealthUI" type="com.sinosoft.lis.cbcheck.GrpUWAutoHealthUI"></Service>
+  <Service name="cbcheckGrpUWRReportUI" type="com.sinosoft.lis.cbcheck.GrpUWRReportUI"></Service>
+  <Service name="cbcheckGrpUWManuNormGChkUI" type="com.sinosoft.lis.cbcheck.GrpUWManuNormGChkUI"></Service>
+  <Service name="cbcheckGrpPlanUWManuNormGChkUI" type="com.sinosoft.lis.cbcheck.GrpPlanUWManuNormGChkUI"></Service>
+  <Service name="cbcheckPlanUWManuNormGChkUI" type="com.sinosoft.lis.cbcheck.PlanUWManuNormGChkUI"></Service>
+  <Service name="cbcheckUWAutoHealthQueryUI" type="com.sinosoft.lis.cbcheck.UWAutoHealthQueryUI"></Service>
+  <Service name="cbcheckUWAutoHealthUI" type="com.sinosoft.lis.cbcheck.UWAutoHealthUI"></Service>
+  <Service name="cbcheckUWAutoHealthBL" type="com.sinosoft.lis.cbcheck.UWAutoHealthBL"></Service>
+  <Service name="cbcheckUWSendNoticeBL" type="com.sinosoft.lis.cbcheck.UWSendNoticeBL"></Service>
+  <Service name="tbGrpBudgetDealBL" type="com.sinosoft.lis.tb.GrpBudgetDealBL"></Service>
+  <Service name="claimLLSecondUWApplyUI" type="com.sinosoft.lis.claim.LLSecondUWApplyUI"></Service>
+  <Service name="tbInputRReportResultBL" type="com.sinosoft.lis.tb.InputRReportResultBL"></Service>
+  <Service name="cbcheckUWSpecUI" type="com.sinosoft.lis.cbcheck.UWSpecUI"></Service>
+  <Service name="cbcheckUWManuAddChkUI" type="com.sinosoft.lis.cbcheck.UWManuAddChkUI"></Service>
+  <Service name="cbcheckAddPremCalUI" type="com.sinosoft.lis.cbcheck.AddPremCalUI"></Service>
+  <Service name="cbcheckUWManuAddDelUI" type="com.sinosoft.lis.cbcheck.UWManuAddDelUI"></Service>
+  <Service name="cbcheckUWSendAllPrintBL" type="com.sinosoft.lis.cbcheck.UWSendAllPrintBL"></Service>
+  <Service name="f1printCardPolQueryUI" type="com.sinosoft.lis.f1print.CardPolQueryUI"></Service>
+  <Service name="BQQuestReplyChkUI" type="com.sinosoft.lis.cbcheck.BQQuestReplyChkUI"></Service>
+	<!--mdy-->
+	<!---->
+	<!--zhengyuxing-->
+	<Service name="cardgrpGrpTbWorkFlowUI" type="com.sinosoft.workflow.cardgrp.GrpTbWorkFlowUI"></Service>
+	<Service name="pubfunLockTableUI" type="com.sinosoft.lis.pubfun.LockTableUI"></Service>
+	<Service name="tbContUI" type="com.sinosoft.lis.tb.ContUI"></Service>
+	<Service name="cbcheckgrpQuestInputChkUI" type="com.sinosoft.lis.cbcheckgrp.QuestInputChkUI"></Service>
+	<Service name="cbcheckgrpGrpQuestInputChkUI" type="com.sinosoft.lis.cbcheckgrp.GrpQuestInputChkUI"></Service>
+	<Service name="cbcheckgrpChangePlanUI" type="com.sinosoft.lis.cbcheckgrp.ChangePlanUI"></Service>
+	<Service name="tbForceUWUI" type="com.sinosoft.lis.tb.ForceUWUI"></Service>
+	<Service name="f1printgrpMeetF1PUI" type="com.sinosoft.lis.f1printgrp.MeetF1PUI"></Service>
+	<Service name="cardgrpGroupRiskUI" type="com.sinosoft.lis.cardgrp.GroupRiskUI"></Service>
+	<Service name="cardgrpGrpAppModifyMakeSureUI" type="com.sinosoft.lis.cardgrp.GrpAppModifyMakeSureUI"></Service>
+	<Service name="cbcheckgrpUWAutoHealthQueryUI" type="com.sinosoft.lis.cbcheckgrp.UWAutoHealthQueryUI"></Service>
+	<Service name="cbcheckgrpPersonChkUI" type="com.sinosoft.lis.cbcheckgrp.PersonChkUI"></Service>
+	<Service name="cbcheckgrpQuestPrintFlagUI" type="com.sinosoft.lis.cbcheckgrp.QuestPrintFlagUI"></Service>
+	<Service name="cbcheckgrpGrpQuestReplyChkUI" type="com.sinosoft.lis.cbcheckgrp.GrpQuestReplyChkUI"></Service>
+	<Service name="cbcheckgrpUWApplyUI" type="com.sinosoft.lis.cbcheckgrp.UWApplyUI"></Service>
+	<Service name="cardgrpGrpPolStatusChkUI" type="com.sinosoft.lis.cardgrp.GrpPolStatusChkUI"></Service>
+	<Service name="finfeeNewGrpContFeeWithdrawBL" type="com.sinosoft.lis.finfee.NewGrpContFeeWithdrawBL"></Service>
+	<Service name="tbgrpGrpFeeUI" type="com.sinosoft.lis.tbgrp.GrpFeeUI"></Service>
+	<Service name="tbgrpCreatBankCodeUI" type="com.sinosoft.lis.tbgrp.CreatBankCodeUI"></Service>
+	<Service name="tbgrpGroupContUI" type="com.sinosoft.lis.tbgrp.GroupContUI"></Service>
+	<Service name="tbgrpGrpAppModifyMakeSureUI" type="com.sinosoft.lis.tbgrp.GrpAppModifyMakeSureUI"></Service>
+	<Service name="tbgrpProposalQueryUI" type="com.sinosoft.lis.tbgrp.ProposalQueryUI"></Service>
+	<Service name="cbcheckgrpUWManuChgPlanConclusionChkUI" type="com.sinosoft.lis.cbcheckgrp.UWManuChgPlanConclusionChkUI"></Service>
+	<Service name="xbcheckPRnewUWManuApplyChkUI" type="com.sinosoft.lis.xbcheck.PRnewUWManuApplyChkUI"></Service>
+	<Service name="cbcheckgrpUWManuAddChkUI" type="com.sinosoft.lis.cbcheckgrp.UWManuAddChkUI"></Service>
+	<Service name="cbcheckgrpUWQueryUI" type="com.sinosoft.lis.cbcheckgrp.UWQueryUI"></Service>
+	<Service name="tbgrpProposalQueryUI" type="com.sinosoft.lis.tbgrp.ProposalQueryUI"></Service>
+	<Service name="tbgrpProposalFeeUI" type="com.sinosoft.lis.tbgrp.ProposalFeeUI"></Service>
+	<Service name="sysLDPersonUI" type="com.sinosoft.lis.sys.LDPersonUI"></Service>
+	<Service name="cbcheckgrpUWNotePadUI" type="com.sinosoft.lis.cbcheckgrp.UWNotePadUI"></Service>
+	<Service name="cbcheckgrpUWSpecUI" type="com.sinosoft.lis.cbcheckgrp.UWSpecUI"></Service>
+	<Service name="cbcheckgrpStopInsuredUI" type="com.sinosoft.lis.cbcheckgrp.StopInsuredUI"></Service>
+	<Service name="cbcheckgrpManuUWRiskSaveUI" type="com.sinosoft.lis.cbcheckgrp.ManuUWRiskSaveUI"></Service>
+	<Service name="cbcheckgrpLCInsuredUWUI" type="com.sinosoft.lis.cbcheckgrp.LCInsuredUWUI"></Service>
+	<Service name="cbcheckgrpImpartToICDUI" type="com.sinosoft.lis.cbcheckgrp.ImpartToICDUI"></Service>
+	<Service name="tbgrpUWQuestionBackUI" type="com.sinosoft.lis.tbgrp.UWQuestionBackUI"></Service>
+	<Service name="cbcheckgrpUWQualityManageUI" type="com.sinosoft.lis.cbcheckgrp.UWQualityManageUI"></Service>
+	<Service name="cbcheckgrpChangeCvalidateUI" type="com.sinosoft.lis.cbcheckgrp.ChangeCvalidateUI"></Service>
+	<Service name="cbcheckgrpGrpUWSetSpecialFlagUI" type="com.sinosoft.lis.cbcheckgrp.GrpUWSetSpecialFlagUI"></Service>
+	<Service name="tbgrpGroupContDeleteUI" type="com.sinosoft.lis.tbgrp.GroupContDeleteUI"></Service>
+	<Service name="tbgrpLCContDelPUI" type="com.sinosoft.lis.tbgrp.LCContDelPUI"></Service>
+	<Service name="cbcheckgrpGrpPolStatusChkUI" type="com.sinosoft.lis.cbcheckgrp.GrpPolStatusChkUI"></Service>
+	<Service name="f1printLCPolF1PUI" type="com.sinosoft.lis.f1print.LCPolF1PUI"></Service>	
+	<Service name="f1printLCGrpPersonF1P_IDGFBL" type="com.sinosoft.lis.f1print.LCGrpPersonF1P_IDGFBL"></Service>
+	<!--zhengyuxing-->
+	
+    <!-- start by cyj  qiyue -->
+	<Service name="tContInsuredUI" type="com.sinosoft.lis.tb.ContInsuredUI"></Service>
+    <Service name="tUWErrUI" type="com.sinosoft.lis.cbcheck.UWErrUI"></Service>
+    <Service name="tPubFun1" type="com.sinosoft.lis.pubfun.PubFun1"></Service>
+	<!-- end   by cyj  qiyue -->
+	
+	<!-- start by xieyc -->	
+	<!-- claim -->	
+	<Service name="LLUWIdeaUI" type="com.sinosoft.lis.cbcheck.LLUWIdeaUI">
+	</Service>	
+	<Service name="ClaimApplyUI" type="com.sinosoft.lis.claim.ClaimApplyUI">
+	</Service>
+	<Service name="ClaimReportConfirmBL" type="com.sinosoft.lis.claim.ClaimReportConfirmBL">
+	</Service>	
+	<Service name="ClaimScanApplyUI" type="com.sinosoft.lis.claim.ClaimScanApplyUI">
+	</Service>	
+	<Service name="LLAppealApplyUI" type="com.sinosoft.lis.claim.LLAppealApplyUI">
+	</Service>	
+	<Service name="LLAppealConfirmUI" type="com.sinosoft.lis.claim.LLAppealConfirmUI">
+	</Service>		
+	<Service name="LLAppealUpdateUI" type="com.sinosoft.lis.claim.LLAppealUpdateUI">
+	</Service>
+	<Service name="LLBnfRepealBL" type="com.sinosoft.lis.claim.LLBnfRepealBL">
+	</Service>	
+	<Service name="LLBnfUI" type="com.sinosoft.lis.claim.LLBnfUI">
+	</Service>	
+	<Service name="LLCaseBackNoticeUI" type="com.sinosoft.lis.claim.LLCaseBackNoticeUI">
+	</Service>	
+	<Service name="LLCaseBackUI" type="com.sinosoft.lis.claim.LLCaseBackUI">
+	</Service>			
+	<Service name="LLClaimAuditGiveTypeUI" type="com.sinosoft.lis.claim.LLClaimAuditGiveTypeUI">
+	</Service>
+	<Service name="LLClaimAuditUI" type="com.sinosoft.lis.claim.LLClaimAuditUI">
+	</Service>	
+	<Service name="LLClaimCalPortalBL" type="com.sinosoft.lis.claim.LLClaimCalPortalBL">
+	</Service>	
+	<Service name="LLClaimCertiPrtControlUI" type="com.sinosoft.lis.claim.LLClaimCertiPrtControlUI">
+	</Service>	
+	<Service name="LLClaimConfirmReportBackBL" type="com.sinosoft.lis.claim.LLClaimConfirmReportBackBL">
+	</Service>			
+	<Service name="LLClaimContDealUI" type="com.sinosoft.lis.claim.LLClaimContDealUI">
+	</Service>
+	<Service name="LLClaimContPolDealAdjustPayUI" type="com.sinosoft.lis.claim.LLClaimContPolDealAdjustPayUI">
+	</Service>	
+	<Service name="LLClaimContPolDealAutoUI" type="com.sinosoft.lis.claim.LLClaimContPolDealAutoUI">
+	</Service>	
+	<Service name="LLClaimContPolDealUI" type="com.sinosoft.lis.claim.LLClaimContPolDealUI">
+	</Service>	
+	<Service name="LLClaimDescUI" type="com.sinosoft.lis.claim.LLClaimDescUI">
+	</Service>			
+	<Service name="LLClaimExemptUI" type="com.sinosoft.lis.claim.LLClaimExemptUI">
+	</Service>
+	<Service name="LLClaimFaQiWaiBaoUI" type="com.sinosoft.lis.claim.LLClaimFaQiWaiBaoUI">
+	</Service>	
+	<Service name="LLClaimImportModifyUI" type="com.sinosoft.lis.claim.LLClaimImportModifyUI">
+	</Service>	
+	<Service name="LLClaimMergeBL" type="com.sinosoft.lis.claim.LLClaimMergeBL">
+	</Service>	
+	<Service name="LLClaimPolDealUI" type="com.sinosoft.lis.claim.LLClaimPolDealUI">
+	</Service>			
+	<Service name="LLClaimPrepayAuditBL" type="com.sinosoft.lis.claim.LLClaimPrepayAuditBL">
+	</Service>
+	<Service name="LLClaimPrepayAuditRetrunBL" type="com.sinosoft.lis.claim.LLClaimPrepayAuditRetrunBL">
+	</Service>	
+	<Service name="LLClaimPrepayUI" type="com.sinosoft.lis.claim.LLClaimPrepayUI">
+	</Service>	
+	<Service name="LLClaimReciInfoUI" type="com.sinosoft.lis.claim.LLClaimReciInfoUI">
+	</Service>	
+	<Service name="LLClaimRegisterBLF" type="com.sinosoft.lis.claim.LLClaimRegisterBLF">
+	</Service>			
+	<Service name="LLClaimRegisterConclusionUI" type="com.sinosoft.lis.claim.LLClaimRegisterConclusionUI">
+	</Service>
+	<Service name="LLClaimRegisterDealUI" type="com.sinosoft.lis.claim.LLClaimRegisterDealUI">
+	</Service>	
+	<Service name="LLClaimRepRegRelaUI" type="com.sinosoft.lis.claim.LLClaimRepRegRelaUI">
+	</Service>	
+	<Service name="LLClaimScanIssueConclusionUI" type="com.sinosoft.lis.claim.LLClaimScanIssueConclusionUI">
+	</Service>	
+	<Service name="LLClaimYZLXBL" type="com.sinosoft.lis.claim.LLClaimYZLXBL">
+	</Service>		
+	<Service name="LLClmToPensionBL" type="com.sinosoft.lis.claim.LLClmToPensionBL">
+	</Service>
+	<Service name="LLClaimSurvePrintUI" type="com.sinosoft.lis.g_claim.LLClaimSurvePrintUI">
+	</Service>
+	<Service name="LLEndCaseUI" type="com.sinosoft.lis.claim.LLEndCaseUI">
+	</Service>	
+	<Service name="LLIssueReplyUI" type="com.sinosoft.lis.claim.LLIssueReplyUI">
+	</Service>	
+	<Service name="LLLcContSuspendUI" type="com.sinosoft.lis.claim.LLLcContSuspendUI">
+	</Service>	
+	<Service name="LLMedicalFeeAdjUI" type="com.sinosoft.lis.claim.LLMedicalFeeAdjUI">
+	</Service>	
+	<Service name="LLMedicalFeeInp1UI" type="com.sinosoft.lis.claim.LLMedicalFeeInp1UI">
+	</Service>
+	<Service name="LLMedicalFeeInp3UI" type="com.sinosoft.lis.claim.LLMedicalFeeInp3UI">
+	</Service>	
+	<Service name="LLMedicalFeeInp4UI" type="com.sinosoft.lis.claim.LLMedicalFeeInp4UI">
+	</Service>	
+	<Service name="LLMedicalFeeInp5UI" type="com.sinosoft.lis.claim.LLMedicalFeeInp5UI">
+	</Service>	
+	<Service name="LLParaPrintUI" type="com.sinosoft.lis.claim.LLParaPrintUI">
+	</Service>			
+	<Service name="LLPrtagainReasonUI" type="com.sinosoft.lis.claim.LLPrtagainReasonUI">
+	</Service>
+	<Service name="LLPRTAppraisalUI" type="com.sinosoft.lis.claim.LLPRTAppraisalUI">
+	</Service>	
+	<Service name="LLPRTCertificatePutOutUI" type="com.sinosoft.lis.claim.LLPRTCertificatePutOutUI">
+	</Service>	
+	<Service name="LLPRTCertificateRenewUI" type="com.sinosoft.lis.claim.LLPRTCertificateRenewUI">
+	</Service>	
+	<Service name="LLPRTCertificateSignforUI" type="com.sinosoft.lis.claim.LLPRTCertificateSignforUI">
+	</Service>		
+	<Service name="LLPRTClaimAuditiReportUI" type="com.sinosoft.lis.claim.LLPRTClaimAuditiReportUI">
+	</Service>
+	<Service name="LLPRTInteInqReportUI" type="com.sinosoft.lis.claim.LLPRTInteInqReportUI">
+	</Service>	
+	<Service name="LLPRTInteInqTaskUI" type="com.sinosoft.lis.claim.LLPRTInteInqTaskUI">
+	</Service>	
+	<Service name="LLPRTPatchFeeUI" type="com.sinosoft.lis.claim.LLPRTPatchFeeUI">
+	</Service>	
+	<Service name="LLPRTProtestNoRegisterUI" type="com.sinosoft.lis.claim.LLPRTProtestNoRegisterUI">
+	</Service>		
+	<Service name="LLReportCondoleUI" type="com.sinosoft.lis.claim.LLReportCondoleUI">
+	</Service>
+	<Service name="LLReportUI" type="com.sinosoft.lis.claim.LLReportUI">
+	</Service>	
+	<Service name="LLRgtAddMAffixListClmScanUI" type="com.sinosoft.lis.claim.LLRgtAddMAffixListClmScanUI">
+	</Service>	
+	<Service name="LLRgtAddMAffixListUI" type="com.sinosoft.lis.claim.LLRgtAddMAffixListUI">
+	</Service>	
+	<Service name="LLRgtMAffixListIssueUI" type="com.sinosoft.lis.claim.LLRgtMAffixListIssueUI">
+	</Service>		
+	<Service name="LLRgtMAffixListUI" type="com.sinosoft.lis.claim.LLRgtMAffixListUI">
+	</Service>
+	<Service name="LLTempFeeConfUI" type="com.sinosoft.lis.claim.LLTempFeeConfUI">
+	</Service>		
+	<Service name="LLInqCourseUI" type="com.sinosoft.lis.claim.LLInqCourseUI">
+	</Service>
+	<Service name="LLInqFeeUI" type="com.sinosoft.lis.claim.LLInqFeeUI">
+	</Service>	
+	<Service name="LLSubmitApplyDealUI" type="com.sinosoft.lis.claim.LLSubmitApplyDealUI">
+	</Service>	
+	<Service name="LLSubmitApplyHeadDealUI" type="com.sinosoft.lis.claim.LLSubmitApplyHeadDealUI">
+	</Service>	
+	<Service name="LLClaimScanInputUI" type="com.sinosoft.lis.claim.LLClaimScanInputUI">
+	</Service>		
+		<Service name="LLUnHangUpUI" type="com.sinosoft.lis.claim.LLUnHangUpUI">
+	</Service>
+	<Service name="LWMissionReassignUI" type="com.sinosoft.lis.claim.LWMissionReassignUI">
+	</Service>	
+	<Service name="LLMAffixListUI" type="com.sinosoft.lis.claim.LLMAffixListUI">
+	</Service>	
+	<Service name="ClaimWorkFlowUI" type="com.sinosoft.workflow.claim.ClaimWorkFlowUI">
+	</Service>
+	<Service name="CreateLLScondUWNodeBL" type="com.sinosoft.lis.claim.CreateLLScondUWNodeBL">
+	</Service>		
+	<!--claim -->
+	
+	<!--claimgrp -->		
+	<Service name="grpClaimWorkFlowUI" type="com.sinosoft.workflow.claimgrp.ClaimWorkFlowUI">
+	</Service>	
+	<Service name="grpLLClaimAuditGiveTypeUI" type="com.sinosoft.lis.claimgrp.LLClaimAuditGiveTypeUI">
+	</Service>
+	<Service name="grpLLClaimRegisterConclusionUI" type="com.sinosoft.lis.claimgrp.LLClaimRegisterConclusionUI">
+	</Service>	
+	<Service name="grpLLClaimRegisterConclusionChgUI" type="com.sinosoft.lis.claimgrp.LLClaimRegisterConclusionChgUI">
+	</Service>		
+	<Service name="grpLLClaimRegisterDealUI" type="com.sinosoft.lis.claimgrp.LLClaimRegisterDealUI">
+	</Service>
+	<Service name="grpLLClaimRegisterUI" type="com.sinosoft.lis.claimgrp.LLClaimRegisterUI">
+	</Service>	
+	<Service name="grpLLClaimRegisterBL" type="com.sinosoft.lis.claimgrp.LLClaimRegisterBL">
+	</Service>		
+	<Service name="grpLLPRTAppraisalUI" type="com.sinosoft.lis.claimgrp.LLPRTAppraisalUI">
+	</Service>
+	<Service name="grpLLPRTCertificateRenewUI" type="com.sinosoft.lis.claimgrp.LLPRTCertificateRenewUI">
+	</Service>	
+	<Service name="grpLLPRTCertificateSignforUI" type="com.sinosoft.lis.claimgrp.LLPRTCertificateSignforUI">
+	</Service>		
+	<Service name="grpLLPRTProtestNoRegisterUI" type="com.sinosoft.lis.claimgrp.LLPRTProtestNoRegisterUI">
+	</Service>
+	<Service name="grpLLRgtMAffixListUI" type="com.sinosoft.lis.claimgrp.LLRgtMAffixListUI">
+	</Service>	
+	<Service name="grpLLClaimCalPortalBL" type="com.sinosoft.lis.claimgrp.LLClaimCalPortalBL">
+	</Service>		
+	<Service name="grpLLClaimDescUI" type="com.sinosoft.lis.claimgrp.LLClaimDescUI">
+	</Service>
+	<Service name="grpLLGrpClaimEdorTypeCAUI" type="com.sinosoft.lis.claimgrp.LLGrpClaimEdorTypeCAUI">
+	</Service>	
+	<Service name="grpClaimApplyUI" type="com.sinosoft.lis.claimgrp.ClaimApplyUI">
+	</Service>		
+	<Service name="grpLLInqCourseAffixDoBL" type="com.sinosoft.lis.claimgrp.LLInqCourseAffixDoBL">
+	</Service>
+	<Service name="grpLLLcContSuspendUI" type="com.sinosoft.lis.claimgrp.LLLcContSuspendUI">
+	</Service>	
+	<Service name="grpLLPrtagainReasonUI" type="com.sinosoft.lis.claimgrp.LLPrtagainReasonUI">
+	</Service>	
+	<Service name="grpLLParaPrintUI" type="com.sinosoft.lis.claimgrp.LLParaPrintUI">
+	</Service>
+	<Service name="grpLLRgtAddMAffixListUI" type="com.sinosoft.lis.claimgrp.LLRgtAddMAffixListUI">
+	</Service>	
+	<Service name="grpLLStandPayInfoBL" type="com.sinosoft.lis.claimgrp.LLStandPayInfoBL">
+	</Service>		
+	<Service name="grpGrpCustomerBatchReportIn" type="com.sinosoft.lis.claimgrp.GrpCustomerBatchReportIn">
+	</Service>
+	<Service name="grpGrpClaimWorkFlowUI" type="com.sinosoft.workflow.claimgrp.GrpClaimWorkFlowUI">
+	</Service>	
+	<Service name="grpLLGrpReportUI" type="com.sinosoft.lis.claimgrp.LLGrpReportUI">
+	</Service>	
+	<Service name="grpClaimSuoPei" type="com.sinosoft.lis.claimgrp.ClaimSuoPei">
+	</Service>
+	<Service name="grpLLReportCondoleUI" type="com.sinosoft.lis.claimgrp.LLReportCondoleUI">
+	</Service>	
+	<Service name="grpLLClaimPolDealUI" type="com.sinosoft.lis.claimgrp.LLClaimPolDealUI">
+	</Service>
+	<Service name="grpLLClaimContPolDealUI" type="com.sinosoft.lis.claimgrp.LLClaimContPolDealUI">
+	</Service>	
+	<Service name="grpLLClaimContDealUI" type="com.sinosoft.lis.claimgrp.LLClaimContDealUI">
+	</Service>	
+	<Service name="grpLLClaimImportModifyUI" type="com.sinosoft.lis.claimgrp.LLClaimImportModifyUI">
+	</Service>
+	<Service name="grpLLClaimExemptUI" type="com.sinosoft.lis.claimgrp.LLClaimExemptUI">
+	</Service>	
+	<Service name="grpLLPRTPatchFeeUI" type="com.sinosoft.lis.claimgrp.LLPRTPatchFeeUI">
+	</Service>
+	<Service name="grpLLPRTClaimAuditiReportUI" type="com.sinosoft.lis.claimgrp.LLPRTClaimAuditiReportUI">
+	</Service>	
+	<Service name="grpLLClaimAuditUI" type="com.sinosoft.lis.claimgrp.LLClaimAuditUI">
+	</Service>	
+	<Service name="grpLLMedicalFeeAdjUI" type="com.sinosoft.lis.claimgrp.LLMedicalFeeAdjUI">
+	</Service>
+	<Service name="grpLLBnfUI" type="com.sinosoft.lis.claimgrp.LLBnfUI">
+	</Service>	
+	<Service name="grpLLGrpMedicalFeeInpBL" type="com.sinosoft.lis.claimgrp.LLGrpMedicalFeeInpBL">
+	</Service>
+	<Service name="grpLLGrpClaimRegisterBL" type="com.sinosoft.lis.claimgrp.LLGrpClaimRegisterBL">
+	</Service>	
+	<Service name="grpLLGrpClaimSimpleBL" type="com.sinosoft.lis.claimgrp.LLGrpClaimSimpleBL">
+	</Service>	
+	<Service name="grpLLMAffixListUI" type="com.sinosoft.lis.claimgrp.LLMAffixListUI">
+	</Service>
+	<Service name="grpGrpCustomerGuideForAccIn" type="com.sinosoft.lis.claimgrp.GrpCustomerGuideForAccIn">
+	</Service>	
+	<Service name="grpGrpClaimSimpleGuideIn" type="com.sinosoft.lis.claimgrp.GrpClaimSimpleGuideIn">
+	</Service>
+	<Service name="grpGrpCustomerGuideIn" type="com.sinosoft.lis.claimgrp.GrpCustomerGuideIn">
+	</Service>	
+	<Service name="grpGrpReceiptClassGuideIn" type="com.sinosoft.lis.claimgrp.GrpReceiptClassGuideIn">
+	</Service>	
+	<Service name="grpDiskDeleteInsuredBL" type="com.sinosoft.lis.claimgrp.DiskDeleteInsuredBL">
+	</Service>
+	<Service name="grpLLClaimConfirmReportBackBL" type="com.sinosoft.lis.claimgrp.LLClaimConfirmReportBackBL">
+	</Service>
+	<Service name="grpQueryDefaultOperator" type="com.sinosoft.lis.claimgrp.QueryDefaultOperator">
+	</Service>	
+	<Service name="grpLLEndCaseUI" type="com.sinosoft.lis.claimgrp.LLEndCaseUI">
+	</Service>	
+	<Service name="grpAddRelationUI" type="com.sinosoft.lis.claimgrp.AddRelationUI">
+	</Service>	
+	<Service name="grpInsuredRelaAddUI" type="com.sinosoft.lis.claimgrp.InsuredRelaAddUI">
+	</Service>	
+	<Service name="grpLLMedicalFeeInp1UI" type="com.sinosoft.lis.claimgrp.LLMedicalFeeInp1UI">
+	</Service>
+	<Service name="grpLLMedicalFeeInp3UI" type="com.sinosoft.lis.claimgrp.LLMedicalFeeInp3UI">
+	</Service>	
+	<Service name="grpLLMedicalFeeInp4UI" type="com.sinosoft.lis.claimgrp.LLMedicalFeeInp4UI">
+	</Service>	
+	<Service name="grpLLMedicalFeeInp5UI" type="com.sinosoft.lis.claimgrp.LLMedicalFeeInp5UI">
+	</Service>	
+	<!--claimgrp -->
+	
+	<!--claimnb -->
+	<Service name="LLUWAddFeeUI" type="com.sinosoft.lis.claimnb.LLUWAddFeeUI">
+	</Service>	
+	<Service name="LLUWPCLMAddFeeUI" type="com.sinosoft.lis.claimnb.LLUWPCLMAddFeeUI">
+	</Service>	
+	<Service name="LLUWResultCvalidateUI" type="com.sinosoft.lis.claimnb.LLUWResultCvalidateUI">
+	</Service>		
+	<Service name="LLUWSpecUI" type="com.sinosoft.lis.claimnb.LLUWSpecUI">
+	</Service>
+	<Service name="AddPremCalForClaimBL" type="com.sinosoft.lis.claimnb.AddPremCalForClaimBL">
+	</Service>	
+	<!--claimnb -->
+	
+	<!--reinsure -->
+	<Service name="AnswerUWReInsureUI" type="com.sinosoft.lis.reinsure.faculreinsure.AnswerUWReInsureBL">
+	</Service>	
+	<Service name="SendUWReInsureUI" type="com.sinosoft.lis.reinsure.faculreinsure.SendUWReInsureUI">
+	</Service>	
+	<Service name="AutoAnswerUWReInsureBL" type="com.sinosoft.lis.reinsure.faculreinsure.AutoAnswerUWReInsureBL">
+	</Service>		
+	<Service name="GrQuotSharCESSTabUI" type="com.sinosoft.lis.reinsure.stat.antail.GrQuotSharCESSTabUI">
+	</Service>	
+	<Service name="GrQuotSharClaimTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrQuotSharClaimTabUI">
+	</Service>		
+	<Service name="GrpubAcciCESSTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpubAcciCESSTabUI">
+	</Service>	
+	<Service name="GrpubAcciChageTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpubAcciChageTabUI">
+	</Service>		
+	<Service name="GrpubAcciClaimTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpubAcciClaimTabUI">
+	</Service>		
+	<Service name="GrpOutMedicCESSTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpOutMedicCESSTabUI">
+	</Service>	
+	<Service name="GrpOutMedicUndoTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpOutMedicUndoTabUI">
+	</Service>	
+	<Service name="GrpOutMedicClaimTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpOutMedicClaimTabUI">
+	</Service>		
+	<Service name="GrpLifeExCESSTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpLifeExCESSTabUI">
+	</Service>	
+	<Service name="GrpLifeExChangeTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpLifeExChangeTabUI">
+	</Service>	
+	<Service name="GrpLifeExClaimTabUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpLifeExClaimTabUI">
+	</Service>		
+	<Service name="LRAccRDUI" type="com.sinosoft.lis.reinsure.LRAccRDUI">
+	</Service>	
+	<Service name="LRBsnsBillUWUI" type="com.sinosoft.lis.reinsure.LRBsnsBillUWUI">
+	</Service>
+	<Service name="LRBsnsBillPrintUI" type="com.sinosoft.lis.reinsure.stat.antail.LRBsnsBillPrintUI">
+	</Service>	
+	<Service name="LRBsnsBillUI" type="com.sinosoft.lis.reinsure.LRBsnsBillUI">
+	</Service>		
+	<Service name="GrQuotSharAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrQuotSharAccountUI">
+	</Service>	
+	<Service name="GrpubAcciSumAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpubAcciSumAccountUI">
+	</Service>	
+	<Service name="GrpubAcciReinAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpubAcciReinAccountUI">
+	</Service>	
+	<Service name="GrpOutMedicSumAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpOutMedicSumAccountUI">
+	</Service>	
+	<Service name="GrpOutMedicReinAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpOutMedicReinAccountUI">
+	</Service>
+	<Service name="GrpLifeExAccountUI" type="com.sinosoft.lis.reinsure.stat.zhongyi.GrpLifeExAccountUI">
+	</Service>
+	<Service name="LRConfigRelaSaveBL" type="com.sinosoft.lis.reinsure.LRConfigRelaSaveBL">
+	</Service>
+	<Service name="LRContManageUI" type="com.sinosoft.lis.reinsure.LRContManageUI">
+	</Service>
+	<Service name="LRFeeRateBatchRiskUI" type="com.sinosoft.lis.reinsure.LRFeeRateBatchRiskUI">
+	</Service>
+	<Service name="LRFeeRateBatchDefUI" type="com.sinosoft.lis.reinsure.LRFeeRateBatchDefUI">
+	</Service>
+	<Service name="LRFeeRateDefUI" type="com.sinosoft.lis.reinsure.LRFeeRateDefUI">
+	</Service>
+	<Service name="LRProfitLossCalBL" type="com.sinosoft.lis.reinsure.LRProfitLossCalBL">
+	</Service>
+	<Service name="RITempConclusionBL" type="com.sinosoft.lis.reinsure.faculreinsure.RITempConclusionBL">
+	</Service>
+	<Service name="LRPreceptBL" type="com.sinosoft.lis.reinsure.LRPreceptBL">
+	</Service>
+	<Service name="ReComManageUI" type="com.sinosoft.lis.reinsure.ReComManageUI">
+	</Service>
+	<Service name="PrintUI" type="com.sinosoft.lis.reinsure.test.PrintUI">
+	</Service>
+	<Service name="RIIndTempConclusionBL" type="com.sinosoft.lis.reinsure.faculreinsure.RIIndTempConclusionBL">
+	</Service>
+	<Service name="SendUWReInsureUI" type="com.sinosoft.lis.reinsure.faculreinsure.SendUWReInsureUI">
+	</Service>	
+	<Service name="AnswerUWReInsureUI" type="com.sinosoft.lis.reinsure.faculreinsure.AnswerUWReInsureUI">
+	</Service>	
+	<Service name="RIImptMngUI" type="com.sinosoft.lis.reinsure.impdata.RIImptMngUI">
+	</Service>		
+	<Service name="RITaskApplyBL" type="com.sinosoft.lis.reinsure.calculate.manage.RITaskApplyBL">
+	</Service>	
+	<Service name="RIItemCalupdate" type="com.sinosoft.lis.reinsure.RIItemCalupdate">
+	</Service>	
+	<Service name="RIItemCalAdd" type="com.sinosoft.lis.reinsure.RIItemCalAdd">
+	</Service>
+	<Service name="RIItemCalDelete" type="com.sinosoft.lis.reinsure.RIItemCalDelete">
+	</Service>
+	<Service name="RIWFManage" type="com.sinosoft.lis.reinsure.calculate.manage.RIWFManage">
+	</Service>
+	<Service name="EdorCancelUI" type="com.sinosoft.lis.g_pos.EdorCancelUI">
+	</Service>
+	<!--reinsure -->
+	
+	<!--sys  userMan easyscan menumang tb f1print cbcheck-->
+	<Service name="DealLockAppGroupBL" type="com.sinosoft.lis.sys.DealLockAppGroupBL">
+	</Service>
+	<Service name="ComUI" type="com.sinosoft.lis.sys.ComUI">
+	</Service>
+	<Service name="LDUserManUI" type="com.sinosoft.lis.userMan.LDUserManUI">
+	</Service>
+	<Service name="EsDocManageUI" type="com.sinosoft.lis.easyscan.EsDocManageUI">
+	</Service>
+	<Service name="LDMenuGrpUI" type="com.sinosoft.lis.menumang.LDMenuGrpUI">
+	</Service>	
+	<Service name="LDMenuFunUI" type="com.sinosoft.lis.menumang.LDMenuFunUI">
+	</Service>	
+	<Service name="BarCodePrintBL" type="com.sinosoft.lis.easyscan.BarCodePrintBL">
+	</Service>				
+	<Service name="UWScoreRReportUI" type="com.sinosoft.lis.tb.UWScoreRReportUI">
+	</Service>	
+	<Service name="RReportScorePrintUI" type="com.sinosoft.lis.f1print.RReportScorePrintUI">
+	</Service>	
+	<Service name="PolFeeStatusChkUI" type="com.sinosoft.lis.cbcheck.PolFeeStatusChkUI">
+	</Service>
+	<Service name="sysAllPBqQueryUI" type="com.sinosoft.lis.sys.AllPBqQueryUI">
+	</Service>
+	<Service name="LDExRateUI" type="com.sinosoft.lis.sys.LDExRateUI">
+	</Service>
+	<Service name="LDCurrencyUI" type="com.sinosoft.lis.sys.LDCurrencyUI">
+	</Service>
+	<Service name="LDMthMidRateUI" type="com.sinosoft.lis.sys.LDMthMidRateUI">
+	</Service>
+	<Service name="LDExOtherRateUI" type="com.sinosoft.lis.sys.LDExOtherRateUI">
+	</Service>
+	<Service name="LDScanUI" type="com.sinosoft.lis.sys.LDScanUI">
+	</Service>
+	<!--sys  userMan easyscan menumang tb f1print cbcheck -->	
+	<!-- end by xieyc -->
+	
+	<!-- certify start by liuning -->
+	<Service name="CertifyDescUI" type="com.sinosoft.lis.certify.CertifyDescUI">
+	</Service>
+	<Service name="CardPlanUI" type="com.sinosoft.lis.certify.CardPlanUI">
+	</Service>
+	<Service name="CardPrintUI" type="com.sinosoft.lis.certify.CardPrintUI">
+	</Service>
+	<Service name="TbWorkFlowUI" type="com.sinosoft.workflow.tb.TbWorkFlowUI">
+	</Service>
+	<Service name="SysCertSendOutUI" type="com.sinosoft.lis.certify.SysCertSendOutUI">
+	</Service>
+	<Service name="ContTakeBackBL" type="com.sinosoft.lis.certify.ContTakeBackBL">
+	</Service>
+	<Service name="GrpContTakeBackBL" type="com.sinosoft.lis.certify.GrpContTakeBackBL">
+	</Service>
+	<Service name="SysCertTakeBackUI" type="com.sinosoft.lis.certify.SysCertTakeBackUI">
+	</Service>
+	<Service name="DELPictureUI" type="com.sinosoft.lis.certify.DELPictureUI">
+	</Service>
+	<Service name="CertSendOutApplyUI" type="com.sinosoft.lis.certify.CertSendOutApplyUI">
+	</Service>
+	<Service name="CertBlankOutUI" type="com.sinosoft.lis.certify.CertBlankOutUI">
+	</Service>
+	<Service name="CertReveSendOutUI" type="com.sinosoft.lis.certify.CertReveSendOutUI">
+	</Service>
+	<Service name="CertGetInUI" type="com.sinosoft.lis.certify.CertGetInUI">
+	</Service>
+	<Service name="CertSendOutUI" type="com.sinosoft.lis.certify.CertSendOutUI">
+	</Service>
+	<Service name="CertifyBatchList" type="com.sinosoft.lis.certify.CertifyBatchList">
+	</Service>
+	<Service name="CertifyBatchReportIn" type="com.sinosoft.lis.certify.CertifyBatchReportIn">
+	</Service>
+	<Service name="CertifyImportTakeBack" type="com.sinosoft.lis.certify.CertifyImportTakeBack">
+	</Service>
+	<Service name="CertReveTakeBackApplyUI" type="com.sinosoft.lis.certify.CertReveTakeBackApplyUI">
+	</Service>
+	<Service name="CertReveTakeBackUI" type="com.sinosoft.lis.certify.CertReveTakeBackUI">
+	</Service>
+	<Service name="CertifyImportDestroy" type="com.sinosoft.lis.certify.CertifyImportDestroy">
+	</Service>
+	<Service name="CertDestroyApplyUI" type="com.sinosoft.lis.certify.CertDestroyApplyUI">
+	</Service>
+	<Service name="CertDestroyConfirmUI" type="com.sinosoft.lis.certify.CertDestroyConfirmUI">
+	</Service>	
+	<Service name="CertLossConfirmUI" type="com.sinosoft.lis.certify.CertLossConfirmUI">
+	</Service>
+	<Service name="CertLossRegisterUI" type="com.sinosoft.lis.certify.CertLossRegisterUI">
+	</Service>
+	<Service name="CertTakeBackUI" type="com.sinosoft.lis.certify.CertTakeBackUI">
+	</Service>
+	<Service name="ALABranchGroupUI" type="com.sinosoft.lis.wagecal.ALABranchGroupUI">
+	</Service>
+	<Service name="ALAHolsUI" type="com.sinosoft.lis.wagecal.ALAHolsUI">
+	</Service>
+	<Service name="ALAPresenceUI" type="com.sinosoft.lis.wagecal.ALAPresenceUI">
+	</Service>
+	<Service name="ALARewardPunishUI" type="com.sinosoft.lis.wagecal.ALARewardPunishUI">
+	</Service>
+	<Service name="ALATrainUI" type="com.sinosoft.lis.wagecal.ALATrainUI">
+	</Service>
+	<Service name="NAAdjustAgentUI" type="com.sinosoft.lis.naagent.NAAdjustAgentUI">
+	</Service>
+	<Service name="NAALABranchManagerUI" type="com.sinosoft.lis.naagent.NAALABranchManagerUI">
+	</Service>
+	<Service name="NAChangeBranchUI" type="com.sinosoft.lis.naagent.NAChangeBranchUI">
+	</Service>
+	<Service name="ParseXML" type="com.sinosoft.lis.agentprint.ParseXML">
+	</Service>
+	<Service name="CSDetaillPrtUI" type="com.sinosoft.lis.agentprint.CSDetaillPrtUI">
+	</Service>
+	<Service name="AssessConfirmSave" type="com.sinosoft.lis.wagecal.AssessConfirmSave">
+	</Service>
+	<Service name="NALAAssessRateBL" type="com.sinosoft.lis.wagecal.NALAAssessRateBL">
+	</Service>
+	<Service name="LAAssessRateBLQuery" type="com.sinosoft.lis.wagecal.LAAssessRateBLQuery">
+	</Service>
+	<Service name="LAWageUI" type="com.sinosoft.lis.wagecal.LAWageUI">
+	</Service>
+	<Service name="LAWageDelHistoryUI" type="com.sinosoft.lis.wagecal.LAWageDelHistoryUI">
+	</Service>
+	<Service name="LAWageConfirmDelUI" type="com.sinosoft.lis.wagecal.LAWageConfirmDelUI">
+	</Service>
+	<Service name="NAAsctiptionPolUI" type="com.sinosoft.lis.naagent.NAAsctiptionPolUI">
+	</Service>
+	<Service name="NALAAgentAccreditBL" type="com.sinosoft.lis.naagent.NALAAgentAccreditBL">
+	</Service>
+	<Service name="NALAComAccreditBL" type="com.sinosoft.lis.naagent.NALAComAccreditBL">
+	</Service>
+	<Service name="NALATreeEditUI" type="com.sinosoft.lis.naagent.NALATreeEditUI">
+	</Service>
+	<Service name="NAALADimissionReUI" type="com.sinosoft.lis.naagent.NAALADimissionReUI">
+	</Service>
+	<Service name="NALADimissionUI" type="com.sinosoft.lis.naagent.NALADimissionUI">
+	</Service>
+	<Service name="NAALAAgentUI" type="com.sinosoft.lis.naagent.NAALAAgentUI">
+	</Service>
+	<Service name="NAAssessAllQueryUI" type="com.sinosoft.lis.agentprint.NAAssessAllQueryUI">
+	</Service>
+	<Service name="NAAttendAwardUI" type="com.sinosoft.lis.agentprint.NAAttendAwardUI">
+	</Service>
+	<Service name="NAPerContriComUI" type="com.sinosoft.lis.agentprint.NAPerContriComUI">
+	</Service>
+	<Service name="AgentCalAssessMain" type="com.sinosoft.lis.agentassess.AgentCalAssessMain">
+	</Service>
+	<Service name="CusServicePolAssessBL" type="com.sinosoft.lis.agentassess.CusServicePolAssessBL">
+	</Service>
+	<Service name="CusServiceRateQueryUI" type="com.sinosoft.lis.agentassess.CusServiceRateQueryUI">
+	</Service>
+	<Service name="CPAdmiShowListUI" type="com.sinosoft.lis.reagent.CPAdmiShowListUI">
+	</Service>
+	<Service name="NAAssessResultDLBL" type="com.sinosoft.lis.f1print.NAAssessResultDLBL">
+	</Service>
+	<Service name="MainCalAssess" type="com.sinosoft.lis.commassess.MainCalAssess">
+	</Service>
+	<Service name="MyAutoCalDirectWage" type="com.sinosoft.lis.agentcalculate.MyAutoCalDirectWage">
+	</Service>
+	<Service name="AdjustRebateUI" type="com.sinosoft.lis.agentcalculate.AdjustRebateUI">
+	</Service>
+	<Service name="AdjustCommDataUI" type="com.sinosoft.lis.agentcalculate.AdjustCommDataUI">
+	</Service>
+	<Service name="LACalWageUI" type="com.sinosoft.lis.agentcalculate.LACalWageUI">
+	</Service>
+	<Service name="AgentWageGatherUI" type="com.sinosoft.lis.agentcalculate.AgentWageGatherUI">
+	</Service>
+	<Service name="LAWageErrCheckQueryUI" type="com.sinosoft.lis.agentquery.LAWageErrCheckQueryUI">
+	</Service>
+	<Service name="LAAgentAscriptPolPrtUI" type="com.sinosoft.lis.agentprint.LAAgentAscriptPolPrtUI">
+	</Service>
+	<Service name="NAOAgentAscript" type="com.sinosoft.lis.naagent.NAOAgentAscript">
+	</Service>
+	<Service name="BasicAssessGatherReportUI" type="com.sinosoft.lis.agentassess.BasicAssessGatherReportUI">
+	</Service>
+	<Service name="NALAWageQueryUI" type="com.sinosoft.lis.agentprint.NALAWageQueryUI">
+	</Service>
+	<Service name="TempFeeUI" type="com.sinosoft.lis.finfee.TempFeeUI">
+	</Service>
+	<Service name="LJAGetQueryUI" type="com.sinosoft.lis.finfee.LJAGetQueryUI">
+	</Service>	
+	<Service name="OperFinFeeGetUI" type="com.sinosoft.lis.finfee.OperFinFeeGetUI">
+	</Service>
+	<Service name="TempFeeQueryUI" type="com.sinosoft.lis.finfee.TempFeeQueryUI">
+	</Service>	
+	<Service name="VerDuePayFeeQueryUI" type="com.sinosoft.lis.operfee.VerDuePayFeeQueryUI">
+	</Service>
+	<Service name="TempFeeTypeQueryUI" type="com.sinosoft.lis.finfee.TempFeeTypeQueryUI">
+	</Service>
+	<Service name="LLUWSpecUI" type="com.sinosoft.lis.cbcheck.LLUWSpecUI">
+	</Service>
+	<Service name="LLSecondManuUWUI" type="com.sinosoft.lis.claim.LLSecondManuUWUI">
+	</Service>
+	<Service name="LLUWManuAddChkUI" type="com.sinosoft.lis.cbcheck.LLUWManuAddChkUI">
+	</Service>
+	<Service name="CancleGivenUI" type="com.sinosoft.lis.cbcheck.CancleGivenUI">
+	</Service>
+	<Service name="LLManuUWRiskSaveUI" type="com.sinosoft.lis.cbcheck.LLManuUWRiskSaveUI">
+	</Service>
+	<Service name="LLQuestInputChkUI" type="com.sinosoft.lis.cbcheck.LLQuestInputChkUI">
+	</Service>
+	<Service name="LLUWAutoHealthBL" type="com.sinosoft.lis.cbcheck.LLUWAutoHealthBL">
+	</Service>
+	<Service name="LLUWAutoHealthQueryBL" type="com.sinosoft.lis.cbcheck.LLUWAutoHealthQueryBL">
+	</Service>
+	<Service name="LLUWIdealUI" type="com.sinosoft.lis.cbcheck.LLUWIdealUI">
+	</Service>
+	<Service name="UWAgentQualityRecordUI" type="com.sinosoft.lis.cbcheck.UWAgentQualityRecordUI">
+	</Service>
+	<Service name="UWCustomerQualityRecordUI" type="com.sinosoft.lis.cbcheck.UWCustomerQualityRecordUI">
+	</Service>
+	<Service name="UWHospitalQualityRecordUI" type="com.sinosoft.lis.cbcheck.UWHospitalQualityRecordUI">
+	</Service>
+	<Service name="LLUWManuAddDelUI" type="com.sinosoft.lis.claim.LLUWManuAddDelUI">
+	</Service>
+	<Service name="tbUWReportInputUI" type="com.sinosoft.lis.tb.UWReportInputUI">
+	</Service>
+	<Service name="IndiFinUrgeVerifyUI" type="com.sinosoft.lis.operfee.IndiFinUrgeVerifyUI">
+	</Service>
+	<Service name="BankStruInfoUI" type="com.sinosoft.lis.agentprint.BankStruInfoUI"></Service>
+	<Service name="ComStruInfoUI" type="com.sinosoft.lis.agentprint.ComStruInfoUI"></Service>
+	<Service name="PRnewNoticePrintUI" type="com.sinosoft.lis.f1print.PRnewNoticePrintUI">
+	</Service>
+	<Service name="LLClaimClearAccUI" type="com.sinosoft.lis.acc.LLClaimClearAccUI">
+	</Service>
+	<!-- end by liuning -->	
+	
+	<Service name="LLClaimSurvePrintUI" type="com.sinosoft.lis.g_claim.LLClaimSurvePrintUI"></Service>
+	
+	<!--Yuanzw-->
+	<Service name="configOLDEdorUserUI" type="com.sinosoft.lis.config.OLDEdorUserUI"></Service>
+	<Service name="bqgrpPGrpEdorBSDetailBL" type="com.sinosoft.lis.bqgrp.PGrpEdorBSDetailBL"></Service>
+	<Service name="bqgrpBqSubAppBL" type="com.sinosoft.lis.bqgrp.BqSubAppBL"></Service>
+	<Service name="bqPEdorPopedomCheckBL" type="com.sinosoft.lis.bq.PEdorPopedomCheckBL"></Service>
+	<Service name="bqgrpGEdorTypeAXForLoadBL" type="com.sinosoft.lis.bqgrp.GEdorTypeAXForLoadBL"></Service>
+	<Service name="bqgrpGEdorTypeCAForLoadBL" type="com.sinosoft.lis.bqgrp.GEdorTypeCAForLoadBL"></Service>
+	<Service name="bqgrpGrpEdorIRForLoadBL" type="com.sinosoft.lis.bqgrp.GrpEdorIRForLoadBL"></Service>
+	<Service name="bqgrpGEdorTypeXTForLoadBL" type="com.sinosoft.lis.bqgrp.GEdorTypeXTForLoadBL"></Service>
+	<Service name="bqgrpPGrpEdorAADetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorAADetailUI"></Service>
+	<Service name="bqgrpPGrpEdorAADetailBL" type="com.sinosoft.lis.bqgrp.PGrpEdorAADetailBL"></Service>
+	<Service name="bqgrpPGrpEdorACDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorACDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorATDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorATDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorAXDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorAXDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorAZDetailBL" type="com.sinosoft.lis.bqgrp.PGrpEdorAZDetailBL"></Service>
+	<Service name="bqgrpPEdorBBDetailUI" type="com.sinosoft.lis.bqgrp.PEdorBBDetailUI"></Service>
+	<Service name="bqgrpPEdorBCDetailUI" type="com.sinosoft.lis.bqgrp.PEdorBCDetailUI"></Service>
+	<Service name="bqgrpGEdorCADetailUI" type="com.sinosoft.lis.bqgrp.GEdorCADetailUI"></Service>
+	<Service name="bqgrpPGrpEdorCBDetailBL" type="com.sinosoft.lis.bqgrp.PGrpEdorCBDetailBL"></Service>
+	<Service name="bqgrpPGrpEdorCTDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorCTDetailUI"></Service>
+	<Service name="bqgrpGEdorEIDetailUI" type="com.sinosoft.lis.bqgrp.GEdorEIDetailUI"></Service>
+	<Service name="bqgrpGEdorTypeESDetailBL" type="com.sinosoft.lis.bqgrp.GEdorTypeESDetailBL"></Service>
+	<Service name="bqgrpPEdorGADetailUI" type="com.sinosoft.lis.bqgrp.PEdorGADetailUI"></Service>
+	<Service name="bqgrpPGrpEdorGBDetailBL" type="com.sinosoft.lis.bqgrp.PGrpEdorGBDetailBL"></Service>
+	<Service name="bqgrpGrpEdorGMDetailUI" type="com.sinosoft.lis.bqgrp.GrpEdorGMDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorICDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorICDetailUI"></Service>
+	<Service name="bqgrpGEdorTypeJBDetailBL" type="com.sinosoft.lis.bqgrp.GEdorTypeJBDetailBL"></Service>
+	<Service name="bqgrpGrpEdorLNDetailBL" type="com.sinosoft.lis.bqgrp.GrpEdorLNDetailBL"></Service>
+	<Service name="bqgrpGrpEdorLRDetailUI" type="com.sinosoft.lis.bqgrp.GrpEdorLRDetailUI"></Service>
+	<Service name="bqgrpGrpEdorNIDetailUI" type="com.sinosoft.lis.bqgrp.GrpEdorNIDetailUI"></Service>
+	<Service name="bqgrpGrpEdorNPDetailUI" type="com.sinosoft.lis.bqgrp.GrpEdorNPDetailUI"></Service>
+	<Service name="bqgrpGEdorPLDetailBL" type="com.sinosoft.lis.bqgrp.GEdorPLDetailBL"></Service>
+	<Service name="bqgrpPGrpEdorPTDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorPTDetailUI"></Service>
+	<Service name="bqgrpGrpEdorRFDetailBLF" type="com.sinosoft.lis.bqgrp.GrpEdorRFDetailBLF"></Service>
+	<Service name="bqgrpPGrpEdorSCDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorSCDetailUI"></Service>
+	<Service name="bqgrpGrpEdorWTDetailUI" type="com.sinosoft.lis.bqgrp.GrpEdorWTDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorXTDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorXTDetailUI"></Service>
+	<Service name="bqgrpPGrpEdorZTDetailUI" type="com.sinosoft.lis.bqgrp.PGrpEdorZTDetailUI"></Service>
+	<Service name="bqEdorPayGetFormChangeDealBL" type="com.sinosoft.lis.bq.EdorPayGetFormChangeDealBL"></Service>
+	<Service name="bqGEdorGrpPolManuUWBL" type="com.sinosoft.lis.bq.GEdorGrpPolManuUWBL"></Service>
+	<Service name="bqGEdorAppItemBL" type="com.sinosoft.lis.bq.GEdorAppItemBL"></Service>
+	<Service name="bqgrpSubAccForLoadBL" type="com.sinosoft.lis.bqgrp.SubAccForLoadBL"></Service>
+	<Service name="f1printCompositeQueryReportBL" type="com.sinosoft.lis.f1print.CompositeQueryReportBL"></Service>
+	<Service name="f1printBQCheckUI" type="com.sinosoft.lis.f1print.BQCheckUI"></Service>
+	<Service name="bqgrpGrpEdorGAForLoadBL" type="com.sinosoft.lis.bqgrp.GrpEdorGAForLoadBL"></Service>
+	<Service name="bqgrpGrpEdorAmntForLoadBL" type="com.sinosoft.lis.bqgrp.GrpEdorAmntForLoadBL"></Service>
+	<Service name="sysBonusRateBL" type="com.sinosoft.lis.sys.BonusRateBL"></Service>
+	<Service name="sysBonusCheckBL" type="com.sinosoft.lis.sys.BonusCheckBL"></Service>
+	<Service name="getBonusCountManuBL" type="com.sinosoft.lis.get.BonusCountManuBL"></Service>
+	<Service name="getBonusAssignManuBL" type="com.sinosoft.lis.get.BonusAssignManuBL"></Service>
+	<Service name="getBonusPreCountManuBL" type="com.sinosoft.lis.get.BonusPreCountManuBL"></Service>
+	<Service name="bqgrpGEdorTypeZTDetailUI" type="com.sinosoft.lis.bqgrp.GEdorTypeZTDetailUI"></Service>
+	<Service name="bqgrpGEdorTypeZTForLoadBL" type="com.sinosoft.lis.bqgrp.GEdorTypeZTForLoadBL"></Service>
+	<Service name="bqInsuAccBalaManu" type="com.sinosoft.lis.bq.InsuAccBalaManu"></Service>
+	<Service name="sysBounsRiskPreUI" type="com.sinosoft.lis.sys.BounsRiskPreUI"></Service>
+	<Service name="sysBounsRiskCheckPreUI" type="com.sinosoft.lis.sys.BounsRiskCheckPreUI"></Service>
+	<Service name="tbgrpGrpAssignBonus" type="com.sinosoft.lis.tbgrp.GrpAssignBonus"></Service>
+	<Service name="cbcheckgrpBonusGrpPolParmSaveUI" type="com.sinosoft.lis.cbcheckgrp.BonusGrpPolParmSaveUI"></Service>
+	<Service name="bqGEdorNoticeSaveUI" type="com.sinosoft.lis.bq.GEdorNoticeSaveUI"></Service>
+
+	<!--Yuanzw-->
+	
+	<!--workflow-->
+	<Service name="WorkDayDefUI" type="com.sinosoft.lis.workflowmanage.WorkDayDefUI">
+	</Service>	
+	<Service name="WorkDayUpdateUI" type="com.sinosoft.lis.workflowmanage.WorkDayUpdateUI">
+	</Service>		
+	<Service name="BaseDataUI" type="com.sinosoft.lis.workflowmanage.BaseDataUI">
+	</Service>	
+	<Service name="ActivityDefUI" type="com.sinosoft.lis.workflowmanage.ActivityDefUI">
+	</Service>		
+	<Service name="ProcessDefUI" type="com.sinosoft.lis.workflowmanage.ProcessDefUI">
+	</Service>		
+	<Service name="activeUI" type="com.sinosoft.lis.wfpic.activeUI">
+	</Service>			
+	<Service name="VersionCtrlUI" type="com.sinosoft.lis.workflowmanage.VersionCtrlUI">
+	</Service>	
+	<Service name="MissionCtrlUI" type="com.sinosoft.lis.workflowmanage.MissionCtrlUI">
+	</Service>		
+	<Service name="LWConditionUI" type="com.sinosoft.lis.wfpic.LWConditionUI">
+	</Service>		
+	<Service name="FindVATRateUI" type="com.sinosoft.lis.vat.LDVATConfigUI">
+	</Service>
+	<Service name="ConfigVATRateUI" type="com.sinosoft.lis.vat.ConfigVATRateUI">
+	</Service>
+	<Service name="ConfigVATRiskGrpUI" type="com.sinosoft.lis.vat.ConfigVATRiskGrpUI">
+	</Service>
+					
+	
+		
+	
+	<Service name="FinPayDayF1PUI" type="com.sinosoft.lis.f1print.FinPayDayF1PUI"></Service>
+	<Service name="FinChargeDayModeF1PUI" type="com.sinosoft.lis.f1print.FinChargeDayModeF1PUI"></Service>
+	<Service name="FinChargeDayRiskF1PUI" type="com.sinosoft.lis.f1print.FinChargeDayRiskF1PUI"></Service>
+	<Service name="FFChargeDayRiskF1PUI" type="com.sinosoft.lis.f1print.FFChargeDayRiskF1PUI"></Service>
+	<Service name="FFChargeDayModeF1PUI" type="com.sinosoft.lis.f1print.FFChargeDayModeF1PUI"></Service>
+	<Service name="FinDayCheckUI" type="com.sinosoft.lis.f1print.FinDayCheckUI"></Service>
+	<Service name="FinDayListUI" type="com.sinosoft.lis.finfee.FinDayListUI"></Service>
+	<Service name="YBTFinfeeBL" type="com.sinosoft.lis.finfee.YBTFinfeeBL"></Service>
+	<Service name="TempFeeUI" type="com.sinosoft.lis.finfee.TempFeeUI"></Service>
+	<Service name="VerDuePayFeeQueryUI" type="com.sinosoft.lis.operfee.VerDuePayFeeQueryUI"></Service>
+	<Service name="TempFeeTypeQueryUI" type="com.sinosoft.lis.finfee.TempFeeTypeQueryUI"></Service>
+	<Service name="LJAGetQueryUI" type="com.sinosoft.lis.finfee.LJAGetQueryUI"></Service>
+	<Service name="OperFinFeeGetUI" type="com.sinosoft.lis.finfee.OperFinFeeGetUI"></Service>
+	<Service name="GetChequeBL" type="com.sinosoft.lis.f1print.GetChequeBL"></Service>
+	<Service name="FinFeeNotSureUI" type="com.sinosoft.lis.cbcheck.FinFeeNotSureUI"></Service>
+	<Service name="FinFeeSureUI" type="com.sinosoft.lis.cbcheck.FinFeeSureUI"></Service>
+	<Service name="TempFeeQueryUI" type="com.sinosoft.lis.finfee.TempFeeQueryUI"></Service>
+	<Service name="TempFeeUpdateUI" type="com.sinosoft.lis.finfee.TempFeeUpdateUI"></Service>
+	<Service name="ModifyBankInfoUI" type="com.sinosoft.lis.bank.ModifyBankInfoUI"></Service>
+	<Service name="ModifyLJAGetUI" type="com.sinosoft.lis.finfee.ModifyLJAGetUI"></Service>
+	<Service name="RnewPolStatusChkUI" type="com.sinosoft.lis.xb.RnewPolStatusChkUI"></Service>
+	<Service name="RnSpecialAvailiable" type="com.sinosoft.lis.operfee.RnSpecialAvailiable"></Service>
+	<Service name="LRNSpecialAvailablePrintUI" type="com.sinosoft.lis.f1print.LRNSpecialAvailablePrintUI"></Service>
+	<Service name="PreParePayPersonUI" type="com.sinosoft.lis.operfee.PreParePayPersonUI"></Service>
+	<Service name="ExcelChange" type="com.sinosoft.lis.operfee.ExcelChange"></Service>
+	<Service name="FileImportPreParePayPersonUI" type="com.sinosoft.lis.operfee.FileImportPreParePayPersonUI"></Service>
+	<Service name="ReVerifyRollBackUI" type="com.sinosoft.lis.reagent.ReVerifyRollBackUI"></Service>
+	<Service name="SpePolBankTagUI" type="com.sinosoft.lis.reagent.SpePolBankTagUI"></Service>
+	<Service name="RenewBankManageUI" type="com.sinosoft.lis.bank.RenewBankManageUI"></Service>
+	<Service name="IndiDueFeePartUI" type="com.sinosoft.lis.operfee.IndiDueFeePartUI"></Service>
+	<Service name="IndiDueFeeCancelUI" type="com.sinosoft.lis.operfee.IndiDueFeeCancelUI"></Service>
+	<Service name="SZParseXML" type="com.sinosoft.lis.szagent.SZParseXML"></Service>
+	<Service name="OrphanPolDlUI" type="com.sinosoft.lis.reagent.OrphanPolDlUI"></Service>
+	<Service name="LFGetNoticePrintUI" type="com.sinosoft.lis.get.LFGetNoticePrintUI"></Service>
+	<Service name="PayPlanCancelBL" type="com.sinosoft.lis.get.PayPlanCancelBL"></Service>
+	<Service name="PayPlanUI" type="com.sinosoft.lis.get.PayPlanUI"></Service>
+	<Service name="PersonPayPlanCancelUI" type="com.sinosoft.lis.get.PersonPayPlanCancelUI"></Service>
+	<Service name="PersonPayPlanUI" type="com.sinosoft.lis.get.PersonPayPlanUI"></Service>
+	<Service name="WriteToFileUI" type="com.sinosoft.lis.bank.WriteToFileUI"></Service>
+	<Service name="ReadFromFileUI" type="com.sinosoft.lis.bank.ReadFromFileUI"></Service>
+	<Service name="CancelReadFromFileUI" type="com.sinosoft.lis.bank.CancelReadFromFileUI"></Service>
+	<Service name="GetReturnFromBankUI" type="com.sinosoft.lis.bank.GetReturnFromBankUI"></Service>
+	<Service name="PaySendToBankUI" type="com.sinosoft.lis.bank.PaySendToBankUI"></Service>
+	<Service name="ParseXML" type="com.sinosoft.lis.agentprint.ParseXML"></Service>
+	<Service name="REZipCodeUI" type="com.sinosoft.lis.reagent.REZipCodeUI"></Service>
+	<Service name="SZAddCodeUI" type="com.sinosoft.lis.szagent.SZAddCodeUI"></Service>
+	<Service name="SZAgentToZipCodeUI" type="com.sinosoft.lis.szagent.SZAgentToZipCodeUI"></Service>
+	<Service name="AdimToManageComUI" type="com.sinosoft.lis.reagent.AdimToManageComUI"></Service>
+	<Service name="NewAutoAscriptUI" type="com.sinosoft.lis.reagent.NewAutoAscriptUI"></Service>
+	<Service name="ReAgentPlcAssignUI" type="com.sinosoft.lis.reagent.ReAgentPlcAssignUI"></Service>
+	<Service name="ReAgentLZDownUI" type="com.sinosoft.lis.reagent.ReAgentLZDownUI"></Service>
+	<Service name="ReAgentPlcAssignDimUI" type="com.sinosoft.lis.reagent.ReAgentPlcAssignDimUI"></Service>
+	<Service name="SZAddCodePrtUI" type="com.sinosoft.lis.szagent.SZAddCodePrtUI"></Service>
+	<Service name="SZPolAscriptUI" type="com.sinosoft.lis.szagent.SZPolAscriptUI"></Service>
+	
+	<!--add by gaobo for QuotationTemplate ExcelImport start-->
+	<Service name="AskPriceExcelUI" type="com.sinosoft.workflow.askprice.AskPriceExcelUI"></Service>	
+	<!--add by gaobo for QuotationTemplate ExcelImport end-->
+	
+	<!--add liupeng-->
+	<Service name="LLMedicalFeeInp8UI" type="com.sinosoft.lis.claim.LLMedicalFeeInp8UI">
+	</Service>	
+	
+		
+	<!--zhouwh quotation related classes-->
+	<Service name="LATBClassUI" type="com.sinosoft.workflow.askprice.LATBClassUI">
+	</Service>			
+	<Service name="AskPricePolUI" type="com.sinosoft.workflow.askprice.AskPricePolUI">
+	</Service>	 
+	<Service name="LCContPlanUI" type="com.sinosoft.workflow.askprice.LCContPlanUI">
+	</Service>	 
+	<Service name="LQCensusUI" type="com.sinosoft.workflow.askprice.LQCensusUI">
+	</Service>	 
+	<Service name="LQClaimHistoryUI" type="com.sinosoft.workflow.askprice.LQClaimHistoryUI">
+	</Service>	 
+	<Service name="LQClaimRiskUI" type="com.sinosoft.workflow.askprice.LQClaimRiskUI">
+	</Service>	 
+	<Service name="LQClaimExpenseUI" type="com.sinosoft.workflow.askprice.LQClaimExpenseUI">
+	</Service>	 
+	<Service name="LQClaimExpenseUI" type="com.sinosoft.workflow.askprice.LQClaimExpenseUI">
+	</Service>	 
+	<Service name="LABranchConfirmUI" type="com.sinosoft.workflow.askprice.LABranchConfirmUI">
+	</Service>
+	
+	<!--add by nandd-->
+	<Service name="LOAccUnitPriceUI" type="com.sinosoft.lis.acc.LOAccUnitPriceUI"></Service>
+	<Service name="DealInsuAcc" type="com.sinosoft.lis.acc.DealInsuAcc"></Service>
+	<Service name="DealInsuAccPrint" type="com.sinosoft.lis.acc.DealInsuAccPrint"></Service>		 
+		
+	<!--add by xiongzh-->
+	<Service name="PEdorARDetailUI" type="com.sinosoft.lis.bq.PEdorARDetailUI"></Service>
+	
+	<Service name="FICustomerMain" type="com.sinosoft.lis.customer.FICustomerMain"></Service>
+	<Service name="FinFeeUI" type="com.sinosoft.lis.finfee.FinFeeUI"></Service>
+	
+	<!--add by tongmeng-->
+	<Service name="NBErrorModifyUI" type="com.sinosoft.lis.acc.NBErrorModifyUI"></Service>
+	
+	<!--add by tongmeng-->
+	<Service name="PremDiscountDefUI" type="com.sinosoft.lis.config.PremDiscountDefUI"></Service>
+	
+	
+		
+	<!--add by tongmeng-->
+	<Service name="GetSendToBankUI" type="com.sinosoft.lis.bank.GetSendToBankUI"></Service>
+	
+	<!-- PrintManage  added by guoxiang -->
+	<Service name="LPrtDefinitionUI" type="com.sinosoft.print.manage.LPrtDefinitionUI"></Service>
+	<Service name="LPrtTemApproveUI" type="com.sinosoft.print.manage.LPrtTemApproveUI"></Service>
+	<Service name="LPrtTempleteUI" type="com.sinosoft.print.manage.LPrtTempleteUI"></Service>
+	<Service name="LPrtXmlStyleUI" type="com.sinosoft.print.manage.LPrtXmlStyleUI"></Service>
+	<Service name="PrintControl" type="com.sinosoft.print.show.PrintControl"></Service>
+	<Service name="VtsPrint" type="com.sinosoft.print.show.VtsPrint"></Service>
+	<Service name="PdfPrint" type="com.sinosoft.print.show.PdfPrint"></Service>
+	<Service name="XslPrint" type="com.sinosoft.print.show.XslPrint"></Service>	
+	<Service name="CreateXMLFile" type="com.sinosoft.print.func.CreateXMLFile"></Service>	
+	<Service name="PdfJxlPrint" type="com.sinosoft.print.show.pdf.PdfJxlPrint"></Service>
+	<!--add by huangliang-->
+	<Service name="CsvPrint" type="com.sinosoft.print.show.CsvPrint"></Service>
+	
+	<!--productdef-->
+	<Service name="PDRiskGraceUI" type="com.sinosoft.productdef.PDRiskGraceUI"></Service>
+	<Service name="PDDiscountDefiUI" type="com.sinosoft.productdef.PDDiscountDefiUI"></Service>
+	
+	<Service name="RiskTestCal" type="com.sinosoft.productdef.RiskTestCal"></Service>
+	<Service name="PDCheckFieldBL" type="com.sinosoft.productdef.PDCheckFieldBL"></Service>
+	<Service name="PDUMBL" type="com.sinosoft.productdef.PDUMBL"></Service>
+	<Service name="PDEdorDefiEntryBL" type="com.sinosoft.productdef.PDEdorDefiEntryBL"></Service>
+	<Service name="PDDutyGetClmBL" type="com.sinosoft.productdef.PDDutyGetClmBL"></Service>
+	<Service name="PDDutyGetAliveBL" type="com.sinosoft.productdef.PDDutyGetAliveBL"></Service>
+	<Service name="PDRiskRoleBL" type="com.sinosoft.productdef.PDRiskRoleBL"></Service>
+	<Service name="PDIssueQueryBL" type="com.sinosoft.productdef.PDIssueQueryBL"></Service>
+	<Service name="PDIssueInputBL" type="com.sinosoft.productdef.PDIssueInputBL"></Service>
+	<Service name="ProdDefWorkFlowBL" type="com.sinosoft.workflow.proddef.ProdDefWorkFlowBL"></Service>
+	<Service name="PDPrepAndDealWFBL" type="com.sinosoft.workflow.proddef.PDPrepAndDealWFBL"></Service>
+	<Service name="PDSaleControlBL" type="com.sinosoft.productdef.PDSaleControlBL"></Service>
+	<Service name="PDRiskSortDefiBL" type="com.sinosoft.productdef.PDRiskSortDefiBL"></Service>
+	<Service name="PDRiskParamsDefBL" type="com.sinosoft.productdef.PDRiskParamsDefBL"></Service>
+	<Service name="PDRiskParamsDetailDefBL" type="com.sinosoft.productdef.PDRiskParamsDetailDefBL"></Service>
+	<Service name="PDRiskDefiBL" type="com.sinosoft.productdef.PDRiskDefiBL"></Service>
+	<Service name="PDRiskCopyBL" type="com.sinosoft.productdef.PDRiskCopyBL"></Service>
+	<Service name="PDRiskDutyBL" type="com.sinosoft.productdef.PDRiskDutyBL"></Service>
+	<Service name="PDRiskDutyRelaBL" type="com.sinosoft.productdef.PDRiskDutyRelaBL"></Service>
+	<Service name="PDRiskInsuAccBL" type="com.sinosoft.productdef.PDRiskInsuAccBL"></Service>
+	<Service name="PDRelaBillBL" type="com.sinosoft.productdef.PDRelaBillBL"></Service>
+	<Service name="PDRiskAccGetBL" type="com.sinosoft.productdef.PDRiskAccGetBL"></Service>
+	<Service name="PDRiskAccPayBL" type="com.sinosoft.productdef.PDRiskAccPayBL"></Service>
+	<Service name="PDRiskFeeBL" type="com.sinosoft.productdef.PDRiskFeeBL"></Service>
+	<Service name="PDDutyPayAddFeeBL" type="com.sinosoft.productdef.PDDutyPayAddFeeBL"></Service>
+	<Service name="RiskFaceDefUI" type="com.sinosoft.productdef.RiskFaceDefUI"></Service>
+	<Service name="PDDeployPubRuleBL" type="com.sinosoft.productdef.PDDeployPubRuleBL"></Service>
+	<Service name="LDMsgUI" type="com.sinosoft.productdef.LDMsgUI"></Service>
+	<Service name="InitDutyPayColSelUI" type="com.sinosoft.productdef.InitDutyPayColSelUI"></Service>
+	<!-- whc -->
+	<Service name="PDLCalculatorUI" type="com.sinosoft.productdef.PDLCalculatorUI"></Service>
+	<Service name="PDLDPlanFeeRelaUI" type="com.sinosoft.productdef.PDLDPlanFeeRelaUI"></Service>
+	<Service name="PDLCalculatorULBL" type="com.sinosoft.lis.sysinterface.PDLCalculatorULBL.PDLCalculatorULBL"></Service>
+	<Service name="PDLDPlanFeeRelaULBL" type="com.sinosoft.lis.sysinterface.PDLDPlanFeeULBL.PDLDPlanFeeRelaULBL"></Service>
+	<!--productdef-->
+	
+	 <!-- add by qihe end -->
+	<Service name="PDSugIncomeDataAlgBL" type="com.sinosoft.productdef.PDSugIncomeDataAlgBL"></Service>
+	<Service name="PDSugIncomeFactorBL" type="com.sinosoft.productdef.PDSugIncomeFactorBL"></Service>
+	<Service name="PDSugTabHeadConfBL" type="com.sinosoft.productdef.PDSugTabHeadConfBL"></Service>
+	<Service name="PDSugRateBL" type="com.sinosoft.productdef.PDSugRateBL"></Service>
+	<Service name="PDSugRateTypeBL" type="com.sinosoft.productdef.PDSugRateTypeBL"></Service>
+	<Service name="PDSugTypeManageBL" type="com.sinosoft.productdef.PDSugTypeManageBL"></Service>
+	<Service name="PDSugStaticDocumentBL" type="com.sinosoft.productdef.PDSugStaticDocumentBL"></Service>
+	<Service name="PDSugTabHeadTypeBL" type="com.sinosoft.productdef.PDSugTabHeadTypeBL"></Service>
+	<Service name="PDSugIncomeTabHeadBL" type="com.sinosoft.productdef.PDSugIncomeTabHeadBL"></Service>
+	<Service name="PDSugMultiLanguageBL" type="com.sinosoft.productdef.PDSugMultiLanguageBL"></Service>
+	<Service name="PDSugInsureControlEleBL" type="com.sinosoft.productdef.PDSugInsureControlEleBL"></Service>
+	<!-- add by qihe end -->
+	
+	<!--finfeeinterface add by Cuizhe-->
+	<Service name="FIVersionRuleUI" type="com.sinosoft.lis.fininterface.FIVersionRuleUI"></Service>
+	<Service name="CodeUI" type="com.sinosoft.lis.fininterface.CodeUI"></Service>
+	<Service name="FIPeriodManagementUI" type="com.sinosoft.lis.fininterface.FIPeriodManagementUI"></Service>
+	<Service name="FIDataBaseLinkUI" type="com.sinosoft.lis.fininterface.FIDataBaseLinkUI"></Service>
+	<Service name="FIFinItemDefUI" type="com.sinosoft.lis.fininterface.FIFinItemDefUI"></Service>
+	<Service name="FIInfoFinItemAssociatedUI" type="com.sinosoft.lis.fininterface.FIInfoFinItemAssociatedUI"></Service>
+	<Service name="FIDetailFinItemDefUI" type="com.sinosoft.lis.fininterface.FIDetailFinItemDefUI"></Service>
+	<Service name="FIDetailFinItemCodeUI" type="com.sinosoft.lis.fininterface.FIDetailFinItemCodeUI"></Service>
+	<Service name="FIAssociatedItemDefUI" type="com.sinosoft.lis.fininterface.FIAssociatedItemDefUI"></Service>
+	
+	<Service name="FICostDataKeyDefUI" type="com.sinosoft.lis.fininterface.FICostDataKeyDefUI"></Service>
+	<Service name="FIRuleEngineService1" type="com.sinosoft.lis.fininterface.checkdata.FIRuleEngineService1"></Service>
+	<Service name="FIRuleDealErrDataBL" type="com.sinosoft.lis.fininterface.checkdata.FIRuleDealErrDataBL"></Service>
+	
+	<Service name="FICostDataBaseDefUI" type="com.sinosoft.lis.fininterface.FICostDataBaseDefUI"></Service>
+	<Service name="FIAssociatedDirectItemDefUI" type="com.sinosoft.lis.fininterface.FIAssociatedDirectItemDefUI"></Service>
+	<Service name="FIInfoFinItemAssociatedUI" type="com.sinosoft.lis.fininterface.FIInfoFinItemAssociatedUI"></Service>
+	<Service name="FIInfoFinItemAssociatedUI" type="com.sinosoft.lis.fininterface.FIInfoFinItemAssociatedUI"></Service>
+	<Service name="FIInfoFinItemAssociatedUI" type="com.sinosoft.lis.fininterface.FIInfoFinItemAssociatedUI"></Service>	
+	<!--finfeeinterface-->
+	
+	<Service name="BqBillUI" type="com.sinosoft.lis.f1print.BqBillUI"></Service>
+	<Service name="LABankTreeUI" type="com.sinosoft.lis.agent.LABankTreeUI"></Service>
+	<Service name="ALABankAgentUI" type="com.sinosoft.lis.agent.ALABankAgentUI"></Service>
+	<Service name="ALABankAgentConfirmBL" type="com.sinosoft.lis.agent.ALABankAgentConfirmBL"></Service>
+	<Service name="ALABranchManagerUI" type="com.sinosoft.lis.wagecal.ALABranchManagerUI"></Service>
+	<Service name="InstitutionInfoStructureUI" type="com.sinosoft.lis.agentprint.InstitutionInfoStructureUI"></Service>
+	<Service name="AdjustAgentUI" type="com.sinosoft.lis.wagecal.AdjustAgentUI"></Service>
+	<Service name="LAAgentBlacklistUI" type="com.sinosoft.lis.agent.LAAgentBlacklistUI"></Service>
+
+	<Service name="ALAFRAgentUI" type="com.sinosoft.lis.agent.ALAFRAgentUI"></Service>
+
+	<Service name="AgentInfoPrintUI" type="com.sinosoft.lis.agentprint.AgentInfoPrintUI"></Service>
+	<Service name="ALABankDimissionUI" type="com.sinosoft.lis.wagecal.ALABankDimissionUI"></Service>
+	<Service name="LACommisionF1PUI" type="com.sinosoft.lis.agentcalculate.LACommisionF1PUI"></Service>
+	<Service name="ALAPlanUI" type="com.sinosoft.lis.wagecal.ALAPlanUI"></Service>
+	<Service name="BKAgentAssessMarkUI" type="com.sinosoft.lis.agentcalculate.BKAgentAssessMarkUI"></Service>
+	<Service name="LAAssessInputUI" type="com.sinosoft.lis.wagecal.LAAssessInputUI"></Service>
+	<Service name="LARateChargeUI" type="com.sinosoft.lis.wagecal.LARateChargeUI"></Service>
+	<Service name="YDChargeBL" type="com.sinosoft.lis.agentcalculate.YDChargeBL"></Service>
+	<Service name="PoundCalUI" type="com.sinosoft.lis.agentcalculate.PoundCalUI"></Service>
+	<Service name="BankLAComUI" type="com.sinosoft.lis.agentquery.BankLAComUI"></Service>
+	<!--ibrms-->
+	<Service name="LDBomUI" type="com.sinosoft.ibrms.LDBomUI"></Service>
+	<Service name="LDItemUI" type="com.sinosoft.ibrms.LDItemUI"></Service>
+	<Service name="BOMMakerUI" type="com.sinosoft.ibrms.BOMMakerUI"></Service>
+	<Service name="CommandUI" type="com.sinosoft.ibrms.CommandUI"></Service>
+	<Service name="RuleMakeUI" type="com.sinosoft.ibrms.RuleMakeUI"></Service>
+	<Service name="QueryViewParameterUI" type="com.sinosoft.ibrms.QueryViewParameterUI"></Service>
+	<Service name="PubFun1UI" type="com.sinosoft.lis.pubfun.PubFun1UI"></Service>
+	<Service name="QueryForDTDataUI" type="com.sinosoft.ibrms.QueryForDTDataUI"></Service>
+	<Service name="LRTemplateTUI" type="com.sinosoft.ibrms.LRTemplateTUI"></Service>
+	<Service name="RuleImportExcelBL" type="com.sinosoft.ibrms.RuleImportExcelBL"></Service>
+	<Service name="IbrmsTestServiceUI" type="com.sinosoft.ibrms.IbrmsTestServiceUI"></Service>
+	<!--ibrms-->
+	
+	<!--TaskService-->
+	<Service name="TaskServiceUI" type="com.sinosoft.lis.taskservice.TaskServiceUI"></Service>
+	<Service name="TaskTabMapInit" type="com.sinosoft.lis.taskservice.TaskTabMapInit"></Service>
+	<Service name="TaskMonitorUI" type="com.sinosoft.lis.taskservice.TaskMonitorUI"></Service>
+	<Service name="TaskServiceRssUI" type="com.sinosoft.lis.taskservice.TaskServiceRssUI"></Service>
+	<!--TaskService-->
+	
+	<!--LogComponent-->
+	<Service name="LogComponentUI" type="com.sinosoft.lis.logmanage.LogComponentUI"></Service>
+	<!--LogComponent-->
+	
+	
+	<!-- UnifyCodeManageCom -->
+	<Service name="LDUnifyCodeTypeUI" type="com.sinosoft.lis.maintain.LDUnifyCodeTypeUI"></Service>
+	
+	
+	<!-- System Config -->
+	<Service name="LDSysVarConfigUI" type="com.sinosoft.lis.config.LDSysVarConfigUI"></Service>
+	<Service name="LDCode1ConfigUI" type="com.sinosoft.lis.config.LDCode1ConfigUI"></Service>
+	<Service name="LDCurrencyConfigUI" type="com.sinosoft.lis.config.LDCurrencyConfigUI"></Service>
+	<Service name="LDMaxNoConfigUI" type="com.sinosoft.lis.config.LDMaxNoConfigUI"></Service>
+	<!-- End System Config-->
+	
+	<!-- Easy Scan -->
+	<Service name="LisImageShowUI" type="com.sinosoft.lis.easyscan.LisImageShowUI"></Service>
+	<!-- End Easy Scan -->
+	
+	<!-- 系统合并 -->
+	<!-- 客户管理 -->
+	<Service name="PreCustomerUI" type="com.sinosoft.lis.g_customer.PreCustomerUI"></Service>
+	<Service name="PreCustomerUnlockUI" type="com.sinosoft.lis.g_customer.PreCustomerUnlockUI"></Service>
+	<Service name="LDInsuredStateUI" type="com.sinosoft.lis.g_customer.LDInsuredStateUI"></Service>
+	
+	<!-- 询报价管理 -->
+	<Service name="LSQuotETQueryUI" type="com.sinosoft.lis.g_quot.LSQuotETQueryUI"></Service>
+	<Service name="LSQuotETBasicUI" type="com.sinosoft.lis.g_quot.LSQuotETBasicUI"></Service>
+	<Service name="LSQuotPlanUI" type="com.sinosoft.lis.g_quot.LSQuotPlanUI"></Service>
+	<Service name="LSQuotPlanDetailUI" type="com.sinosoft.lis.g_quot.LSQuotPlanDetailUI"></Service>
+	<Service name="LSQuotRequestUI" type="com.sinosoft.lis.g_quot.LSQuotRequestUI"></Service>
+	<Service name="LSQuotFeeUI" type="com.sinosoft.lis.g_quot.LSQuotFeeUI"></Service>
+	<Service name="LSQuotPastUI" type="com.sinosoft.lis.g_quot.LSQuotPastUI"></Service>
+	<Service name="LSQuotPersonUWUI" type="com.sinosoft.lis.g_quot.LSQuotPersonUWUI"></Service>
+	<Service name="LSQuotProjQueryUI" type="com.sinosoft.lis.g_quot.LSQuotProjQueryUI"></Service>
+	<Service name="LSQuotProjBasicUI" type="com.sinosoft.lis.g_quot.LSQuotProjBasicUI"></Service>
+	<Service name="LSQuotGrpSpecUI" type="com.sinosoft.lis.g_quot.LSQuotGrpSpecUI"></Service>
+	<Service name="LSQuotPlanCombiUI" type="com.sinosoft.lis.g_quot.LSQuotPlanCombiUI"></Service>
+	<Service name="LSQuotUWDetailUI" type="com.sinosoft.lis.g_quot.LSQuotUWDetailUI"></Service>
+	<Service name="LSQuotPlanAllDetailUI" type="com.sinosoft.lis.g_quot.LSQuotPlanAllDetailUI"></Service>
+	<Service name="LSQuotAppUI" type="com.sinosoft.lis.g_quot.LSQuotAppUI"></Service>
+	<Service name="LSQuotFileUI" type="com.sinosoft.lis.g_quot.LSQuotFileUI"></Service>
+	<Service name="LSQuotRevokeUI" type="com.sinosoft.lis.g_quot.LSQuotRevokeUI"></Service>
+	<Service name="LSQuotPlanDetailUI" type="com.sinosoft.lis.g_quot.LSQuotPlanDetailUI"></Service>
+	<Service name="LSProdParamUI" type="com.sinosoft.lis.g_quot.LSProdParamUI"></Service>
+	<Service name="LSEdorRefundCalUI" type="com.sinosoft.lis.g_quot.LSEdorRefundCalUI"></Service>
+	<Service name="LSQuotUWRuleUI" type="com.sinosoft.lis.g_quot.LSQuotUWRuleUI"></Service>
+	<Service name="LSQuotEnterFinalUI" type="com.sinosoft.lis.g_quot.LSQuotEnterFinalUI"></Service>
+	<Service name="LSQuotPrintUI" type="com.sinosoft.lis.g_quot.LSQuotPrintUI"></Service>
+	<Service name="LSQuotPubAmntRelaUI" type="com.sinosoft.lis.g_quot.LSQuotPubAmntRelaUI"></Service>
+	<Service name="LSQuotExpandUI" type="com.sinosoft.lis.g_quot.LSQuotExpandUI"></Service>
+	<Service name="LSQuotSelectPlanUI" type="com.sinosoft.lis.g_quot.LSQuotSelectPlanUI"></Service>
+	<Service name="LSQuotChangePremUI" type="com.sinosoft.lis.g_quot.LSQuotChangePremUI"></Service>
+	<Service name="LSQuotAgainApplyUI" type="com.sinosoft.lis.g_quot.LSQuotAgainApplyUI"></Service>
+	<Service name="LSQuotTryCalUI" type="com.sinosoft.lis.g_quot.LSQuotTryCalUI"></Service>
+	<Service name="LSQuotCoinsuranceUI" type="com.sinosoft.lis.g_quot.LSQuotCoinsuranceUI"></Service>
+	<Service name="LSQuotOfferPrintUI" type="com.sinosoft.lis.g_quot.LSQuotOfferPrintUI"></Service>
+	<Service name="LSQuotPlanImpUI" type="com.sinosoft.lis.g_quot.LSQuotPlanImpUI"></Service>
+	<Service name="LSQuotExpPremUI" type="com.sinosoft.lis.g_quot.LSQuotExpPremUI"></Service>
+	<Service name="LSQuotImpPremUI" type="com.sinosoft.lis.g_quot.LSQuotImpPremUI"></Service>
+	<Service name="LSQuotExpPlanAllDetailUI" type="com.sinosoft.lis.g_quot.LSQuotExpPlanAllDetailUI"></Service>
+	<Service name="LSQuotCombiPrintUI" type="com.sinosoft.lis.g_quot.LSQuotCombiPrintUI"></Service>
+	<Service name="LSQuotCombiOfferUI" type="com.sinosoft.lis.g_quot.LSQuotCombiOfferUI"></Service>
+	<Service name="LSQuotPrintInquiryUI" type="com.sinosoft.lis.g_quot.LSQuotPrintInquiryUI"></Service>
+	<Service name="LSQuotCountRateUI" type="com.sinosoft.lis.g_quot.LSQuotCountRateUI"></Service>
+	<Service name="LSQuotCustInfoImpUI" type="com.sinosoft.lis.g_quot.LSQuotCustInfoImpUI"></Service>
+	<Service name="LSQuotCountRateExpUI" type="com.sinosoft.lis.g_quot.LSQuotCountRateExpUI"></Service>
+	<Service name="LSQuotCountProfitUI" type="com.sinosoft.lis.g_quot.LSQuotCountProfitUI"></Service>
+	<Service name="LSQuotSpecialUI" type="com.sinosoft.lis.g_quot.LSQuotSpecialUI"></Service>
+	<Service name="LSQuotReceivPremUI" type="com.sinosoft.lis.g_quot.LSQuotReceivPremUI"></Service>
+	
+	<!-- 财务管理 -->
+	<Service name="LJTempFeeApplyUI" type="com.sinosoft.lis.g_finfee.LJTempFeeApplyUI"></Service>
+	<Service name="LJTempFeeEnterUI" type="com.sinosoft.lis.g_finfee.LJTempFeeEnterUI"></Service>
+	<Service name="LJTempFeeConfirmUI" type="com.sinosoft.lis.g_finfee.LJTempFeeConfirmUI"></Service>
+	<Service name="LJMatchApplyUI" type="com.sinosoft.lis.g_finfee.LJMatchApplyUI"></Service>
+	<Service name="LJPremMatchUI" type="com.sinosoft.lis.g_finfee.LJPremMatchUI"></Service>
+	<Service name="LJMatchConfirmUI" type="com.sinosoft.lis.g_finfee.LJMatchConfirmUI"></Service>
+	<Service name="LJMatchPrintUI" type="com.sinosoft.lis.g_finfee.LJMatchPrintUI"></Service>
+	<Service name="LJTempFeeOutApplyUI" type="com.sinosoft.lis.g_finfee.LJTempFeeOutApplyUI"></Service>
+	<Service name="LJTempFeeOutConfirmUI" type="com.sinosoft.lis.g_finfee.LJTempFeeOutConfirmUI"></Service>
+	<Service name="LJOutPayOutApplyUI" type="com.sinosoft.lis.g_finfee.LJOutPayOutApplyUI"></Service>
+	<Service name="LJOutPayOutConfirmUI" type="com.sinosoft.lis.g_finfee.LJOutPayOutConfirmUI"></Service>
+	<Service name="LJGetManualApplyUI" type="com.sinosoft.lis.g_finfee.LJGetManualApplyUI"></Service>
+	<Service name="LJGetManualAppSubUI" type="com.sinosoft.lis.g_finfee.LJGetManualAppSubUI"></Service>
+	<Service name="LJGetManualConfirmSubUI" type="com.sinosoft.lis.g_finfee.LJGetManualConfirmSubUI"></Service>
+	<Service name="LJModifyBankApplyUI" type="com.sinosoft.lis.g_finfee.LJModifyBankApplyUI"></Service>
+	<Service name="LJModifyBankConfirmUI" type="com.sinosoft.lis.g_finfee.LJModifyBankConfirmUI"></Service>
+	<Service name="LJSendToBankAgainUI" type="com.sinosoft.lis.g_finfee.LJSendToBankAgainUI"></Service>
+	<Service name="LJPremMatchPrintUI" type="com.sinosoft.lis.g_finfee.LJPremMatchPrintUI"></Service>
+	<Service name="LJDebtsPayApplyUI" type="com.sinosoft.lis.g_finfee.LJDebtsPayApplyUI"></Service>
+	<Service name="LJDebtsPayConfirmUI" type="com.sinosoft.lis.g_finfee.LJDebtsPayConfirmUI"></Service>
+	<Service name="LJDebtsGetApplyUI" type="com.sinosoft.lis.g_finfee.LJDebtsGetApplyUI"></Service>
+	<Service name="LJDebtsGetAppSubUI" type="com.sinosoft.lis.g_finfee.LJDebtsGetAppSubUI"></Service>
+	<Service name="LJDebtsGetConfirmSubUI" type="com.sinosoft.lis.g_finfee.LJDebtsGetConfirmSubUI"></Service>
+	<Service name="LJGetManualPrintUI" type="com.sinosoft.lis.g_finfee.LJGetManualPrintUI"></Service>
+	<Service name="LJSendDelayMessUI" type="com.sinosoft.lis.g_finfee.LJSendDelayMessUI"></Service>
+	
+	<!-- 系统辅助功能 -->
+	<Service name="LDUWUserUI" type="com.sinosoft.lis.g_auxi.LDUWUserUI"></Service>
+	<Service name="LDUWPopedomUI" type="com.sinosoft.lis.g_auxi.LDUWPopedomUI"></Service>
+	<Service name="LCAgentToUserUI" type="com.sinosoft.lis.g_customer.LCAgentToUserUI"></Service>
+	
+	<!-- 账户管理 -->
+	<Service name="InsuAccRateUI" type="com.sinosoft.lis.g_acc.InsuAccRateUI"></Service>
+	
+	<!-- 财务科目 -->
+	<Service name="FinComUI" type="com.sinosoft.g_account.FinComUI"></Service>
+	<Service name="FinComMappingUI" type="com.sinosoft.g_account.FinComMappingUI"></Service>
+	<Service name="FinBankUI" type="com.sinosoft.g_account.FinBankUI"></Service>
+	<Service name="FinAccountUI" type="com.sinosoft.g_account.FinAccountUI"></Service>
+	<Service name="FinAccItemUI" type="com.sinosoft.g_account.FinAccItemUI"></Service>
+	<Service name="FinAccountExtractUI" type="com.sinosoft.g_account.FinAccountExtractUI"></Service>
+	
+	<!-- 续期管理 -->
+	<Service name="RenewalParaUI" type="com.sinosoft.lis.g_renewal.RenewalParaUI"></Service>
+	<Service name="RenewalManualUI" type="com.sinosoft.lis.g_renewal.RenewalManualUI"></Service>
+	<Service name="RenewalBackUI" type="com.sinosoft.lis.g_renewal.RenewalBackUI"></Service>
+	<Service name="RenewalCancleUI" type="com.sinosoft.lis.g_renewal.RenewalCancleUI"></Service>
+	<Service name="RenewalPrintUI" type="com.sinosoft.lis.g_renewal.RenewalPrintUI"></Service>
+	
+	<!-- 定期结算 -->
+	<Service name="BalanceAppUI" type="com.sinosoft.lis.g_balance.BalanceAppUI"></Service>
+	<Service name="BalanceManualUI" type="com.sinosoft.lis.g_balance.BalanceManualUI"></Service>
+	<Service name="BalancePrintUI" type="com.sinosoft.lis.g_balance.BalancePrintUI"></Service>
+	
+	<!-- 领取管理 -->
+	<Service name="LFGetPayUI" type="com.sinosoft.lis.g_get.LFGetPayUI"></Service>
+	<Service name="LCAliveReplyUI" type="com.sinosoft.lis.g_get.LCAliveReplyUI"></Service>
+	
+	<!-- 理赔管理 -->
+	<Service name="LLHospitalUI" type="com.sinosoft.lis.g_claim.LLHospitalUI"></Service>
+	<Service name="LLParaDeformityUI" type="com.sinosoft.lis.g_claim.LLParaDeformityUI"></Service>
+	<Service name="LLDrugsFeeUI" type="com.sinosoft.lis.g_claim.LLDrugsFeeUI"></Service>
+	<Service name="LLClaimDrugImpUI" type="com.sinosoft.lis.g_claim.LLClaimDrugImpUI"></Service>
+	<Service name="LLClaimSpotCheckUI" type="com.sinosoft.lis.g_claim.LLClaimSpotCheckUI"></Service>
+	<Service name="LLModifyconfigUI" type="com.sinosoft.lis.g_claim.LLModifyconfigUI"></Service>
+	<Service name="LLClaimModApplyUI" type="com.sinosoft.lis.g_claim.LLClaimModApplyUI"></Service>
+	<Service name="LLClaimHospImpUI" type="com.sinosoft.lis.g_claim.LLClaimHospImpUI"></Service>
+	<Service name="LLCLaimControlUI" type="com.sinosoft.lis.g_claim.LLCLaimControlUI"></Service>
+	<!-- 系统合并 END -->
+	
+	<!-- group NB -->
+	<Service name="LCPrintAppntUI" type="com.sinosoft.lis.g_app.LCPrintAppntUI"></Service>
+	<Service name="ChargeFeeUI" type="com.sinosoft.lis.g_app.ChargeFeeUI"></Service>
+	<Service name="LCInsuredDealUI" type="com.sinosoft.lis.g_app.LCInsuredDealUI"></Service>
+	<Service name="LCContInsuredAddUI" type="com.sinosoft.lis.g_app.LCContInsuredAddUI"></Service>
+	<Service name="LCBussListUI" type="com.sinosoft.lis.g_app.LCBussListUI"></Service>
+	<Service name="g_LCContPlanUI" type="com.sinosoft.lis.g_app.LCContPlanUI"></Service>
+	<Service name="LCContPlanDetailUI" type="com.sinosoft.lis.g_app.LCContPlanDetailUI"></Service>
+	<Service name="LCContPlanPubAmntRelaUI" type="com.sinosoft.lis.g_app.LCContPlanPubAmntRelaUI"></Service>
+	<Service name="LCContTryCalUI" type="com.sinosoft.lis.g_app.LCContTryCalUI"></Service>
+	<Service name="LCGrpParamUI" type="com.sinosoft.lis.g_app.LCGrpParamUI"></Service>
+	<Service name="LCContRefundCalUI" type="com.sinosoft.lis.g_app.LCContRefundCalUI"></Service>
+	<Service name="LAscriptionRuleUI" type="com.sinosoft.lis.g_app.LAscriptionRuleUI"></Service>
+	<Service name="LCContPlanDealUI" type="com.sinosoft.lis.g_app.LCContPlanDealUI"></Service>
+	<Service name="LCInsuredUploadUI" type="com.sinosoft.lis.g_app.LCInsuredUploadUI"></Service>
+	<Service name="LCBnfSaveUI" type="com.sinosoft.lis.g_app.LCBnfSaveUI"></Service>
+	<Service name="LCContPolUI" type="com.sinosoft.lis.g_app.LCContPolUI"></Service>
+	<Service name="LCCoinsuranceUI" type="com.sinosoft.lis.g_app.LCCoinsuranceUI"></Service>
+	<Service name="LCGrpChangeFeeUI" type="com.sinosoft.lis.g_app.LCGrpChangeFeeUI"></Service>
+	<Service name="LDPBalanceOnUI" type="com.sinosoft.lis.g_app.LDPBalanceOnUI"></Service>
+	<Service name="LCGrpUWDealUI" type="com.sinosoft.lis.g_app.LCGrpUWDealUI"></Service>
+	<Service name="UWGErrUI" type="com.sinosoft.lis.g_app.UWGErrUI"></Service>
+	<Service name="LCDutyUWAdjustUI" type="com.sinosoft.lis.g_app.LCDutyUWAdjustUI"></Service>
+	<Service name="LCGroupUWModifyUI" type="com.sinosoft.lis.g_app.LCGroupUWModifyUI"></Service>
+	<Service name="LCPolicySignUI" type="com.sinosoft.lis.g_app.LCPolicySignUI"></Service>
+	<Service name="LCPostalInfoUI" type="com.sinosoft.lis.g_app.LCPostalInfoUI"></Service>
+	<Service name="LCPolSendBackUI" type="com.sinosoft.lis.g_app.LCPolSendBackUI"></Service>
+	<Service name="LCGroupContDeleteUI" type="com.sinosoft.lis.g_app.LCGroupContDeleteUI"></Service>
+	<Service name="LCGroupContRevokeUI" type="com.sinosoft.lis.g_app.LCGroupContRevokeUI"></Service>
+	<Service name="LCPolicyEffectiveUI" type="com.sinosoft.lis.g_app.LCPolicyEffectiveUI"></Service>
+	<Service name="ExpiryDealUI" type="com.sinosoft.lis.g_app.ExpiryDealUI"></Service>
+	
+	<Service name="EdorMissionUI" type="com.sinosoft.lis.g_pos.EdorMissionUI"></Service>
+	<Service name="EdorAcceptDetailUI" type="com.sinosoft.lis.g_pos.EdorAcceptDetailUI"></Service>
+	<Service name="EdorInputDetailUI" type="com.sinosoft.lis.g_pos.EdorInputDetailUI"></Service>
+	<Service name="EdorCheckDetailUI" type="com.sinosoft.lis.g_pos.EdorCheckDetailUI"></Service>
+	<Service name="EdorUWDetailUI" type="com.sinosoft.lis.g_pos.EdorUWDetailUI"></Service>
+	<Service name="EdorUWGErrUI" type="com.sinosoft.lis.g_pos.EdorUWGErrUI"></Service>
+	<Service name="EdorDutyUWAdjustUI" type="com.sinosoft.lis.g_pos.EdorDutyUWAdjustUI"></Service>
+	<Service name="EdorAuditDetailUI" type="com.sinosoft.lis.g_pos.EdorAuditDetailUI"></Service>
+	<Service name="EdorSignDetailUI" type="com.sinosoft.lis.g_pos.EdorSignDetailUI"></Service>
+	<Service name="EdorInsuredDealUI" type="com.sinosoft.lis.g_pos.EdorInsuredDealUI"></Service>
+	
+	<Service name="EdorACUI" type="com.sinosoft.lis.g_pos.EdorACUI"></Service>
+	<Service name="EdorSMUI" type="com.sinosoft.lis.g_pos.EdorSMUI"></Service>
+	<Service name="EdorSCUI" type="com.sinosoft.lis.g_pos.EdorSCUI"></Service>
+	<Service name="EdorNCUI" type="com.sinosoft.lis.g_pos.EdorNCUI"></Service>
+	<Service name="EdorNCDetailUI" type="com.sinosoft.lis.g_pos.EdorNCDetailUI"></Service>
+	<Service name="EdorNCTryCalUI" type="com.sinosoft.lis.g_pos.EdorNCTryCalUI"></Service>
+	<Service name="EdorNCPubAmntRelaUI" type="com.sinosoft.lis.g_pos.EdorNCPubAmntRelaUI"></Service>
+	<Service name="EdorLRUI" type="com.sinosoft.lis.g_pos.EdorLRUI"></Service>
+	<Service name="EdorMFUI" type="com.sinosoft.lis.g_pos.EdorMFUI"></Service>
+	<Service name="EdorNIUI" type="com.sinosoft.lis.g_pos.EdorNIUI"></Service>
+	<Service name="EdorZTUI" type="com.sinosoft.lis.g_pos.EdorZTUI"></Service>
+	<Service name="EdorBBUI" type="com.sinosoft.lis.g_pos.EdorBBUI"></Service>
+	<Service name="EdorBIUI" type="com.sinosoft.lis.g_pos.EdorBIUI"></Service>
+	<Service name="EdorBCUI" type="com.sinosoft.lis.g_pos.EdorBCUI"></Service>
+	<Service name="EdorICUI" type="com.sinosoft.lis.g_pos.EdorICUI"></Service>
+	<Service name="EdorIRUI" type="com.sinosoft.lis.g_pos.EdorIRUI"></Service>
+	<Service name="EdorBEUI" type="com.sinosoft.lis.g_pos.EdorBEUI"></Service>
+	<Service name="EdorRNUI" type="com.sinosoft.lis.g_pos.EdorRNUI"></Service>
+	<Service name="EdorRDUI" type="com.sinosoft.lis.g_pos.EdorRDUI"></Service>
+	<Service name="EdorCAUI" type="com.sinosoft.lis.g_pos.EdorCAUI"></Service>
+	<Service name="EdorVCUI" type="com.sinosoft.lis.g_pos.EdorVCUI"></Service>
+	<Service name="EdorVRUI" type="com.sinosoft.lis.g_pos.EdorVRUI"></Service>
+	<Service name="EdorGBUI" type="com.sinosoft.lis.g_pos.EdorGBUI"></Service>
+	<Service name="EdorSFUI" type="com.sinosoft.lis.g_pos.EdorSFUI"></Service>
+	<Service name="EdorRRUI" type="com.sinosoft.lis.g_pos.EdorRRUI"></Service>
+	<Service name="EdorCCUI" type="com.sinosoft.lis.g_pos.EdorCCUI"></Service>
+	<Service name="EdorSAUI" type="com.sinosoft.lis.g_pos.EdorSAUI"></Service>
+	<Service name="EdorBZUI" type="com.sinosoft.lis.g_pos.EdorBZUI"></Service>
+	<Service name="EdorREUI" type="com.sinosoft.lis.g_pos.EdorREUI"></Service>
+	<Service name="EdorRGUI" type="com.sinosoft.lis.g_pos.EdorRGUI"></Service>
+	<Service name="EdorGAUI" type="com.sinosoft.lis.g_pos.EdorGAUI"></Service>
+	<Service name="EdorGMUI" type="com.sinosoft.lis.g_pos.EdorGMUI"></Service>
+	<Service name="EdorCTUI" type="com.sinosoft.lis.g_pos.EdorCTUI"></Service>
+	<Service name="EdorWTUI" type="com.sinosoft.lis.g_pos.EdorWTUI"></Service>
+	<Service name="EdorPUUI" type="com.sinosoft.lis.g_pos.EdorPUUI"></Service>
+	
+	<Service name="LDAttachmentUI" type="com.sinosoft.lis.g_busicommon.LDAttachmentUI"></Service>
+	<Service name="LDQuestionUI" type="com.sinosoft.lis.g_busicommon.LDQuestionUI"></Service>
+	<Service name="QueryDataExportUI" type="com.sinosoft.lis.pubfun.QueryDataExportUI"></Service>
+	<Service name="QueryLargeDataExportUI" type="com.sinosoft.lis.pubfun.QueryLargeDataExportUI"></Service>
+	<Service name="LDWorkFlowUI" type="com.sinosoft.g_workflow.LDWorkFlowUI"></Service>
+	<Service name="SignatureUI" type="com.sinosoft.lis.pubfun.SignatureUI"></Service>
+  <Service name="CloudObjectStorageUI" type="com.sinosoft.lis.sys.CloudObjectStorageUI"></Service>
+  <Service name="CloudObjectStorageBL" type="com.sinosoft.lis.sys.CloudObjectStorageBL"></Service>
+  <Service name="CloudObjectStorageQCloudUI" type="com.sinosoft.lis.sys.CloudObjectStorageQCloudUI"></Service>
+  <Service name="CloudObjectStorageQCloudBL" type="com.sinosoft.lis.sys.CloudObjectStorageQCloudBL"></Service>
+    
+  <!--grp 0509-->
+  <Service name="LLClaimReportUI" type="com.sinosoft.lis.g_claim.LLClaimReportUI"></Service>
+	<Service name="LLClaimReportAppUI" type="com.sinosoft.lis.g_claim.LLClaimReportAppUI"></Service>
+	<!--grp 0513-->	
+	<Service name="LLClaimDataUI" type="com.sinosoft.lis.g_claim.LLClaimDataUI"></Service>
+	<Service name="LLClaimPageNoUI" type="com.sinosoft.lis.g_claim.LLClaimPageNoUI"></Service>
+	<Service name="LLClaimCaseUI" type="com.sinosoft.lis.g_claim.LLClaimCaseUI"></Service>
+	<Service name="LLNoAcceptUI" type="com.sinosoft.lis.g_claim.LLNoAcceptUI"></Service>
+	<Service name="LLCaseInfoUI" type="com.sinosoft.lis.g_claim.LLCaseInfoUI"></Service>
+	<Service name="LLOperationUI" type="com.sinosoft.lis.g_claim.LLOperationUI"></Service>
+	<Service name="LLClaimOutCasePrintUI" type="com.sinosoft.lis.g_claim.LLClaimOutCasePrintUI"></Service>
+	<Service name="LLClaimCaseAppUI" type="com.sinosoft.lis.g_claim.LLClaimCaseAppUI"></Service>
+	<Service name="LCGrpPrintUI" type="com.sinosoft.lis.g_print.LCGrpPrintUI"></Service>
+	<!--grp 0521-->	
+	<Service name="LLClaimSpecialCaseAppUI" type="com.sinosoft.lis.g_claim.LLClaimSpecialCaseAppUI"></Service>
+	<Service name="LLClaimSpecialCaseUI" type="com.sinosoft.lis.g_claim.LLClaimSpecialCaseUI"></Service>
+	<Service name="LLClaimCaseReviewAppUI" type="com.sinosoft.lis.g_claim.LLClaimCaseReviewAppUI"></Service>
+	<Service name="LLClaimCalPortalUI" type="com.sinosoft.lis.g_claim.LLClaimCalPortalUI"></Service>
+	<Service name="LLSimpleBillUI" type="com.sinosoft.lis.g_claim.LLSimpleBillUI"></Service>
+	<Service name="LLSpecialBillUI" type="com.sinosoft.lis.g_claim.LLSpecialBillUI"></Service>
+	<Service name="LLClaimCaseReviewUI" type="com.sinosoft.lis.g_claim.LLClaimCaseReviewUI"></Service>
+	<Service name="LLClaimSwitchUI" type="com.sinosoft.lis.g_claim.LLClaimSwitchUI"></Service>
+	<Service name="LPEdorPrintUI" type="com.sinosoft.lis.g_print.LPEdorPrintUI"></Service>
+	<!--grp 0528-->	
+	<Service name="LLClaimBlackListUI" type="com.sinosoft.lis.g_claim.LLClaimBlackListUI"></Service>
+	<Service name="LLClaimAssReportUI" type="com.sinosoft.lis.g_claim.LLClaimAssReportUI"></Service>
+	<Service name="LLClaimCaseCheckAppUI" type="com.sinosoft.lis.g_claim.LLClaimCaseCheckAppUI"></Service>
+	<Service name="LLClaimCaseApproveAppUI" type="com.sinosoft.lis.g_claim.LLClaimCaseApproveAppUI"></Service>
+	<Service name="LLClaimCaseApproveUI" type="com.sinosoft.lis.g_claim.LLClaimCaseApproveUI"></Service>
+	<Service name="LLClaimCaseCheckUI" type="com.sinosoft.lis.g_claim.LLClaimCaseCheckUI"></Service>
+	<Service name="LLClaimPreinvestUI" type="com.sinosoft.lis.g_claim.LLClaimPreinvestUI"></Service>
+	<Service name="LLInqUploadUI" type="com.sinosoft.lis.g_claim.LLInqUploadUI"></Service>
+	<Service name="LLClaimSurveyAllotUI" type="com.sinosoft.lis.g_claim.LLClaimSurveyAllotUI"></Service>
+	<Service name="LLSurveyCourseUI" type="com.sinosoft.lis.g_claim.LLSurveyCourseUI"></Service>
+	<Service name="LLSurveyReviewConfirmUI" type="com.sinosoft.lis.g_claim.LLSurveyReviewConfirmUI"></Service>
+	<Service name="LLSurveyFeeUI" type="com.sinosoft.lis.g_claim.LLSurveyFeeUI"></Service>
+	<Service name="LLAppUnLockUI" type="com.sinosoft.lis.g_claim.LLAppUnLockUI"></Service>
+	<Service name="LLClaimMajorUI" type="com.sinosoft.lis.g_claim.LLClaimMajorUI"></Service>
+	<Service name="LLClaimNoticePrintUI" type="com.sinosoft.lis.g_claim.LLClaimNoticePrintUI"></Service>
+
+</server>

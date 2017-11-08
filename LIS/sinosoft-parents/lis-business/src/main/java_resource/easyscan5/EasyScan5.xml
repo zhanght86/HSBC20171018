@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <paramsettings>
+      <param code="AllowCheckCodeLen" value="false"></param>
+      <param code="AllowCheckDocCode" value="false"></param>
+      <param code="AllowScanNoAlert"  value="true"></param>
+      <param code="AllowSelectScanType"  value="false"></param>
+      <param code="IsShowCode" value="true"></param>
+      <param code="IsFileDecrypt" value="false"></param>
+      <param code="AllowUploadDefaultDocCode" value="true"></param>
+      <param code="SubTypeOnly" value="true"></param>
+      <param code="TreeLevel" value="BussType,DocCode"></param>
+      <param code="ContentType" value="UTF-8"></param>
+  </paramsettings>
+  <batchsettings>
+    <batchscans>
+
+
+      <batchscan name="扫描策略" scan="A4双面" channel="1">
+	<barcode count="1" code="0004" name="NCL_一个独立条码_单证类型" >
+          <rule></rule>
+        </barcode> 
+        <barcode count="2" code="0005" name="NCL_一个独立条码_单证类型+单证号码">
+          <rule></rule>
+        </barcode> 
+        <barcode count="3" code="0006" name="NCL_使用案例分割页"  >
+          <rule></rule>
+        </barcode> 
+        <barcode count="4" code="0007" name="NCL_使用类型分割页">
+          <rule></rule>
+        </barcode> 
+      </batchscan>
+    </batchscans>
+
+     <batchdetails>
+      <batchrule code="0001" barcodecount="2"  ispage="false" newdocflag="true" >
+        <barcode index="1" ruletype="MATCH" delimiter="" >
+           <field index="1" type="单证号码" start="1" length="30" pattern="^[A-Za-z0-9]{7,}$" /> 
+ 	  <field index="2" type="单证细类" start="1" length="30" pattern="^[A-Za-z0-9]{6}$" /> 
+        </barcode>
+	<barcode index="2" ruletype="MATCH" delimiter="" >
+           <field index="1" type="单证号码" start="1" length="30" pattern="^[A-Za-z0-9]{7,}$" /> 
+	  <field index="2" type="单证细类" start="1" length="30" pattern="^[A-Za-z0-9]{6}$" /> 
+        </barcode>
+      </batchrule>
+	<batchrule code="0002" barcodecount="1"   ispage="false" newdocflag="true" >
+        <barcode index="1" ruletype="MATCH" delimiter="" >
+ 	  <field index="1" type="单证细类" start="1" length="30" pattern="^[A-Za-z0-9\-]{1,8}$" /> 
+        </barcode>
+      </batchrule>
+	<batchrule code="0003" barcodecount="2"   ispage="false" newdocflag="true"  >
+        <barcode index="1" ruletype="MATCH" delimiter="" >
+           <field index="1" type="单证号码" start="1" length="30" pattern="^[A-Za-z0-9]{9,}$" /> 
+ 	  <field index="2" type="单证细类" start="1" length="30" pattern="^[A-Za-z0-9\-]{1,8}$" /> 
+        </barcode>
+	<barcode index="2" ruletype="MATCH" delimiter="" >
+           <field index="1" type="单证号码" start="1" length="30" pattern="^[A-Za-z0-9]{9,}$" /> 
+	  <field index="2" type="单证细类" start="1" length="30" pattern="^[A-Za-z0-9\-]{1,8}$" /> 
+        </barcode>
+      </batchrule>
+      
+      <batchrule code="0004" barcodecount="1"   ispage="false" newdocflag="true">
+        <barcode index="1" ruletype="" delimiter="" >
+           <field index="1" type="单证细类"  /> 
+        </barcode>
+      </batchrule>
+      <batchrule code="0005" barcodecount="2"   ispage="false" newdocflag="true" >
+      	<barcode index="1" ruletype="" delimiter="" >
+           <field index="1" type="单证细类"  /> 
+        </barcode>
+        <barcode index="2" ruletype="" delimiter="" >
+           <field index="1" type="单证号码"  /> 
+        </barcode>
+        
+      </batchrule>
+       <batchrule code="0006" barcodecount="3"   ispage="true" newdocflag="false">
+        <barcode index="1" ruletype="" delimiter="">
+           <field index="1" type="单证号码"  /> 
+        </barcode>
+       </batchrule>
+        <batchrule code="0007" barcodecount="4"   ispage="true" newdocflag="true" >
+        <barcode index="1" ruletype="" delimiter="" >
+           <field index="1" type="单证细类"  /> 
+        </barcode>
+       </batchrule>
+    </batchdetails>
+  </batchsettings>
+</data>

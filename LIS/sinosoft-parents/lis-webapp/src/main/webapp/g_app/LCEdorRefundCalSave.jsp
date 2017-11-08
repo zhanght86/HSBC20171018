@@ -1,0 +1,97 @@
+<%
+/***************************************************************
+ * <p>ProName：LCContRefundCalSave.jsp</p>
+ * <p>Title：保全退费算法维护</p>
+ * <p>Description：保全退费算法维护</p>
+ * <p>Copyright：Copyright (c) 2012</p>
+ * <p>Company：Sinosoft</p>
+ * @author   : 蔡云聪
+ * @version  : 8.0
+ * @date     : 2014-05-09
+ ****************************************************************/
+%>
+<%@page pageEncoding="GBK" contentType="text/html; charset=GBK"%>
+<%@include file="../common/jsp/UsrCheck.jsp"%>
+<%@page import="com.sinosoft.utility.*"%>
+<%@page import="com.sinosoft.service.BusinessDelegate"%>
+<%@page import="com.sinosoft.lis.schema.LCGetCalModeSchema"%>
+<%
+	
+	String tFlagStr = "Fail";
+	String tContent = "";
+	String tOperate = "";
+	GlobalInput tGI = new GlobalInput();
+	tGI = (GlobalInput)session.getValue("GI");
+	
+	if (tGI==null) {
+		tFlagStr = "Fail";
+		tContent = "页面失效,请重新登陆";
+	} else {
+		
+		try {
+			
+			tOperate = request.getParameter("Operate");
+			
+			String tMissionID = request.getParameter("MissionID");
+			String tSubMissionID = request.getParameter("SubMissionID");
+			String tActivityID = request.getParameter("ActivityID");
+			String tObjType = request.getParameter("ObjType");
+			String tGrpContNo = request.getParameter("BussNo");//
+			String tBussType = request.getParameter("BussType");//
+			
+			String tSerialNo = request.getParameter("SerialNo");//流水号
+			String tRiskCode = request.getParameter("RiskCode2");//险种
+			String tGetType = request.getParameter("GetType2");//退费类型
+			String tValPeriod = request.getParameter("ValPeriod");//单位
+			String tValStartDate = request.getParameter("ValStartDate");//起始值
+			String tValEndDate = request.getParameter("ValEndDate");//终止值
+			String tFeeValue = request.getParameter("FeeValue");//费用比例
+
+			LCGetCalModeSchema tLCGetCalModeSchema = new LCGetCalModeSchema();
+			if ("INSERT".equals(tOperate) || "UPDATE".equals(tOperate) ) {
+				
+				tLCGetCalModeSchema.setSerialNo(tSerialNo);
+				tLCGetCalModeSchema.setGrpContNo(tGrpContNo);
+				tLCGetCalModeSchema.setRiskCode(tRiskCode);
+				tLCGetCalModeSchema.setGetType(tGetType);
+				tLCGetCalModeSchema.setValPeriod(tValPeriod);
+				tLCGetCalModeSchema.setValStartDate(tValStartDate);
+				tLCGetCalModeSchema.setValEndDate(tValEndDate);
+				tLCGetCalModeSchema.setFeeValue(tFeeValue);
+				
+			} else if ("DELETE".equals(tOperate)) {
+				
+				tLCGetCalModeSchema.setSerialNo(tSerialNo);
+			}
+			
+			TransferData tTransferData = new TransferData();
+			tTransferData.setNameAndValue("ObjType", tObjType);
+			tTransferData.setNameAndValue("MissionID", tMissionID);
+			tTransferData.setNameAndValue("SubMissionID", tSubMissionID);
+			tTransferData.setNameAndValue("ActivityID", tActivityID);
+			
+			VData tVData = new VData();
+			tVData.add(tGI);
+			tVData.add(tTransferData);
+			tVData.add(tLCGetCalModeSchema);
+		
+			BusinessDelegate tBusinessDelegate = BusinessDelegate.getBusinessDelegate();
+			if (!tBusinessDelegate.submitData(tVData, tOperate, "LCContRefundCalUI")) {
+				tContent = tBusinessDelegate.getCErrors().getFirstError();
+				tFlagStr = "Fail";
+			} else {
+				tFlagStr = "Succ";
+				tContent = "处理成功！";
+			}
+
+		} catch (Exception ex) {
+			tContent = tFlagStr + "处理异常，请联系系统运维人员！";
+			tFlagStr = "Fail";
+		}
+	}
+%>
+<html>
+<script language="javascript">
+	parent.fraInterface.afterSubmit("<%=tFlagStr%>", "<%=tContent%>");
+</script>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.grpuwhead.javabean"
+	      targetNamespace="http://www.grpuwhead.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="MessageHead">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="ContData" type="string"/>
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+</schema>

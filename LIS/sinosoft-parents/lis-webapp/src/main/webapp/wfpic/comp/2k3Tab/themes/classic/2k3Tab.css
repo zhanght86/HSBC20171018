@@ -1,0 +1,37 @@
+/* ---------------------------------------------------- */
+/* 2k3Widgets (2k3Tab) Stylesheet                       */
+/*                                                      */
+/* Copyright ?002-2004 Stedy Software and Systems      */
+/* Please see http://www.stedy.com for terms of use.    */
+/* ---------------------------------------------------- */
+
+body {
+	background-color: #D4D0C8;
+}
+
+/* ---------------------------------------------------- */
+/* 2k3SelectButton                                      */
+/* ---------------------------------------------------- */
+stedysoft\:2k3Tab {
+	leftImage: url(comp/2k3Tab/themes/classic/tabLeft.gif);
+	centerImage: url(comp/2k3Tab/themes/classic/tabCenter.gif);
+	rightImage: url(comp/2k3Tab/themes/classic/tabRight.gif);
+	leftImageOver: url(comp/2k3Tab/themes/classic/tabLeftOver.gif);
+	centerImageOver: url(comp/2k3Tab/themes/classic/tabCenterOver.gif);
+	rightImageOver: url(comp/2k3Tab/themes/classic/tabRightOver.gif);
+	leftImageDown: url(comp/2k3Tab/themes/classic/tabLeftDown.gif);
+	centerImageDown: url(comp/2k3Tab/themes/classic/tabCenterDown.gif);
+	rightImageDown: url(comp/2k3Tab/themes/classic/tabRightDown.gif);
+	position: relative;
+}
+stedysoft\:2k3TabPage {
+	position: absolute;
+	top: -500px;
+	overflow: hidden;
+	lightShadow: #404040;
+	midShadow: #808080;
+	pageBorder: #FFFFFF;
+	pageBorder2ndColor: #D4D0C8;
+	lightColor: #D4D0C8;
+	darkColor: #D4D0C8;
+}

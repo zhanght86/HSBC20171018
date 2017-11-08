@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../static/css/imdock.css" />
+		<script type="text/javascript" src="../common/javascript/jquery-1.7.2.js"></script>
+		<!-- <script src="../static/lib/html2canvas.js"></script> -->
+        <!-- <script src="../static/lib/cropper.js"></script> -->
+		<script type="text/javascript" src="../static/lib/aes.js"></script>
+        <script type="text/javascript" src="../static/lib/sinosoft.nameicongenerator.js"></script>
+		<script type="text/javascript" src="../static/lib/sinosoft.imcontrol.js"></script>
+	</head>
+	<body class="chatBody">
+	    
+		<div class="chatMainOpen">
+			<img src="img/hide_03.png" alt="" class="chatMainOpenImg"/>
+		</div>
+		<div id="errorMessage" style="margin-left:10px;padding-left:0px;position:absolute;top:5px;left:5px;"></div>
+		<!-- <div style="position:absolute;float:right;right:10px;top:8px">
+            <input type="button" id="cropButton" title="Capture" value="Capture" />
+        </div> -->
+        
+		<script type="text/javascript" src="../static/lib/sinosoft.webcontrol.js"></script>
+		<script type="text/javascript">
+		    window.autoAdjust = function(count){
+		    	var cols = parent.document.getElementById("fraSet").cols;
+				var index = cols.indexOf(",");
+				var numL = cols.substring(0,index);
+		    	if(count == 0){
+		    		parent.document.getElementById("fraSet").cols=numL+",*,220,0%";
+		    	}else{
+		    		if(cut != 1)
+		    		parent.document.getElementById("fraSet").cols=numL+",*,470,0%";
+		    	}
+		    }
+			function open(numL){
+				$("#footerDock").show();
+				parent.document.getElementById("fraSet").cols=numL+",*,220,0%";
+			}
+			function close(numL){
+				$("#footerDock").hide();
+				parent.document.getElementById("fraSet").cols=numL+",*,12,0%";
+			}
+			var cut = 1;
+			$(".chatMainOpenImg").click(function(){
+				console.log(cut);
+				var cols = parent.document.getElementById("fraSet").cols;
+				var index = cols.indexOf(",");
+				var numL = cols.substring(0,index);
+				if(cut == 1){
+					open(numL);
+					cut = 0;
+				}else{
+					close(numL);
+					cut = 1;
+				}
+				console.log(parent.document.getElementById("fraSet").cols);
+			});
+			
+			 window.addEventListener("newImMessage", function (e) {
+		            //alert(e.message.content);
+		        });
+			 window.addEventListener("invalidUserCodeError", function (e) {
+		           var chatBody = document.getElementById("errorMessage");
+		           chatBody.innerHTML = "<div><h2 style=\"color:red\">" + e.message + "</h2></div>";
+		        });
+		</script>
+<!-- 		<script>
+        var cropButton = document.getElementById("cropButton");
+        cropButton.addEventListener("click", function (e) {
+            e = e || window.event;
+            var webCropper = new WebCropper();
+            webCropper.beginCrop(function (result) {
+                var mainDiv = document.getElementsByClassName("ff_d_ta")[0];//document.getElementById("errorMessage");
+                var imageElement = document.createElement("IMG");
+                imageElement.src = result;
+                imageElement.style.width = "800px";
+                mainDiv.value = imageElement.outerHTML;
+                //mainDiv.appendChild(imageElement);
+            });
+        });
+    </script> -->
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.risktype.javabean"
+	      targetNamespace="http://www.risktype.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="MessageRiskTypeData">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="RiskType" type="cixml:RiskTypeItem" maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="RiskTypeItem">   
+ 	<choice>                                      
+	  <element    name="UID"         type="string"/>
+	  <element    name="DataType"         type="string"/>
+	  <element    name="DataID"         type="string"/>
+	  <element    name="RelaID"         type="string"/>
+
+	  <element    name="RiskCode"         type="string"/>
+	  <element    name="RiskName"         type="string"/>
+	  <element    name="RiskPeriod"         type="string"/>
+	  <element    name="PayPeriod"         type="string"/>
+
+	  <element    name="InsureMoney"         type="string"/>
+	  <element    name="StandPremium"         type="string"/>
+	  <element    name="CareePremium"         type="string"/>
+	  <element    name="HealthyPremium"         type="string"/>
+
+	  <element    name="OtherPremium"         type="string"/>
+	  <element    name="PayFreq"         type="string"/>
+	  <element    name="Currency"         type="string"/>
+	  <element    name="InsureCopys"         type="string"/>
+	  <element    name="BackUp1"         type="string"/>
+	  <element    name="BackUp2"         type="string"/>
+	  <element    name="BackUp3"         type="string"/>
+	  <element    name="BackUp4"         type="string"/>
+	  <element    name="BackUp5"         type="string"/>
+	  <element    name="BackUp6"         type="string"/>
+	  <element    name="BackUp7"         type="string"/>
+	  <element    name="BackUp8"         type="string"/>
+
+	</choice>                                     
+ </complexType>                                 
+
+</schema>

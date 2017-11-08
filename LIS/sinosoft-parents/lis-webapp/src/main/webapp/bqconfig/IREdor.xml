@@ -1,0 +1,28 @@
+<CONFIG>
+ <Sheet1>           
+  <COL0>ID</COL0>
+  <COL1>OldCustomerNo</COL1>    
+  <COL2>OldName</COL2>
+  <COL3>Name</COL3>
+  <COL4>IDType</COL4>
+  <COL5>IDNo</COL5>
+  <COL6>Birthday</COL6>
+  <COL7>Sex</COL7>
+  <COL8>Marriage</COL8>
+  <COL9>Degree</COL9>
+  <COL10>Stature</COL10>
+  <COL11>Avoirdupois</COL11>
+  <COL12>InsuredCompanyPhone</COL12>
+  <COL13>InsuredHomePhone</COL13>
+  <COL14>Mobile</COL14>
+  <COL15>PostalAddress</COL15>
+  <COL16>ZipCode</COL16>
+  <COL17>GrpAddress</COL17>
+  <COL18>EMail</COL18>
+  <COL19>Position</COL19>
+  <COL20>WorkType</COL20>
+  <COL21>PluralityType</COL21>
+  <COL22>OccupationCode</COL22>
+  <COL23>OccupationType</COL23>
+ </Sheet1>
+</CONFIG> 

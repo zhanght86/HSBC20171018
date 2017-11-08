@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="GBK"?>
+<DATA>
+	<ServerBasePath>/</ServerBasePath>
+	<FileSuffix>.gif</FileSuffix>
+	<SaveMultipleDir>true</SaveMultipleDir>
+	<SaveFileType>TIF</SaveFileType>
+	<ApacheServerName url="http://192.168.0.1:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://192.168.0.1:7003/" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://192.168.0.1:7003/" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://192.168.0.1:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://127.0.0.1:8080/lisnational/">
+		<Relation SourceURL="http://127.0.0.1:8080/lisnational/"
+			ApacheURL="http://127.0.0.1:8080/lisnational//" />
+		<Relation SourceURL="http://127.0.0.1:8080/lisnational/"
+			ApacheURL="http://127.0.0.1:8080/lisnational//" />
+		<Relation SourceURL="http://127.0.0.1:8080/lisnational/"
+			ApacheURL="http://127.0.0.1:8080/lisnational/lisnational//" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.0.14.62:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.0.14.62:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.0.14.62:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.0.14.62:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.0.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.0.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.0.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.0.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.10.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.10.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.10.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.10.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.12.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.12.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.12.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.12.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.14.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.14.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.14.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.14.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.16.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.16.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.16.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.16.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.18.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.18.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.18.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.18.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.20.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.20.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.20.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.20.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.26.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.26.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.26.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.26.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.28.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.28.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.28.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.28.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.34.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.34.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.34.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.34.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<ApacheServerName url="http://10.50.4.244:7003/">
+		<Relation SourceURL="http://mslife:7003/"
+			ApacheURL="http://10.50.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.10:7003/"
+			ApacheURL="http://10.50.4.244:7003//" />
+		<Relation SourceURL="http://10.0.2.7:9001/"
+			ApacheURL="http://10.50.4.244:7001/wanimage/" />
+	</ApacheServerName>
+	<CenterSetting>
+		<!--系统设置-->
+		<SystemConfig>
+			<ClientUrl code="http://10.0.2.10:7003/" name="TESTURL" />
+			<FileSuffix code=".gif" name="TestFileSuffix" />
+			<SaveMultipleDir code="true" name="" />
+			<SaveFileType code="TIF" name="" />
+			<BlankPageThreashHold code="2048" name="" />
+			<DefaultBacthScanType code="" name="" />
+			<!--<默认批量扫描类型 />-->
+			<AllowCenterPickUp code="1" name="" />
+			<!--<是否允许单证在中心清分 0 允许  1 不允许 />-->
+			<AllowCheckCodeLen code="0" name="" />
+			<!--<是否允许校验单证号码长度 0 允许  1 不允许 />-->
+			<AllowScanNoAlert code="1" name="" />
+			<!--<是否使用批次号 0 允许  1 不允许 />-->
+			<AllowCallThirdPart code="1" name="" />
+			<!--<是否使用批次号 0 允许  1 不允许 />-->
+		</SystemConfig>
+		<HighSpeedScanerSetting>
+			<ScannerType />
+			<ScannerName file1="" file2="" file3="" />
+			<ScannerName file1="" file2="" file3="" />
+			<ScannerName file1="" file2="" file3="" />
+			<ScannerName file1="" file2="" file3="" />
+		</HighSpeedScanerSetting>
+		<SplitPageBarCodeSetting data="00000000000000000000" />
+		<BarCodeRecognizeSetting>
+			<!-- 分割页处理方式 -->
+			<setting name="使用分割页" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0" />
+				</BarCode>
+				<BarCode index="2" delitype="" delimiter="">
+					<Data type="分割页码" index="2" newdocflag="" />
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据长度划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="民生投保单设置_按长度分割" barcodecount="1">
+				<BarCode index="1" delitype="LENGTH" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="" start="1"
+						length="3" />
+					<Data type="单证号码" index="2" newdocflag="0" start="4"
+						length="5" />
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据字符串划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="民生投保单设置_按字符串分割" barcodecount="1">
+				<BarCode index="1" delitype="CHAR" delimiter="A">
+					<Data type="单证细类" index="1" newdocflag="" />
+					<Data type="单证号码" index="2" newdocflag="0" />
+					<Data type="单证页码" index="3" newdocflag="" />
+					<Data type="单证版本号" index="4" newdocflag="" />
+				</BarCode>
+			</setting>
+			<!-- 一个条码，根据字符串划分，第一部分是单证类型，第二部分是单证号码 -->
+			<setting name="民生投保单设置_业务类型+版本+单证细类" barcodecount="2">
+				<BarCode index="1" delitype="LENGTH" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0" start="1"
+						length="4" />
+					<Data type="单证版本号" index="2" newdocflag="" start="5"
+						length="2" />
+					<Data type="单证号码" index="3" newdocflag="0" start="1"
+						length="14" />
+				</BarCode>
+				<BarCode index="2" delitype="" delimiter="">
+					<Data type="单证页码" index="1" newdocflag="" />
+				</BarCode>
+			</setting>
+			<!-- 一个条码，独立条码，第一个是单证类型 -->
+			<setting name="民生投保单设置_一个独立条码_单证类型" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证细类" index="1" newdocflag="0" />
+				</BarCode>
+			</setting>
+			<!-- 一个条码，独立条码，第一个是单证号码 -->
+			<setting name="民生投保单设置_一个独立条码_单证号码" barcodecount="1">
+				<BarCode index="1" delitype="" delimiter="">
+					<Data type="单证号码" index="1" newdocflag="0" />
+				</BarCode>
+			</setting>
+			<!-- 批量扫描分隔页 -->
+				<setting name="民生投保单独立设置" barcodecount="1">
+					<BarCode index="1" delitype="" delimiter="">
+						<Data type="单证号码" index="1" newdocflag="0"/>
+					</BarCode>
+				</setting>
+				<setting name="民生条形码分隔页设置" barcodecount="3">
+					<BarCode index="1" delitype="" delimiter="">
+						<Data type="单证号码" index="1" newdocflag="0"/>
+					</BarCode>
+					<BarCode index="2" delitype="" delimiter="">
+						<Data type="分隔页码" index="2" newdocflag=""/>
+					</BarCode>
+					<BarCode index="3" delitype="" delimiter="">
+						<Data type="分隔页码" index="3" newdocflag=""/>
+					</BarCode>
+				</setting>
+				<setting name="民生类型分隔页设置" barcodecount="4">
+					<BarCode index="1" delitype="" delimiter="">
+						<Data type="单证细类" index="1" newdocflag="0"/>
+					</BarCode>
+					<BarCode index="2" delitype="" delimiter="">
+						<Data type="分隔页码" index="2" newdocflag=""/>
+					</BarCode>
+					<BarCode index="3" delitype="" delimiter="">
+						<Data type="分隔页码" index="3" newdocflag=""/>
+					</BarCode>
+					<BarCode index="4" delitype="" delimiter="">
+						<Data type="分隔页码" index="4" newdocflag=""/>
+					</BarCode>
+				</setting>
+		</BarCodeRecognizeSetting>
+		<BatchScanSetting>
+			<setting name="民生扫描系统" type="BARCODE" code="">
+				<BarCode count="1" set="民生投保单独立设置" type="BARCODE" code="" />
+				<BarCode count="3" set="民生条形码分隔页设置" type="PAGE" code=""/>
+				<BarCode count="4" set="民生类型分隔页设置" type="PAGE" code=""/>
+			</setting>
+		</BatchScanSetting>
+	</CenterSetting>
+</DATA>

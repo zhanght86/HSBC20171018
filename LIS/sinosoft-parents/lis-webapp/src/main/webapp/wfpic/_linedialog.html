@@ -1,0 +1,718 @@
+<HTML xmlns:stedysoft>
+<HEAD>
+<TITLE>流向属性页</TITLE>
+
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3Tab.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/2k3Tab/2k3TabPage.htc"?>
+<?IMPORT namespace="stedysoft" implementation="comp/genericButton/genericButton.htc"?>
+<link rel="stylesheet" type="text/css"
+	href="comp/2k3Tab/themes/blue/2k3Tab.css">
+<link href="comp/style.css" type=text/css rel=stylesheet>
+ <SCRIPT src="../common/javascript/jquery-1.7.2.js"></SCRIPT> 
+<script language=jscript src="comp/function.js"></script>
+<SCRIPT src="../common/javascript/Common.js"></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryCache.js"></SCRIPT>
+<SCRIPT src="../common/easyQueryVer3/EasyQueryVer3.js"></SCRIPT>
+<SCRIPT src="../common/cvar/CCodeOperate.js"></SCRIPT>
+<LINK href="../common/css/Project.css" rel=stylesheet type=text/css>
+
+<style>
+body {
+	background-color: buttonface;
+	scroll: no;
+	margin: 7px, 0px, 0px, 7px;
+	border: none;
+	overflow: hidden;	
+
+}
+
+stedysoft\:genericButton {
+	width: 60px;
+}
+
+</style>
+
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+ var opener=null;
+ var url=null;
+ var lineId=null;
+ var obj=null;
+   
+$(window).bind("unload",function(){
+	$("body").remove();
+});
+function iniWindow()
+{
+   opener = window.dialogArguments;
+   url = opener.dialogURL;
+   lineId = url.indexOf('?lineid=')<0?'':url.slice(url.indexOf('?lineid=')+8,url.length);
+   obj=opener.document.getElementById(lineId);   
+   try
+   {
+	     iniLineDialog(lineId);	 	 
+   }
+   catch(e)
+   {
+      alert('打开流向属性对话框时出错！');
+	    window.close();
+   }   
+}
+function afterSubmit(FlagStr, content)
+{
+    if (typeof(showInfo) == "object")
+    {
+        showInfo.close();
+        if (typeof(showInfo.parent) == "object" && typeof(showInfo.parent) != "unknown")
+        {
+            showInfo.parent.focus();
+            if (typeof(showInfo.parent.parent) == "object" && typeof(showInfo.parent.parent) != "unknown")
+            {
+                showInfo.parent.parent.blur();
+            }
+        }
+    }
+    if (FlagStr == "Fail")
+    {
+        content = "操作失败，原因是：" + content;
+        var urlStr = "../common/jsp/MessagePage.jsp?picture=C&content=" + content ;
+        showModalDialog(urlStr, window, "status:no;help:0;close:0;dialogWidth:550px;dialogHeight:250px");
+    }
+    else
+    {
+        content = "操作成功！";
+        var urlStr = "../common/jsp/MessagePage.jsp?picture=S&content=" + content ;
+        showModalDialog(urlStr, window, "status:no;help:0;close:0;dialogWidth:550px;dialogHeight:350px");
+        queryClick();
+    }
+
+}
+function CalCode(){
+    var CalCodeCode = TabPage3.contentObject().document.all.TransitionCond.value;
+	if(CalCodeCode==null||CalCodeCode=='')
+		{
+			alert('算法编码为空，请生成新算法!');
+			return;
+		}
+		if(DutyGraceswitchCalCodeType(CalCodeCode))
+		{
+	    var tUrl =  "../ibrms/IbrmsPDAlgoDefiMain.jsp?RuleName="+CalCodeCode+"&Creator="+obj.Operator
+         + "&Business=03&State=0&RuleType=1";
+		}
+			
+	showInfo = window.open(tUrl);
+	}
+function CreateNewCode(){
+	var tCalCode = TabPage3.contentObject().document.all.TransitionCond.value;
+	var tCaltype = TabPage3.contentObject().document.all.TransitionCondT.value;
+	if(tCaltype==2){
+		var mCalCodeType = "Y";	
+	}else{
+		var mCalCodeType = "N";
+	}
+	if(tCalCode==null||tCalCode=="")
+		{
+		 var tempdate ="&OperFlag="+"MODIFY||Condition"+"&mCalCodeType="+mCalCodeType;
+          var AjaxRequestObj = new ActiveXObject("Microsoft.XMLHTTP");
+          var urli = "_lineConditionSave.jsp?OperFlag=Create||Condition"+"&mCalCodeType="+mCalCodeType;
+          AjaxRequestObj.open("POST", urli, true);
+          AjaxRequestObj.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+          AjaxRequestObj.onreadystatechange = function(){
+	      if ( AjaxRequestObj.readyState == 4 &&  AjaxRequestObj.status == 200){
+          	  var result =  AjaxRequestObj.responseText;
+          	  var showStr = result.substr(0,11);   
+              TabPage3.contentObject().document.all.TransitionCond.value = showStr;                
+	             }
+	          }
+	         AjaxRequestObj.send(tempdate); 
+	      }
+	else{
+		alert("算法已存在")
+	}
+}
+function CalCodeSQL(){
+		var CalCodeCode = TabPage3.contentObject().document.all.TransitionCond.value;
+        if(CalCodeCode==null||CalCodeCode=='')
+	{
+		alert('算法编码为空，请生成新算法!');
+		return;
+	}
+     var tUrl = "./PDAlgoDefiMain.jsp?algocode=" + CalCodeCode;	
+      showInfo = window.open(tUrl);
+
+}
+function DutyGraceswitchCalCodeType(tCalCode)
+{
+    if(tCalCode.length>=2&&tCalCode.substring(0,2).toUpperCase() == 'RU')
+	 {
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	  }
+function iniLineDialog(lineId)
+{         
+	  beginNode = obj.beginNode;
+		endNode = obj.endNode;
+
+		//修改流向时先填充参数
+		TabPage1.contentObject().document.all.id.value = lineId;
+		TabPage1.contentObject().document.all.id.disabled=true;
+		
+        TabPage1.contentObject().document.all.text.value = obj.text;
+		//setRadioGroupValue(TabPage1.contentObject().document.all.lineType,obj.flowType);  
+		
+		TabPage2.contentObject().document.all.startArrow.value =opener.FindChildElement(obj,'stroke').StartArrow;
+		TabPage2.contentObject().document.all.startArrow.disabled=true;
+		
+		TabPage2.contentObject().document.all.endArrow.value = opener.FindChildElement(obj,'stroke').EndArrow;
+		TabPage2.contentObject().document.all.endArrow.disabled=true;
+		
+		TabPage2.contentObject().document.all.strokeWeight.value = obj.strokeweight;
+		
+		var yy   = opener.getProcessTrans(obj.flowid,obj.beginNode,obj.endNode,obj.flowVersion);
+	
+		var lineConditions = yy [0];//转移条件
+   	var lineConditiontype = yy [1];//转移条件类型
+   	var lineCondDesc = yy[2];
+	//	alert(obj.flowid+":"+obj.beginNode+":"+obj.endNode+":"+obj.flowVersion);
+		if(obj.condition==null||obj.condition=="")
+		{
+		   //TabPage3.contentObject().document.all.TransitionCond.value = opener.getCondition(beginNode,endNode);
+		   TabPage3.contentObject().document.all.TransitionCond.value = lineConditions;
+		   TabPage3.contentObject().document.all.BusiType.value = obj.flowtype;
+		   TabPage3.contentObject().document.all.BusiTypeName.value = obj.flowTypename;
+		   TabPage3.contentObject().document.all.StartActivityID.value = obj.beginNode;
+		   TabPage3.contentObject().document.all.StartActivityName.value = obj.beginNodeName;
+		   TabPage3.contentObject().document.all.EndActivityID.value = obj.endNode;
+		   TabPage3.contentObject().document.all.EndActivityName.value = obj.endNodeName;
+		   TabPage3.contentObject().document.all.Processid.value = obj.flowid;
+		   TabPage3.contentObject().document.all.CondDesc.value = lineCondDesc;
+		   TabPage3.contentObject().document.all.Version.value = obj.flowVersion;
+		}
+		else
+		{  
+		   TabPage3.contentObject().document.all.StartActivityID.value = obj.beginNode;
+		   TabPage3.contentObject().document.all.StartActivityName.value = obj.beginNodeName;
+		   TabPage3.contentObject().document.all.EndActivityID.value = obj.endNode;
+		   TabPage3.contentObject().document.all.EndActivityName.value = obj.endNodeName;
+		   TabPage3.contentObject().document.all.TransitionCond.value = lineConditions;
+		   TabPage3.contentObject().document.all.CondDesc.value = lineCondDesc;
+		   TabPage3.contentObject().document.all.BusiType.value = obj.flowtype;
+		   TabPage3.contentObject().document.all.Processid.value = obj.flowid;
+		   TabPage3.contentObject().document.all.BusiTypeName.value = obj.flowTypename;
+		   TabPage3.contentObject().document.all.Version.value = obj.flowVersion;
+		   var ctemp = lineConditiontype;
+		   if(ctemp == "0"){
+		    TabPage3.contentObject().document.all.TransitionCondT.value = "0";
+		    TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		   }else if(ctemp == "1"){
+		    TabPage3.contentObject().document.all.TransitionCondT.value = "1";
+		   }else if(ctemp =="2"){
+		    TabPage3.contentObject().document.all.TransitionCondT.value = "2";
+		    TabPage3.contentObject().document.getElementById("Rule1").style.display = "";    
+		   }
+		}
+	
+		
+	//BEGIN
+	var processId = obj.flowid;
+	var beginNode = obj.beginNode;
+	var endNode = obj.endNode;
+	var version = obj.flowVersion;
+	var conditionType = easyExecSql("select a.transitioncondt from lwcondition a where a.processid = '"+processId+"' "+
+			" and a.transitionstart = '"+beginNode+"' and a.transitionend = '"+endNode+"' and a.version = '"+version+"'" );
+	TabPage3.contentObject().document.all.TransitionCondT.value = conditionType;
+	//END
+		
+		
+   //生成from，to nodelist   
+   var Nodes = opener.document.all.chart.childNodes;
+   
+   var from = TabPage1.contentObject().document.all.from;
+   var to = TabPage1.contentObject().document.all.to;
+  
+   for ( var i = 0;i < Nodes.length;i++ ) 
+   {
+      Node = Nodes.item(i);
+      
+      if(Node.flowType=="connect")
+      {
+         continue;
+      }
+	    var id = Node.id;
+	    var text = opener.FindChildElement(Node,'TextBox').innerText;
+     
+	    var fromSelected = beginNode==id?true:false;
+	    var toSelected = endNode==id?true:false;
+	    if(Node.flowType!='end') addSelectOption(from,text,id,fromSelected);
+	    if(Node.flowType!='begin') addSelectOption(to,text,id,toSelected);	  
+   } 
+}
+function okOnClick()
+{
+	 applyOnClick();
+	 window.close();
+}
+function cancelOnClick()
+{
+   window.close();
+}
+function rule(){
+	var ctemp = obj.conditiontype;
+	   if(ctemp == "0"){
+		   if(TabPage3.contentObject().document.all.TransitionCondT.value==2)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "";
+		      }
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==0)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = obj.condition;
+			  TabPage3.contentObject().document.all.CondDesc.value = obj.conditiondis;
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      } 
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==1)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      }      
+	   }else if(ctemp == "1"){
+		   if(TabPage3.contentObject().document.all.TransitionCondT.value==2)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "";
+		      }
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==0)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      } 
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==1)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = obj.condition;
+			  TabPage3.contentObject().document.all.CondDesc.value =obj.conditiondis;
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      }   
+	   }else if(ctemp =="2"){
+		   if(TabPage3.contentObject().document.all.TransitionCondT.value==2)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = obj.condition;
+			  TabPage3.contentObject().document.all.CondDesc.value =obj.conditiondis;
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "";
+		      }
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==0)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value ="";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      } 
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==1)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      }   
+	   }
+	   else{
+		   if(TabPage3.contentObject().document.all.TransitionCondT.value==2)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value ="";
+			  TabPage3.contentObject().document.all.CondDesc.value ="";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "";
+		      }
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==0)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value ="";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      } 
+		   else if(TabPage3.contentObject().document.all.TransitionCondT.value==1)
+		      {
+		      TabPage3.contentObject().document.all.TransitionCond.value = "";
+			  TabPage3.contentObject().document.all.CondDesc.value = "";
+		      TabPage3.contentObject().document.getElementById("Rule1").style.display = "none";
+		      }   
+	   }
+}
+function Receive(){
+
+        alert(Date);           
+}
+function search(){
+        var url='../wfpic/_linedialogrulemain.jsp';   
+        encodeURI(url);   
+        window.open(url);
+}
+function SaveClick()
+ {  
+   var Processid = TabPage3.contentObject().document.all.Processid.value ;
+   var tStartActivityID = TabPage3.contentObject().document.all.StartActivityID.value;
+   var tEndActivityID = TabPage3.contentObject().document.all.EndActivityID.value ;
+   var tTransitionCond = TabPage3.contentObject().document.all.TransitionCond.value;
+   var tTransitionCondT = TabPage3.contentObject().document.all.TransitionCondT.value ;
+   var ProcessId = encodeURI(encodeURI(Processid));
+   var tCondDesc = TabPage3.contentObject().document.all.CondDesc.value
+   var Version = TabPage3.contentObject().document.all.Version.value;
+   //增加busytype
+   var BusiType = TabPage3.contentObject().document.all.BusiType.value;
+   var StartActivityID = encodeURI(encodeURI(tStartActivityID));
+   var EndActivityID = encodeURI(encodeURI(tEndActivityID));
+   var TransitionCond = encodeURI(encodeURI(tTransitionCond));
+   var tempdate ="&OperFlag="+"MODIFY||Condition"+"&StartActivityID="+StartActivityID+"&ProcessId="+ProcessId+"&EndActivityID="+EndActivityID+"&TransitionCond="+TransitionCond+"&TransitionCondT="+tTransitionCondT+"&Version="+Version+"&BusiType="+BusiType+"&CondDesc="+tCondDesc;
+   var AjaxRequestObj = new ActiveXObject("Microsoft.XMLHTTP");
+   var urli = "_lineConditionSave.jsp?OperFlag=MODIFY||Condition";
+   AjaxRequestObj.open("POST", urli, true);
+   AjaxRequestObj.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+   AjaxRequestObj.onreadystatechange = function(){
+	     if ( AjaxRequestObj.readyState == 4 &&  AjaxRequestObj.status == 200){
+	                 var result =  AjaxRequestObj.responseText;
+	                 var showStr = result.substr(1,5);                
+	                 if(showStr==("设置成功!")){
+	                 var urlStr = "../common/jsp/MessagePage.jsp?picture=C&content=" + showStr ;
+	                 showInfo = window.showModelessDialog(urlStr, window, "status:no;help:0;close:0;dialogWidth:550px;dialogHeight:250px");          
+	               }else{
+	                 var urlStr = "../common/jsp/MessagePage.jsp?picture=C&content=" + " 设置失败! " ;
+	                 showInfo = window.showModelessDialog(urlStr, window, "status:no;help:0;close:0;dialogWidth:550px;dialogHeight:250px");          
+	             }
+	          }
+	      }
+	         AjaxRequestObj.send(tempdate); 
+}
+
+function applyOnClick()
+{
+   try
+   {
+     var fromNode=getSelectValue(TabPage1.contentObject().document.all.from);
+     var toNode=getSelectValue(TabPage1.contentObject().document.all.to);
+     
+     if(fromNode!=obj.beginNode||toNode!=obj.endNode)   //重画
+     {
+          if(fromNode!=toNode)
+          {
+              if(opener.checkConnect(fromNode,toNode))
+    				  {
+                   if(fromNode!=obj.beginNode)
+                   {
+                      opener.document.getElementById(obj.beginNode).lines=parseInt(opener.document.getElementById(obj.beginNode).lines)-1;
+                   }
+                   if(toNode!=obj.endNode)
+                   {
+                      opener.document.getElementById(obj.endNode).lines=parseInt(opener.document.getElementById(obj.endNode).lines)-1; 
+                   }                   
+                   obj.outerHTML='';
+                  
+                   //opener.lineName=TabPage1.contentObject().document.all.text.value;
+                   
+                   opener.LineMove(opener.document.getElementById(fromNode) ,opener.document.getElementById(toNode),'',1);
+              }
+    				  else
+    				  {
+    				      alert("两点之间不能联线!");	 
+    				      return ; 
+    				  }
+          }
+          else
+          {
+              alert('开始终止节点相同');
+              return;
+          }
+     }
+     else
+     {   
+         obj.text=TabPage1.contentObject().document.all.text.value;
+         
+         opener.FindChildElement(obj,'stroke').StartArrow=TabPage2.contentObject().document.all.startArrow.value;
+         opener.FindChildElement(obj,'stroke').EndArrow=TabPage2.contentObject().document.all.endArrow.value;
+         obj.strokeweight=TabPage2.contentObject().document.all.strokeWeight.value;
+         //obj.condition=TabPage3.contentObject().document.all.condition.value;
+         
+     }
+     opener.getChartXML();
+     
+     SaveClick();
+     //需要刷新下条件
+      var Processid = TabPage3.contentObject().document.all.Processid.value ;
+   var tStartActivityID = TabPage3.contentObject().document.all.StartActivityID.value;
+   var tEndActivityID = TabPage3.contentObject().document.all.EndActivityID.value ;
+   var tTransitionCond = TabPage3.contentObject().document.all.TransitionCond.value;
+   var tTransitionCondT = TabPage3.contentObject().document.all.TransitionCondT.value ;
+   var ProcessId = encodeURI(encodeURI(Processid));
+   var tCondDesc = TabPage3.contentObject().document.all.CondDesc.value
+   var Version = TabPage3.contentObject().document.all.Version.value;
+   var temp = new Array();
+   temp[0] = tTransitionCond;
+   temp[1] = tTransitionCondT;
+   temp[2] = tCondDesc;
+   opener.refreshTrans(Processid,tStartActivityID,tEndActivityID,Version,temp);
+   }
+   catch(e)
+   {
+     //alert('关闭流向属性对话框时出错！');
+   }   
+}
+
+
+//-->
+</SCRIPT>
+
+</HEAD>
+
+<body id="allpage" onload='iniWindow();' onunload=''>
+<stedysoft:2k3Tab id="myTab" selectedIndex="0">
+	<stedysoft:2k3TabButton tabText="基本属性" tabPage="TabPage1" />
+	<stedysoft:2k3TabButton tabText="图表属性" tabPage="TabPage2" />
+	<stedysoft:2k3TabButton tabText="工作流属性" tabPage="TabPage3" />
+</stedysoft:2k3Tab>
+<stedysoft:2k3TabPage id="TabPage1" style="width:354px;height:367px;">	
+	<table border=0 width="100%" height="100%">
+		<tr valign=top>
+			<td></td>
+			<td width="100%" valign=top>
+			<fieldset style="border: 1px solid #C0C0C0;"><legend
+				align=left style="font-size:9pt;">&nbsp;基本属性&nbsp;</legend>
+			<table border=0 width="100%" height="100%" style="font-size:9pt;">
+				<tr valign=top>
+					<td width=5></td>
+					<td>流向编号&nbsp;&nbsp;<input type="text" name="id"
+						value="newline" 
+						class='linedialog'></td>
+					<td></td>
+				</tr>
+				<tr valign=top>
+					<td></td>
+					<td>流向名称&nbsp;&nbsp;<input TYPE="text" NAME="text" value="新流向"
+						class='linedialog'></td>
+					<td></td>
+				</tr>
+				<tr valign=top>
+					<td width=5></td>
+					<td>起始节点&nbsp;&nbsp;<select name="from"
+						class='linedialog'
+						disabled>
+						<option value="">请选择...&nbsp;&nbsp;&nbsp;</option>
+					</select></td>
+					<td></td>
+				</tr>
+				<tr valign=top>
+					<td></td>
+					<td>目的节点&nbsp;&nbsp;<select name="to"
+						class='linedialog'
+						disabled>
+						<option value="">请选择...&nbsp;&nbsp;&nbsp;</option>
+					</select></td>
+					<TD></TD>
+				</tr>
+				<tr height="3">
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr height="100%">
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+
+</stedysoft:2k3TabPage>
+<stedysoft:2k3TabPage id="TabPage2" style="width:354px;height:367px;">
+	<table border=0 width="100%" height="100%">
+		<tr valign=top>
+			<td></td>
+			<td width="100%" valign=top>
+			<fieldset style="border: 1px solid #C0C0C0;"><legend
+				align=left style="font-size:9pt;">&nbsp;流向样式&nbsp;</legend>
+			<table border=0 width="100%" height="100%" style="font-size:9pt;">
+				<tr valign=top>
+					<td width=5></td>
+					<td>开始箭头&nbsp;&nbsp;<input type="text" name="startArrow"
+						value="" 
+						class='linedialog'></td>
+					<td></td>
+				</tr>
+				<tr valign=top>
+					<td width=5></td>
+					<td>结束箭头&nbsp;&nbsp;<input type="text" name="endArrow"
+						value="Classic"
+						class='linedialog'></td>
+					<td></td>
+				</tr>
+				<tr valign=top>
+					<td></td>
+					<td>线条粗细&nbsp;&nbsp;<INPUT TYPE="text" NAME="strokeWeight"
+						value=""
+						class='linedialog'></td>
+					<td></td>
+				</tr>
+				<tr height="3">
+					<td></td>
+					<td></td>
+					<TD></TD>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr height="100%">
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+</stedysoft:2k3TabPage>
+<stedysoft:2k3TabPage id="TabPage3" style="width:354px;height:367px;">
+
+	<table border=0 width="100%" height="70%">
+		<tr valign=top>
+			<td></td>
+			<td width="100%" valign=top>
+				<fieldset style="border: 1px solid #C0C0C0;">
+				<legend align=left style="font-size:9pt;">&nbsp;流转属性&nbsp;</legend>
+				<table border=0 width="100%" height="100%" style="font-size:9pt;">
+					<tr valign=top>
+						<td width=5></td>
+						<td>业务类型&nbsp;&nbsp;<input
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 80px;"
+							value="" name="BusiType" 
+							ondblclick="return showCodeList('	',[this,BusiTypeName],[0,1]);"
+							onkeyup="return showCodeList('busitype',[this,BusiTypeName],[0,1]);"><input
+							name=BusiTypeName value="" onclick="alert()"
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;"
+							readonly></td>
+						<td></td>
+					</tr>
+				    <tr valign=top>
+						<td width=5></td>
+						<td>过程编码&nbsp;
+						<input type="text"
+							NAME="Processid" value = "" class='linedialog'/></TD>
+						<td></td>
+					</tr>
+									    <tr valign=top>
+						<td width=5></td>
+						<td>过程版本&nbsp;
+						<input type="text"
+							NAME="Version" value = "" class='linedialog'/></TD>
+						<td></td>
+					</tr>	
+					<tr>
+					<tr valign=top>
+						<td width=5></td>
+						<td>转移类型&nbsp;
+						 <select name="TransitionCondT"
+							class='linedialog'
+							onchange="rule();">
+							<option value="0">0_默认(SQL)</option>
+							<option value="1">服务类</option>
+							<option value="2">规则引擎</option>
+							<option value="F">虚边，永假</option>
+						  </select>
+						  
+						</td>
+						<td></td>
+					</tr>
+					<tr valign=top>
+						<td width=5></td>
+						<td>起点活动&nbsp;&nbsp;<input
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 80px;"
+							value="" name="StartActivityID";" ><input
+							name=StartActivityName value=""
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;"
+							readonly></td>
+						<td></td>
+					</tr>
+					<tr valign=top>
+						<td width=5></td>
+						<td>终点活动&nbsp;&nbsp;<input
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 80px;"
+							value="" name="EndActivityID";" ><input
+							name=EndActivityName value=""
+							style="BORDER: 1px solid #919CD0;COLOR: #919CD0;  BACKGROUND-COLOR: white;FONT-SIZE: 9pt;width: 140px;"
+							readonly></td>
+						<td></td>
+					</tr>
+					<tr valign=top>
+						<td width=5></td>
+						<td>转移条件&nbsp;&nbsp;<textarea NAME="TransitionCond"								
+							class='linedialog'></textarea></TD>
+						<td></td>
+						<td></td>
+					<tr valign=top>
+						<td width=5></td>
+						<td>转移条件描述&nbsp;&nbsp;<textarea
+							NAME="CondDesc" class='linedialog'></textarea></TD>
+						<td></td>
+					</tr>
+	
+					<tr height="3">
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				</fieldset>
+			</td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr height="100%">
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<table id="Rule1" border=0 width="100%" height="30%" style="display:none;">
+		<tr valign=top>
+			<td></td>
+			<td width="100%" valign=top>
+			<fieldset style="border: 1px solid #C0C0C0;"><legend
+				align=left style="font-size:9pt;">&nbsp;规则引擎定义&nbsp;</legend>
+			<table border=0 width="100%" height="100%" style="font-size:9pt;">
+				<tr>
+					<td width=5></td>
+					<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<!--<input type="button" id="searchs" value="查询" onclick="jscript:search();">-->
+	                <input type=button class="cssButton" value="规则定义"  onclick="CalCode();">
+	                <input type=button class="cssButton" value="生成新规则"  onclick="CreateNewCode();"></td>
+				</TR>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+	</table>	
+</stedysoft:2k3TabPage>
+
+<table cellspacing="1" cellpadding="0" border="0"
+	style="position: absolute; top: 400px; left: 0px;">
+	<tr>
+		<td width="100%"></td>
+		<td><stedysoft:genericButton id="btnOk" text="确定"
+			onclick="jscript: okOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnCancel" text="取消"
+			onclick="jscript: cancelOnClick();" /></td>
+		<td><stedysoft:genericButton id="btnApply" text="应用"
+			onclick="jscript: applyOnClick();" enabled=true />
+		</td>
+		<!-- td width="200%"><stedysoft:genericButton id="btntrans" text="保存"
+			onclick="jscript: SaveClick();" enabled=true />
+		</td-->
+	</tr>
+</table>
+<span id="spanCode"	style="display: none;z-index:1000; position:absolute; slategray"></span>
+</body>
+</HTML>

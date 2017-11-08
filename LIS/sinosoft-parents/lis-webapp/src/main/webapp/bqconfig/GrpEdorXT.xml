@@ -1,0 +1,15 @@
+<CONFIG>
+  <Sheet1>
+  	<COL0>ID</COL0>
+    <COL1>ContNo</COL1>          
+    <COL2>PolNo</COL2>  
+    <COL3>RiskCode</COL3> 
+    <COL4>InsuredNo</COL4>
+    <COL5>InsuredName</COL5>
+    <COL6>CValiDate</COL6>       
+    <COL7>Prem</COL7>
+    <COL8>Amnt</COL8>
+    <COL9>Mult</COL9>
+    <COL10>XTMoney</COL10>
+  </Sheet1>
+</CONFIG> 

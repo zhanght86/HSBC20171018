@@ -1,0 +1,14 @@
+<CONFIG>
+  <Sheet1>
+    <COL0>ID</COL0>          
+    <COL1>InsuredNo</COL1>   
+    <COL2>InsuredName</COL2>       
+    <COL3>Mobile</COL3>         
+    <COL4>EMail</COL4>      
+    <COL5>JoinCompanyDate</COL5>    
+    <COL6>Salary</COL6> 
+    <COL7>WorkNo</COL7>
+    <COL8>BankCode</COL8>
+    <COL9>BankAccNo</COL9>
+  </Sheet1>
+</CONFIG> 

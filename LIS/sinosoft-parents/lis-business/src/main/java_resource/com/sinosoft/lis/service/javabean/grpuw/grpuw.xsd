@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GBK"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"      
+				xmlns:cixml="http://www.grpuw.javabean"
+	      targetNamespace="http://www.grpuw.javabean"   
+				xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"  
+				jaxb:version="2.0"
+	      elementFormDefault="qualified"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <annotation>
+		<appinfo>
+			<jaxb:globalBindings collectionType="java.util.LinkedList">
+			</jaxb:globalBindings>
+		</appinfo>
+	</annotation>
+
+  <element name="MessageData">
+  	<complexType>
+  		<choice>
+  			<sequence>
+  				<element name="ContType" type="string" />
+  				<element name="UWType" type="string" />
+  				<element name="ManageCom" type="cixml:ManageComItem"
+  					maxOccurs="unbounded" />
+  			</sequence>
+  		</choice>
+  	</complexType>
+  </element>
+
+  <complexType   name="ManageComItem">          
+ 	<choice>                                      
+	  <element    name="ComCode"         type="string"/>
+	  <element    name="OutComCode"         type="string"/>
+	  <element    name="Name"         type="string"/>
+	  <element    name="ShortName"         type="string"/>
+	  <element    name="Address"         type="string"/>
+	  <element    name="ZipCode"         type="string"/>
+	  <element    name="Phone"         type="string"/>
+	  <element    name="Fax"         type="string"/>
+	  <element    name="EMail"         type="string"/>
+	  <element    name="WebAddress"         type="string"/>
+	  <element    name="SatrapName"         type="string"/>
+	  <element    name="InsuMonitorCode"         type="string"/>
+	  <element    name="InsureID"         type="string"/>
+	  <element    name="SignID"         type="string"/>
+	  <element    name="RegionalismCode"         type="string"/>
+	  <element    name="ComNature"         type="string"/>
+	  <element    name="ValidCode"         type="string"/>
+	  <element    name="Sign"         type="string"/>
+	  <element    name="ComCitySize"         type="string"/>
+	  <element    name="ServiceName"         type="string"/>
+	  <element    name="ServiceNo"         type="string"/>
+	  <element    name="ServicePhone"         type="string"/>
+	  <element    name="ServicePostAddress"         type="string"/>
+	  <element    name="ComGrade"         type="string"/>
+	  <element    name="ComAreaType"         type="string"/>
+	  <element    name="UpComCode"         type="string"/>
+	  <element    name="IsDirUnder"         type="string"/>
+	  <element    name="ComAreaType1"         type="string"/>
+
+	</choice>                                     
+ </complexType>                                 
+
+</schema>
